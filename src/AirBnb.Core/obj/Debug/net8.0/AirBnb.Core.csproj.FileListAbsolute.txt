@@ -1,0 +1,13 @@
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\bin\Debug\net8.0\AirBnb.Core.deps.json
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\bin\Debug\net8.0\AirBnb.Core.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\bin\Debug\net8.0\AirBnb.Core.pdb
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.csproj.AssemblyReference.cache
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.AssemblyInfoInputs.cache
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.AssemblyInfo.cs
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.csproj.CoreCompileInputs.cache
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.sourcelink.json
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\refint\AirBnb.Core.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\AirBnb.Core.pdb
+D:\07_CMS ASP\AirBnb\src\AirBnb.Core\obj\Debug\net8.0\ref\AirBnb.Core.dll
