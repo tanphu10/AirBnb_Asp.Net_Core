@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "O2ByW0R+Lda1KzMLReqUlsHAjlidc1Huakp66TzpVzu7VOmfETH/kC/nrd8MpJXLUg7GloLv9a+5TTKfYpcMsQ==",
+  "dgSpecHash": "T5EeT5D7uj7lKk8Wb0Ncb5e00cwwt9wtCiQCSI1QRuMiDX86p5J7B88L/4XYqo+iSuI6qP8158Su1p7zIOiFWA==",
   "success": true,
   "projectFilePath": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Core\\AirBnb.Core.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\T14\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\T14\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.1\\microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.1\\microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\8.0.1\\microsoft.aspnetcore.identity.entityframeworkcore.8.0.1.nupkg.sha512",
+    "C:\\Users\\T14\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.1\\microsoft.entityframeworkcore.8.0.1.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.1\\microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\T14\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.1\\microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",

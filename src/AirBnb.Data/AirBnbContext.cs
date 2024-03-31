@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirBnb.Data
 {
-    public class AirBnbContext:IdentityDbContext<AppUser,AppRole,Guid>
+    public class AirBnbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public AirBnbContext(DbContextOptions options) : base(options)
         {
@@ -18,6 +18,11 @@ namespace AirBnb.Data
         public DbSet<RoomActivityLog> RoomActivityLogs { set; get; }
         public DbSet<Series> Series { set; get; }
         public DbSet<RoomInSeries> RoomInSeries { set; get; }
+        public DbSet<BookRooms> BookRooms { set; get; }
+        public DbSet<Comments> Comments { set; get; }
+        public DbSet<Location> Locations { set; get; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);

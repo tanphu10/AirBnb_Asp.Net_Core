@@ -12,7 +12,7 @@ namespace AirBnb.Core.Domain.Content
         public Guid Id { get; set; }
         [Required]
         [MaxLength(250)]
-        public required string RoomName { get; set; }
+        public required string Name { get; set; }
         [Required]
         [Column(TypeName = "varchar(250)")]
         public required string Slug { get; set; }
@@ -24,6 +24,11 @@ namespace AirBnb.Core.Domain.Content
         public string? SeoDescription { get; set; }
         [Required]
         public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string CategorySlug { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorUserName { get; set; }
+        public string AuthorUserId { get; set; }
         public Guid LocateId { get; set; }
         [MaxLength(250)]
         public string? Tags { get; set; }
