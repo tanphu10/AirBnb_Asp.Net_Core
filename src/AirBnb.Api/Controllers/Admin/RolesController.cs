@@ -1,6 +1,8 @@
-﻿using AirBnb.Core.Domain.Identity;
+﻿using AirBnb.Api.Extensions;
+using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
+using AirBnb.Core.Models.System;
 using AirBnb.Core.SeedWorks.Constansts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace AirBnb.Api.Controllers.Admin
 {
@@ -102,6 +105,60 @@ namespace AirBnb.Api.Controllers.Admin
                 RowCount = totalRow
             };
             return Ok(paginationSet);
+        }
+        [HttpGet("{id}/permission")]
+        //this muốn lấy all danh sách permission [List RoleClaimsDto] và roleId để trả về 
+        //trong database chỉ lưu appRoleClaims là roleId và quyền của roleId
+        public async Task<ActionResult<PermissionDto>> GetAllRolePermission(string id)
+        {
+
+            var roleId = id;
+            var model = new PermissionDto();
+            var allPermissions = new List<RoleClaimsDto>();
+            var types = typeof(Permissions).GetTypeInfo().DeclaredNestedTypes;
+
+            foreach (var type in types)
+            {
+                allPermissions.GetPermissions(type);
+            }
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null)
+                return NotFound();
+            model.RoleId = roleId;
+            var claims = await _roleManager.GetClaimsAsync(role);
+            var allClaimValues = allPermissions.Select(a => a.Value).ToList();
+            var roleClaimsValues = claims.Select(a => a.Value).ToList();
+            var authorizedClaims = allClaimValues.Intersect(roleClaimsValues).ToList();
+            foreach (var permission in allPermissions)
+            {
+                if (authorizedClaims.Any(a => a == permission.Value))
+                {
+                    permission.Selected = true;
+
+                }
+            }
+            model.RoleClaims = allPermissions;
+            return Ok(model);
+
+        }
+        [HttpPut("permissions")]
+        public async Task<IActionResult> SavePermission([FromBody] PermissionDto model)
+        {
+            var role = await _roleManager.FindByIdAsync(model.RoleId);
+            if (role == null) return NotFound();
+            var claims = await _roleManager.GetClaimsAsync(role);
+            foreach (var claim in claims)
+            {
+                await _roleManager.RemoveClaimAsync(role, claim);
+                
+            }
+            var selectedClaims = model.RoleClaims.Where(x => x.Selected).ToList();
+
+            foreach (var claim in selectedClaims)
+            {
+                await _roleManager.AddPermissionClaim(role, claim.Value);
+            }
+            return Ok();
         }
     }
 }

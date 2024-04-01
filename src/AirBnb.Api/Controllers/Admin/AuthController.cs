@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Text.Json;
 
 namespace AirBnb.Api.Controllers.Admin
-{
+{   
     [Route("api/admin/auth")]
     [ApiController]
     public class AuthController : ControllerBase

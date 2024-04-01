@@ -52,7 +52,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.AllowedForNewUsers = false;
 
     // User settings.
     options.User.AllowedUserNameCharacters =
@@ -81,13 +81,10 @@ foreach (var service in services)
 
 builder.Services.AddAutoMapper(typeof(RoomInListDto));
 builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
-
-
 builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

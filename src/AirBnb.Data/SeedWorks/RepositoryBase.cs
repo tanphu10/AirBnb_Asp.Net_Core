@@ -12,9 +12,11 @@ namespace AirBnb.Data.SeedWorks
     public class RepositoryBase<T, Key> : IRepository<T, Key> where T : class
     {
         private readonly DbSet<T> _dbSet;
+        protected readonly AirBnbContext _context;
         public  RepositoryBase(AirBnbContext context)
         {
             _dbSet = context.Set<T>();
+            _context = context;
         }
         public void Add(T entity)
         {

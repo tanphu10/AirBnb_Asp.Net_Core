@@ -11,6 +11,7 @@ namespace AirBnb.Core.SeedWorks
     {
         IRoomRepository Rooms { get; }
         IRoomCategoryRepository RoomCategories { get; }
+        IUserRepository Users { get; }
         Task<int> CompleteAsync();
 
     }

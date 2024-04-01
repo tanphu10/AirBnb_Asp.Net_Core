@@ -12,7 +12,5 @@ namespace AirBnb.Core.Models.System
         public required string Value { get; set; }
         public string? DisplayName { get; set; }
         public bool Selected { get; set; }
-
-
     }
 }

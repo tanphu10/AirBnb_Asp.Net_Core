@@ -19,9 +19,12 @@ namespace AirBnb.Data.SeedWorks
             _context = context;
             Rooms = new RoomRepository(context, mapper);
             RoomCategories = new RoomCategoryRepository(context, mapper);
+            Users = new UserRepository(context, mapper);
         }
         public IRoomRepository Rooms { get; private set; }
         public IRoomCategoryRepository RoomCategories { get; private set; }
+
+        public IUserRepository Users { get; private set; }
 
         public async Task<int> CompleteAsync()
         {
