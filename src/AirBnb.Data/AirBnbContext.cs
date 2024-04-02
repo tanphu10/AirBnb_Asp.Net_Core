@@ -19,6 +19,7 @@ namespace AirBnb.Data
         public DbSet<Series> Series { set; get; }
         public DbSet<RoomInSeries> RoomInSeries { set; get; }
         public DbSet<BookRooms> BookRooms { set; get; }
+        public DbSet<BookRoomActivityLog> BookRoomActivityLogs { set; get; }
         public DbSet<Comments> Comments { set; get; }
         public DbSet<Location> Locations { set; get; }
 

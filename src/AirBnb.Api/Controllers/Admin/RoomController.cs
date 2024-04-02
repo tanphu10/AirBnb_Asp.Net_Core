@@ -111,7 +111,7 @@ namespace AirBnb.Api.Controllers.Admin
             var result = await _unitOfWork.Rooms.GetAllSeries(id);
             return Ok(result);
         }
-
+        //userManger submit to admin
         [HttpPost("approval-submit/{roomid}")]
         public async Task<IActionResult> SendToApproveRoomPost(Guid roomid)
         {

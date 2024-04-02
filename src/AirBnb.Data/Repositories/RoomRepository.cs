@@ -21,7 +21,6 @@ namespace AirBnb.Data.Repositories
             _mapper = mapper;
             _userManager = userManager;
         }
-
         public async Task Approve(Guid id, Guid currentId)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -173,9 +172,9 @@ namespace AirBnb.Data.Repositories
                 FromStatus = room.Status,
                 ToStatus = RoomStatus.WaitingForApproval,
                 UserId = currentId,
-                //UserName=user.UserName,
+                //UserName = user.UserName,
                 RoomId = id,
-                Note = $"{user?.UserName} duyệt bài"
+                Note = $"  {user?.UserName} gửi chờ duyệt"
             });
             room.Status = RoomStatus.WaitingForApproval;
             _context.Rooms.Update(room);

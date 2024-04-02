@@ -9,7 +9,9 @@ namespace AirBnb.Core.SeedWorks
 {
     public interface IUnitOfWork
     {
+        IBookRoomRepository BookRooms { get; }
         IRoomRepository Rooms { get; }
+        ILocationRepository Locations { get; }
         ISeriesRepository Series { get; }
         IRoomCategoryRepository RoomCategories { get; }
         IUserRepository Users { get; }

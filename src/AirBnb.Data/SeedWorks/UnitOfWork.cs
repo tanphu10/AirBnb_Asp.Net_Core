@@ -17,19 +17,23 @@ namespace AirBnb.Data.SeedWorks
         private readonly AirBnbContext _context;
         //private readonly UserManager<AppUser> _userManager;
 
-        public UnitOfWork(AirBnbContext context, IMapper mapper,UserManager<AppUser> userManager)
+        public UnitOfWork(AirBnbContext context, IMapper mapper, UserManager<AppUser> userManager)
         {
             _context = context;
             Rooms = new RoomRepository(context, mapper, userManager);
             RoomCategories = new RoomCategoryRepository(context, mapper);
             Users = new UserRepository(context, mapper);
             Series = new SeriesRepository(context, mapper);
+            Locations = new LocationRepository(context, mapper);
+            BookRooms = new BookRoomRepository(context, mapper,userManager);
         }
+
         public IRoomRepository Rooms { get; private set; }
         public IRoomCategoryRepository RoomCategories { get; private set; }
         public IUserRepository Users { get; private set; }
-
+        public ILocationRepository Locations { get; set; }
         public ISeriesRepository Series { get; private set; }
+        public IBookRoomRepository BookRooms { get; private set; }
 
         public async Task<int> CompleteAsync()
         {
