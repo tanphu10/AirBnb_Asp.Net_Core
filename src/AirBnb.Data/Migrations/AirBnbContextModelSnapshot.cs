@@ -119,9 +119,8 @@ namespace AirBnb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AuthorUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("AuthorUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AuthorUserName")
                         .IsRequired()
@@ -192,6 +191,9 @@ namespace AirBnb.Data.Migrations
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("varchar(250)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Tags")
                         .HasMaxLength(250)

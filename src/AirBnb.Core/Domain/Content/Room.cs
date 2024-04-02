@@ -28,7 +28,7 @@ namespace AirBnb.Core.Domain.Content
         public string CategorySlug { get; set; }
         public string AuthorName { get; set; }
         public string AuthorUserName { get; set; }
-        public string AuthorUserId { get; set; }
+        public Guid? AuthorUserId { get; set; }
         public Guid LocateId { get; set; }
         [MaxLength(250)]
         public string? Tags { get; set; }
@@ -48,14 +48,14 @@ namespace AirBnb.Core.Domain.Content
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public int ViewCount { get; set; }
+        public RoomStatus Status { get; set; }
+
     }
     public enum RoomStatus
     {
-        Draft = 1,
-        Canceled = 2,
-        WaitingForApproval = 3,
-        Rejected = 4,
-        WaitingForPublish = 5,
-        Published = 6
+        Draft = 0,
+        WaitingForApproval = 1,
+        Rejected = 2,
+        Published = 3
     }
 }

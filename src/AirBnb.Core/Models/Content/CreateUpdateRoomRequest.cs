@@ -12,7 +12,7 @@ namespace AirBnb.Core.Models.Content
 {
     public class CreateUpdateRoomRequest
     {
-        public required string RoomName { get; set; }
+        public required string Name { get; set; }
         public required string Slug { get; set; }
         public required int Guest { get; set; }
         public required string Description { get; set; }

@@ -25,5 +25,7 @@ namespace AirBnb.Core.Domain.Content
         public string? Note { set; get; }
 
         public Guid UserId { get; set; }
+        //public string UserName { set; get; }
+
     }
 }

@@ -12,9 +12,7 @@ namespace AirBnb.Core.Models.Content
 {
     public class RoomDto : RoomInListDto
     {
-        public string? SeoDescription { get; set; }
-
-        public Guid CategoryId { get; set; }
+        //public Guid CategoryId { get; set; }
         public Guid LocateId { get; set; }
         public string? Tags { get; set; }
         public int BedRoom { get; set; }
@@ -23,6 +21,7 @@ namespace AirBnb.Core.Models.Content
         public bool IronCloth { get; set; }
         public bool Televison { get; set; }
         public bool AirCondirioner { get; set; }
+        public string? SeoDescription { get; set; }
         public bool Wifi { get; set; }
         public bool Kitchen { get; set; }
         public bool Pool { get; set; }
