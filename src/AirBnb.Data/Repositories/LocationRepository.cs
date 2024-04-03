@@ -33,7 +33,7 @@ namespace AirBnb.Data.Repositories
                 //|| x.province.Contains(keyword) || x.Nation.Contains(keyword));
             }
             var totalRow = await query.CountAsync();
-            query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return new PagedResult<LocationDto>
             {
                 Results = await _mapper.ProjectTo<LocationDto>(query).ToListAsync(),

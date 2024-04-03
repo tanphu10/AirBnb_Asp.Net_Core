@@ -25,9 +25,10 @@ namespace AirBnb.Data.SeedWorks
             Users = new UserRepository(context, mapper);
             Series = new SeriesRepository(context, mapper);
             Locations = new LocationRepository(context, mapper);
-            BookRooms = new BookRoomRepository(context, mapper,userManager);
+            BookRooms = new BookRoomRepository(context, mapper, userManager);
+            Comments = new CommentRepository(context, mapper);
         }
-
+        public ICommentRepository Comments { get; private set; }
         public IRoomRepository Rooms { get; private set; }
         public IRoomCategoryRepository RoomCategories { get; private set; }
         public IUserRepository Users { get; private set; }

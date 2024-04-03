@@ -122,8 +122,7 @@ namespace AirBnb.Data.Repositories
 
         public async Task ReturnBackSubmit(Guid bookroomid, string reason, Guid currentUserId)
         {
-
-            var bookroom = await _context.BookRooms.FindAsync(bookroomid);
+                        var bookroom = await _context.BookRooms.FindAsync(bookroomid);
             if (bookroom == null)
             {
                 throw new Exception("không tồn tại bookroom");
@@ -136,22 +135,48 @@ namespace AirBnb.Data.Repositories
             }
             await _context.BookRoomActivityLogs.AddAsync(new BookRoomActivityLog()
             {
-                Id = bookroom.Id,
+                RoomId = bookroomid,
                 FromStatus = bookroom.Status,
                 ToStatus = BookRoomStatus.Rejected,
                 UserId = user.Id,
                 UserName = user?.UserName,
-                RoomId = bookroom.Id,
-                Note = $"{user?.UserName} gửi return reject"
+                Note = reason,
             });
 
-
+            bookroom.Status = BookRoomStatus.Rejected;
+            _context.BookRooms.Update(bookroom);
         }
         public async Task<string> GetReturnReason(Guid bookId)
         {
             var data = await _context.BookRoomActivityLogs.
-              Where(x => x.Id == bookId && x.ToStatus == BookRoomStatus.Rejected).OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+              Where(x => x.RoomId == bookId && x.ToStatus == BookRoomStatus.Rejected).OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
             return data?.Note;
         }
+
+        //public async Task SenToApproveBookRoom(Guid id,Guid currentId)
+        //{
+        //    var book = await _context.BookRooms.FindAsync(id);
+        //    if (book == null)
+        //    {
+        //        throw new Exception("không tồn tại book room");
+        //    }
+        //    var user = await _context.Users.FindAsync(currentId);
+        //    if (user == null)
+        //    {
+        //        throw new Exception("không tồn tại user");
+        //    }
+        //    await _context.BookRoomActivityLogs.AddAsync(new BookRoomActivityLog()
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        FromStatus = book.Status,
+        //        ToStatus = BookRoomStatus.WaitingForApproval,
+        //        UserId = user.Id,
+        //        UserName = user?.UserName,
+        //        RoomId = book.Id,
+        //        Note = $"{user?.UserName} gửi chờ duyệt"
+        //    });
+        //    book.Status = BookRoomStatus.WaitingForApproval;
+        //    _context.BookRooms.Update(book);
+        //}
     }
 }

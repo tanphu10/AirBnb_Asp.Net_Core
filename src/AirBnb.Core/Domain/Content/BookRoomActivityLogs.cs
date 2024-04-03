@@ -16,7 +16,6 @@ namespace AirBnb.Core.Domain.Content
         public Guid Id { get; set; }
         public Guid RoomId { get; set; }
         public BookRoomStatus FromStatus { set; get; }
-
         public BookRoomStatus ToStatus { set; get; }
 
         public DateTime DateCreated { get; set; }

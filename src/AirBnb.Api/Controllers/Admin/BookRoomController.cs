@@ -98,6 +98,14 @@ namespace AirBnb.Api.Controllers.Admin
             var data = await _unitOfWork.BookRooms.GetAllRoomBooked();
             return Ok(data);
         }
+        //userManger submit to admin
+        //[HttpPost("approval-submit/{bookid}")]
+        //public async Task<IActionResult> SendToApproveBookRoomAsync(Guid bookid)
+        //{
+        //    await _unitOfWork.BookRooms.SenToApproveBookRoom(bookid, User.GetUserId());
+        //    await _unitOfWork.CompleteAsync();
+        //    return Ok();
+        //}
         //custumer send to Owner 
         [HttpPut("edit-bookroom-submit/{bookid}")]
         public async Task<IActionResult> SendUpdateBookRoomAsync(Guid bookid, [FromBody] CreateUpdateBookRoomRequest model)
@@ -129,7 +137,7 @@ namespace AirBnb.Api.Controllers.Admin
         [HttpGet("return-reason/{bookid}")]
         public async Task<ActionResult<string>> GetReturnReasonAsync(Guid bookid)
         {
-            var data = await _unitOfWork.Rooms.GetReturnReason(bookid);
+            var data = await _unitOfWork.BookRooms.GetReturnReason(bookid);
             return Ok(data);
         }
     }
