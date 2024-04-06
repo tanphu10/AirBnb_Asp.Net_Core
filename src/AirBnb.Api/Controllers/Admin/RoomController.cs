@@ -1,8 +1,12 @@
-﻿using AirBnb.Core.Domain.Content;
+﻿using AirBnb.Api.Extensions;
+using AirBnb.Core.Domain.Content;
+using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
+using AirBnb.Core.SeedWorks.Constansts;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +18,12 @@ namespace AirBnb.Api.Controllers.Admin
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public RoomController(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly UserManager<AppUser> _userManager;
+        public RoomController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -32,12 +38,14 @@ namespace AirBnb.Api.Controllers.Admin
             var category = await _unitOfWork.RoomCategories.GetByIdAsync(request.CategoryId);
             room.Id = roomId;
             room.CategoryName = category.Name;
-            room.Slug = category.Slug;
-            //var userId = User.GetUserId();
-            //var user = await _userManager.FindByIdAsync(userId.ToString());
-            //room.AuthorUserName=
-            //_unitOfWork.Rooms.Add(room);
-
+            room.CategorySlug = category.Slug;
+            var userId = User.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            room.AuthorUserName = user.UserName;
+            room.AuthorUserId = userId;
+            room.AuthorName = user.UserName;
+            room.DateCreated = DateTime.Now;
+            _unitOfWork.Rooms.Add(room);
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
@@ -70,6 +78,13 @@ namespace AirBnb.Api.Controllers.Admin
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
+        [HttpGet]
+        [Route("all-room")]
+        public async Task<ActionResult<RoomDto>> GetAll()
+        {
+            var room = await _unitOfWork.Rooms.GetAllAsync();
+            return Ok(room);
+        }
 
         [HttpGet]
         [Route("{id}")]
@@ -82,14 +97,62 @@ namespace AirBnb.Api.Controllers.Admin
             }
             return Ok(data);
         }
-
         [HttpGet]
-        [Route("paging")]
-        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetPostsPaging(string? keyword, Guid? categoryId,
-            int pageIndex, int pageSize = 10)
+        [Route("paging-aprroval")]
+        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetPostsPagingApprove(string? keyword, Guid? categoryId, int pageIndex, int pageSize = 10)
         {
-            var result = await _unitOfWork.Rooms.GetRoomsPagingAsync(keyword, categoryId, pageIndex, pageSize);
+            var result = await _unitOfWork.Rooms.GetRoomsPagingApproveAsync(keyword, categoryId, pageIndex, pageSize);
             return Ok(result);
+        }
+        [HttpGet]
+        [Route("series-belong/{id}")]
+        public async Task<ActionResult<List<SeriesInListDto>>> GetSeriesBelong(Guid id)
+        {
+            var result = await _unitOfWork.Rooms.GetAllSeries(id);
+            return Ok(result);
+        }
+        //userManger submit to admin
+        [HttpPost("approval-submit/{roomid}")]
+        public async Task<IActionResult> SendToApproveRoomPost(Guid roomid)
+        {
+            await _unitOfWork.Rooms.SenToApproveRoomPost(roomid, User.GetUserId());
+            await _unitOfWork.CompleteAsync();
+            return Ok();
+        }
+        [HttpPost("approval-room-post/{roomid}")]
+        [Authorize(Permissions.Rooms.Approve)]
+        public async Task<IActionResult> ApproveRoomPost(Guid roomid)
+        {
+            await _unitOfWork.Rooms.Approve(roomid, User.GetUserId());
+            await _unitOfWork.CompleteAsync();
+            return Ok();
+        }
+        [HttpPost("return-back-submit/{id}")]
+        public async Task<IActionResult> ReturnBackSubmit(Guid id, [FromBody] ReturnBackSubmitRequest model)
+        {
+            var currentUserId = User.GetUserId();
+            await _unitOfWork.Rooms.ReturnBackSubmit(id, model.Reason, currentUserId);
+            return Ok();
+        }
+        [HttpGet("return-reason/{roomid}")]
+        public async Task<ActionResult<string>> GetReturnReason(Guid roomid)
+        {
+            var data = await _unitOfWork.Rooms.GetReturnReasonAsync(roomid);
+            return Ok(data);
+        }
+
+        [HttpGet("activity-logs/{roomid}")]
+        public async Task<ActionResult<List<RoomActivityLogDto>>> GetActivityLog(Guid roomid)
+        {
+            var data = await _unitOfWork.Rooms.GetActivityLogAsync(roomid);
+            return Ok(data);
+        }
+        [HttpGet("latest-publish-room")]
+        public async Task<ActionResult<List<RoomInListDto>>> GetLatestPublishRoomAsync([FromQuery] int top=10)
+        {
+            var data = await _unitOfWork.Rooms.GetLatestPublishRoom(top);
+            return Ok(data);
+
         }
     }
 }

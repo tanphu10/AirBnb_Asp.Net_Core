@@ -10,6 +10,6 @@ namespace AirBnb.Core.Repositories
 {
     public interface IUserRepository:IRepository<AppUser,Guid>
     {
-        Task RemoveUserFromRoles(Guid UserId, string[] roles);
+        Task RemoveUserFromRoles(Guid userId, string[] roles);
     }
 }

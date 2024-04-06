@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AirBnb.Core.Domain.Identity;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +13,12 @@ namespace AirBnb.Core.Models.Content
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }
+        public class AutoMapperProfiles : Profile
+        {
+            public AutoMapperProfiles()
+            {
+                CreateMap<CreateUpdateRoleRequest, AppRole>();
+            }
+        }
     }
 }

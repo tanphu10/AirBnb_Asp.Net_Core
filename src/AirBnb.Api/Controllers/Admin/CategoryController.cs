@@ -41,7 +41,13 @@ namespace AirBnb.Api.Controllers.Admin
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
+        [HttpGet("all/item")]
+        public async  Task<ActionResult<RoomCategoryDto>> GetAll()
+        {
+            var data = await _unitOfWork.RoomCategories.GetAllAsync();
+            return Ok(data);
 
+        }
         [HttpDelete]
         public async Task<IActionResult> DeleteCateogry([FromQuery] Guid[] ids)
         {
