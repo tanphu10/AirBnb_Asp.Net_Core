@@ -22,10 +22,10 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 //configurate Cors;
-var TeduCorsPolicy = "TeduCorsPolicy";
+var TanPhuCorsPolicy = "TanPhuCorsPolicy";
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-builder.Services.AddCors(o => o.AddPolicy(TeduCorsPolicy, builder =>
+builder.Services.AddCors(o => o.AddPolicy(TanPhuCorsPolicy, builder =>
 {
     builder.AllowAnyMethod()
         .AllowAnyHeader()
@@ -171,7 +171,7 @@ if (app.Environment.IsDevelopment())
         c.DisplayRequestDuration();
     });
 }
-
+app.UseCors(TanPhuCorsPolicy);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -7,10 +7,12 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  template: `
+  <p-toast position="top-center"></p-toast>
+  <router-outlet></router-outlet>`,
 })
 export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
+  title = 'Airbnb Admin-core-ui';
 
   constructor(
     private router: Router,
