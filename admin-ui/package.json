@@ -40,6 +40,8 @@
     "lodash-es": "^4.17.21",
     "ngx-scrollbar": "^13.0.3",
     "nswag": "^14.0.7",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.12.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.4"
