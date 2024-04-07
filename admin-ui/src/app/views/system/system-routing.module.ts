@@ -23,7 +23,7 @@ const routes: Routes = [
     component: RoleComponent,
     data: {
       title: 'roles',
-      requiredPolicy:'Permissions.Role.View'
+      requiredPolicy:'Permissions.Roles.View'
     },
     canActivate: [AuthGuard],
   },
