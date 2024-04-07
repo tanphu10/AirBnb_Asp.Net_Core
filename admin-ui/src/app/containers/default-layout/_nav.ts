@@ -9,6 +9,9 @@ export const navItems: INavData[] = [
       color: 'info',
       text: 'NEW',
     },
+    attributes:{
+      "policyName":"Permissions.Dasboard.View"
+    }
   },
   {
     name: 'Auth',
@@ -41,14 +44,23 @@ export const navItems: INavData[] = [
       {
         name: 'Danh mục',
         url: '/content/room-categories',
+        attributes:{
+          "policyName":"Permissions.RoomCatetories.View"
+        }
       },
       {
         name: 'Phòng',
         url: '/content/rooms',
+        attributes:{
+          "policyName":"Permissions.Rooms.View"
+        }
       },
       {
         name: 'Series Phòng ',
         url: '/content/series',
+        attributes:{
+          "policyName":"Permissions.Series.View"
+        }
       },
     ],
   },
@@ -60,10 +72,16 @@ export const navItems: INavData[] = [
       {
         name: 'Quyền',
         url: '/system/roles',
+        attributes:{
+          "policyName":"Permissions.Roles.View"
+        }
       },
       {
         name: 'Người Dùng',
         url: '/system/users',
+        attributes:{
+          "policyName":"Permissions.Users.View"
+        }
       },
     ],
   },
@@ -75,6 +93,9 @@ export const navItems: INavData[] = [
       {
         name: 'Đặt Phòng',
         url: '/order/bookroom',
+        attributes:{
+          "policyName":"Permissions.BookRooms.View"
+        }
       },
       {
         name: 'Thanh Toán',
@@ -90,6 +111,9 @@ export const navItems: INavData[] = [
       {
         name: 'Vị Trí',
         url: '/location/locals',
+        attributes:{
+          "policyName":"Permissions.Locations.View"
+        }
       },
     ],
   },
