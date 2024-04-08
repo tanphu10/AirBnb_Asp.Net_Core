@@ -38,26 +38,26 @@ namespace AirBnb.Core.SeedWorks.Constansts
         }
         public static class RoomCategories
         {
-            [Description("Xem danh mục bài viết")]
+            [Description("Xem danh mục phòng ")]
             public const string View = "Permissions.RoomCategories.View";
-            [Description("Tạo danh mục bài viết")]
+            [Description("Tạo danh mục phòng")]
             public const string Create = "Permissions.RoomCategories.Create";
-            [Description("Sửa danh mục bài viết")]
+            [Description("Sửa danh mục phòng")]
             public const string Edit = "Permissions.RoomCategories.Edit";
-            [Description("Xóa danh mục bài viết")]
+            [Description("Xóa danh mục phòng")]
             public const string Delete = "Permissions.RoomCategories.Delete";
         }
         public static class Rooms
         {
-            [Description("Xem bài viết")]
+            [Description("Xem phòng")]
             public const string View = "Permissions.Rooms.View";
-            [Description("Tạo bài viết")]
+            [Description("Tạo phòng")]
             public const string Create = "Permissions.Rooms.Create";
-            [Description("Sửa bài viết")]
+            [Description("Sửa phòng")]
             public const string Edit = "Permissions.Rooms.Edit";
-            [Description("Xóa bài viết")]
+            [Description("Xóa phòng")]
             public const string Delete = "Permissions.Rooms.Delete";
-            [Description("Duyệt bài viết")]
+            [Description("Duyệt phòng")]
             public const string Approve = "Permissions.Rooms.Approve";
         }
 
@@ -74,35 +74,35 @@ namespace AirBnb.Core.SeedWorks.Constansts
         }
         public static class Comments
         {
-            [Description("Xem loạt bài")]
+            [Description("Xem comments")]
             public const string View = "Permissions.Comments.View";
-            [Description("Tạo loạt bài")]
+            [Description("Tạo comments")]
             public const string Create = "Permissions.Comments.Create";
-            [Description("Sửa loạt bài")]
+            [Description("Sửa comments")]
             public const string Edit = "Permissions.Comments.Edit";
-            [Description("Xóa loạt bài")]
+            [Description("Xóa comments")]
             public const string Delete = "Permissions.Comments.Delete";
         }
         public static class BookRooms
         {
-            [Description("Xem loạt bài")]
+            [Description("Xem đặt phòng")]
             public const string View = "Permissions.BookRooms.View";
-            [Description("Tạo loạt bài")]
+            [Description("Tạo đặt phòng")]
             public const string Create = "Permissions.BookRooms.Create";
-            [Description("Sửa loạt bài")]
+            [Description("Sửa đặt phòng")]
             public const string Edit = "Permissions.BookRooms.Edit";
-            [Description("Xóa loạt bài")]
+            [Description("Xóa đặt phòng")]
             public const string Delete = "Permissions.BookRooms.Delete";
         }
         public static class Locations
         {
-            [Description("Xem loạt bài")]
+            [Description("Xem vị trí")]
             public const string View = "Permissions.Locations.View";
-            [Description("Tạo loạt bài")]
+            [Description("Tạo vị trí")]
             public const string Create = "Permissions.Locations.Create";
-            [Description("Sửa loạt bài")]
+            [Description("Sửa vị trí")]
             public const string Edit = "Permissions.Locations.Edit";
-            [Description("Xóa loạt bài")]
+            [Description("Xóa vị trí")]
             public const string Delete = "Permissions.Locations.Delete";
         }
         public static class RoomPay

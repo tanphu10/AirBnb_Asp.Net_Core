@@ -38,7 +38,6 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpPut]
         [Authorize(Permissions.Roles.Edit)]
-
         public async Task<ActionResult> UpdateRole(Guid id, [FromBody] CreateUpdateRoleRequest model)
         {
             var role = await _roleManager.FindByIdAsync(id.ToString());
@@ -53,7 +52,6 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpDelete]
         [Authorize(Permissions.Roles.Delete)]
-
         public async Task<ActionResult> DeleteRole([FromBody] Guid[] ids)
         {
             foreach (var id in ids)
@@ -69,7 +67,7 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok();
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRoleId(Guid id)
+        public async Task<ActionResult<RoleDto>> GetRoleId(Guid id)
         {
             var role = await _roleManager.FindByIdAsync(id.ToString());
             if (role == null)
@@ -150,7 +148,7 @@ namespace AirBnb.Api.Controllers.Admin
             foreach (var claim in claims)
             {
                 await _roleManager.RemoveClaimAsync(role, claim);
-                
+
             }
             var selectedClaims = model.RoleClaims.Where(x => x.Selected).ToList();
 

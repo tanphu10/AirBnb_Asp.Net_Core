@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookRoomComponent } from './book-rooms/bookroom.component';
+import { AuthGuard } from 'src/app/shared/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,8 @@ const routes: Routes = [
     data: {
       title: 'book-rooms',
     },
+    canActivate:[AuthGuard]
+
   },
 ];
 
