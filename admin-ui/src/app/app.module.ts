@@ -48,14 +48,22 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
 import {
   ADMIN_API_BASE_URL,
   AdminApiAuthApiClient,
+  AdminApiRolesApiClient,
+  AdminApiTokenApiClient,
+  AdminApiUserApiClient,
 } from './api/admin-api.service.generated';
 import { environment } from 'src/environments/environment';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AlertService } from './shared/services/alert.service';
-import {TokenStorageService} from './shared/services/token-storage.service';
+import { TokenStorageService } from './shared/services/token-storage.service';
 import { AuthGuard } from './shared/auth.guard';
+import { UtilityService } from './shared/services/utility.service';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TokenInterceptor } from 'src/app/shared/interceptors/token.interceptor';
+import { GlobalHttpInterceptorService } from 'src/app/shared/interceptors/error-handler.interceptor';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -94,9 +102,21 @@ const APP_CONTAINERS = [
     NgScrollbarModule,
     ToastModule,
     HttpClientModule,
+    ConfirmDialogModule,
+    DynamicDialogModule,
   ],
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
+      multi: true,
+    },
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
@@ -106,8 +126,14 @@ const APP_CONTAINERS = [
     MessageService,
     AlertService,
     AdminApiAuthApiClient,
+    AdminApiRolesApiClient,
+    AdminApiTokenApiClient,
+    AdminApiUserApiClient,
     TokenStorageService,
-    AuthGuard
+    AuthGuard,
+    UtilityService,
+    DialogService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
 })

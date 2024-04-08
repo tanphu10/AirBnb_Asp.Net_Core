@@ -79,7 +79,6 @@ export class TokenInterceptor implements HttpInterceptor {
             this.tokenService.saveToken(authenResponse.token!);
             this.tokenService.saveToken(authenResponse.refreshToken!);
             this.refreshTokenSubject.next(authenResponse.token);
-
             return next.handle(
               this.addTokenHeader(request, authenResponse.token!)
             );

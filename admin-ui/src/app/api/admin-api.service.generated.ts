@@ -2048,7 +2048,7 @@ export class AdminApiRolesApiClient {
     /**
      * @return Success
      */
-    getRoleId(id: string): Observable<void> {
+    getRoleId(id: string): Observable<RoleDto> {
         let url_ = this.baseUrl + "/api/admin/role/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2059,6 +2059,7 @@ export class AdminApiRolesApiClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "text/plain"
             })
         };
 
@@ -2069,14 +2070,14 @@ export class AdminApiRolesApiClient {
                 try {
                     return this.processGetRoleId(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<RoleDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<RoleDto>;
         }));
     }
 
-    protected processGetRoleId(response: HttpResponseBase): Observable<void> {
+    protected processGetRoleId(response: HttpResponseBase): Observable<RoleDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2085,7 +2086,10 @@ export class AdminApiRolesApiClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RoleDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
