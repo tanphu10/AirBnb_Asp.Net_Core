@@ -50,6 +50,7 @@ namespace AirBnb.Core.Domain.Content
         public int ViewCount { get; set; }
         public RoomStatus Status { get; set; }
 
+
     }
     public enum RoomStatus
     {

@@ -10,6 +10,7 @@ namespace AirBnb.Core.Models.Content
 {
     public class LocationDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string province { get; set; }
         public string Slug { get; set; }

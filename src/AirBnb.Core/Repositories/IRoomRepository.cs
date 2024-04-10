@@ -10,13 +10,16 @@ namespace AirBnb.Core.Repositories
         Task<List<Room>> GetPopularRoomsAsync(int count);
         Task<bool> IsSlugAlreadyExisted(string slug, Guid? currentId = null);
         Task<List<SeriesInListDto>> GetAllSeries(Guid roomId);
+        Task AddTagToPost(Guid roomId, Guid tagId);
         Task SenToApproveRoomPost(Guid id, Guid currentId);
         Task Approve(Guid id, Guid currentId);
-        Task<PagedResult<RoomInListDto>> GetRoomsPagingApproveAsync(string? keyword, Guid? categoryId, int pageIndex = 1, int pageSize = 10);
+        Task<PagedResult<RoomInListDto>> GetRoomsPagingApproveAsync(string? keyword, Guid currentUserId, Guid? categoryId=null, int pageIndex = 1, int pageSize = 10);
         Task ReturnBackSubmit(Guid id, string reason, Guid OwnUserId);
         Task<string> GetReturnReasonAsync(Guid id);
         Task<List<RoomActivityLogDto>> GetActivityLogAsync(Guid id);
         Task<List<RoomInListDto>> GetLatestPublishRoom(int top);
+        Task<List<string>> GetTagsByRoomtId(Guid roomId);
+
 
     }
 }

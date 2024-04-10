@@ -665,7 +665,7 @@ export class AdminApiCategoryApiClient {
      * @param body (optional) 
      * @return Success
      */
-    createCategory(body?: CreateUpdateCategoryRequest | undefined): Observable<void> {
+    createRoomCategory(body?: CreateUpdateCategoryRequest | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/category";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -681,11 +681,11 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateCategory(response_);
+            return this.processCreateRoomCategory(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreateCategory(response_ as any);
+                    return this.processCreateRoomCategory(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -694,7 +694,7 @@ export class AdminApiCategoryApiClient {
         }));
     }
 
-    protected processCreateCategory(response: HttpResponseBase): Observable<void> {
+    protected processCreateRoomCategory(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -717,7 +717,7 @@ export class AdminApiCategoryApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteCateogry(ids?: string[] | undefined): Observable<void> {
+    deleteRoomCategory(ids?: string[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/category?";
         if (ids === null)
             throw new Error("The parameter 'ids' cannot be null.");
@@ -733,11 +733,11 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteCateogry(response_);
+            return this.processDeleteRoomCategory(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDeleteCateogry(response_ as any);
+                    return this.processDeleteRoomCategory(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -746,7 +746,7 @@ export class AdminApiCategoryApiClient {
         }));
     }
 
-    protected processDeleteCateogry(response: HttpResponseBase): Observable<void> {
+    protected processDeleteRoomCategory(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -769,7 +769,7 @@ export class AdminApiCategoryApiClient {
      * @param body (optional) 
      * @return Success
      */
-    updateCategory(id: string, body?: CreateUpdateCategoryRequest | undefined): Observable<void> {
+    updateRoomCategory(id: string, body?: CreateUpdateCategoryRequest | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/category/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -788,11 +788,11 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateCategory(response_);
+            return this.processUpdateRoomCategory(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUpdateCategory(response_ as any);
+                    return this.processUpdateRoomCategory(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -801,7 +801,7 @@ export class AdminApiCategoryApiClient {
         }));
     }
 
-    protected processUpdateCategory(response: HttpResponseBase): Observable<void> {
+    protected processUpdateRoomCategory(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -823,7 +823,7 @@ export class AdminApiCategoryApiClient {
     /**
      * @return Success
      */
-    getRoomId(id: string): Observable<RoomCategoryDto> {
+    getRoomCategoryId(id: string): Observable<RoomCategoryDto> {
         let url_ = this.baseUrl + "/api/admin/category/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -839,11 +839,11 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRoomId(response_);
+            return this.processGetRoomCategoryId(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetRoomId(response_ as any);
+                    return this.processGetRoomCategoryId(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomCategoryDto>;
                 }
@@ -852,7 +852,7 @@ export class AdminApiCategoryApiClient {
         }));
     }
 
-    protected processGetRoomId(response: HttpResponseBase): Observable<RoomCategoryDto> {
+    protected processGetRoomCategoryId(response: HttpResponseBase): Observable<RoomCategoryDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -877,7 +877,7 @@ export class AdminApiCategoryApiClient {
     /**
      * @return Success
      */
-    getAll(): Observable<RoomCategoryDto> {
+    getAllRoomCategory(): Observable<RoomCategoryDto[]> {
         let url_ = this.baseUrl + "/api/admin/category/all/item";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -890,20 +890,20 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
+            return this.processGetAllRoomCategory(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll(response_ as any);
+                    return this.processGetAllRoomCategory(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<RoomCategoryDto>;
+                    return _observableThrow(e) as any as Observable<RoomCategoryDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<RoomCategoryDto>;
+                return _observableThrow(response_) as any as Observable<RoomCategoryDto[]>;
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<RoomCategoryDto> {
+    protected processGetAllRoomCategory(response: HttpResponseBase): Observable<RoomCategoryDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -914,7 +914,14 @@ export class AdminApiCategoryApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = RoomCategoryDto.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RoomCategoryDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -931,7 +938,7 @@ export class AdminApiCategoryApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getCategoryPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomCategoryDtoPagedResult> {
+    getRoomCategoryPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomCategoryDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/category/paging?";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
@@ -956,11 +963,11 @@ export class AdminApiCategoryApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCategoryPaging(response_);
+            return this.processGetRoomCategoryPaging(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetCategoryPaging(response_ as any);
+                    return this.processGetRoomCategoryPaging(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomCategoryDtoPagedResult>;
                 }
@@ -969,7 +976,7 @@ export class AdminApiCategoryApiClient {
         }));
     }
 
-    protected processGetCategoryPaging(response: HttpResponseBase): Observable<RoomCategoryDtoPagedResult> {
+    protected processGetRoomCategoryPaging(response: HttpResponseBase): Observable<RoomCategoryDtoPagedResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -982,53 +989,6 @@ export class AdminApiCategoryApiClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = RoomCategoryDtoPagedResult.fromJS(resultData200);
             return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @return Success
-     */
-    getAllCategory(): Observable<void> {
-        let url_ = this.baseUrl + "/api/admin/category/all";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllCategory(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllCategory(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processGetAllCategory(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -1409,7 +1369,7 @@ export class AdminApiHomeApiClient {
     /**
      * @return Success
      */
-    getAll2(): Observable<RoomInListDto> {
+    getAll(): Observable<RoomInListDto> {
         let url_ = this.baseUrl + "/api/home";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1422,11 +1382,11 @@ export class AdminApiHomeApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll2(response_);
+            return this.processGetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll2(response_ as any);
+                    return this.processGetAll(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomInListDto>;
                 }
@@ -1435,7 +1395,7 @@ export class AdminApiHomeApiClient {
         }));
     }
 
-    protected processGetAll2(response: HttpResponseBase): Observable<RoomInListDto> {
+    protected processGetAll(response: HttpResponseBase): Observable<RoomInListDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1994,21 +1954,21 @@ export class AdminApiRolesApiClient {
     }
 
     /**
-     * @param body (optional) 
+     * @param ids (optional) 
      * @return Success
      */
-    deleteRole(body?: string[] | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/admin/role";
+    deleteRole(ids?: string[] | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/role?";
+        if (ids === null)
+            throw new Error("The parameter 'ids' cannot be null.");
+        else if (ids !== undefined)
+            ids && ids.forEach(item => { url_ += "ids=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
             })
         };
 
@@ -2397,7 +2357,7 @@ export class AdminApiRoomApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deletePosts(ids?: string[] | undefined): Observable<void> {
+    deleteRooms(ids?: string[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/room?";
         if (ids === null)
             throw new Error("The parameter 'ids' cannot be null.");
@@ -2413,11 +2373,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeletePosts(response_);
+            return this.processDeleteRooms(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDeletePosts(response_ as any);
+                    return this.processDeleteRooms(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -2426,7 +2386,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processDeletePosts(response: HttpResponseBase): Observable<void> {
+    protected processDeleteRooms(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2503,7 +2463,7 @@ export class AdminApiRoomApiClient {
     /**
      * @return Success
      */
-    getRoomId2(id: string): Observable<RoomDto> {
+    getRoomId(id: string): Observable<RoomDto> {
         let url_ = this.baseUrl + "/api/admin/room/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2519,11 +2479,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRoomId2(response_);
+            return this.processGetRoomId(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetRoomId2(response_ as any);
+                    return this.processGetRoomId(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomDto>;
                 }
@@ -2532,7 +2492,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processGetRoomId2(response: HttpResponseBase): Observable<RoomDto> {
+    protected processGetRoomId(response: HttpResponseBase): Observable<RoomDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2557,7 +2517,7 @@ export class AdminApiRoomApiClient {
     /**
      * @return Success
      */
-    getAll3(): Observable<RoomDto> {
+    getAllRequest(): Observable<RoomDto> {
         let url_ = this.baseUrl + "/api/admin/room/all-room";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2570,11 +2530,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll3(response_);
+            return this.processGetAllRequest(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll3(response_ as any);
+                    return this.processGetAllRequest(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomDto>;
                 }
@@ -2583,7 +2543,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processGetAll3(response: HttpResponseBase): Observable<RoomDto> {
+    protected processGetAllRequest(response: HttpResponseBase): Observable<RoomDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2612,14 +2572,14 @@ export class AdminApiRoomApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getPostsPagingApprove(keyword?: string | undefined, categoryId?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomInListDtoPagedResult> {
+    getRoomsPagingApprove(keyword?: string | undefined, categoryId?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomInListDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/room/paging-aprroval?";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
-        if (categoryId === null)
-            throw new Error("The parameter 'categoryId' cannot be null.");
+        // if (categoryId === null)
+        //     throw new Error("The parameter 'categoryId' cannot be null.");
         else if (categoryId !== undefined)
             url_ += "categoryId=" + encodeURIComponent("" + categoryId) + "&";
         if (pageIndex === null)
@@ -2641,11 +2601,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPostsPagingApprove(response_);
+            return this.processGetRoomsPagingApprove(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetPostsPagingApprove(response_ as any);
+                    return this.processGetRoomsPagingApprove(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomInListDtoPagedResult>;
                 }
@@ -2654,7 +2614,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processGetPostsPagingApprove(response: HttpResponseBase): Observable<RoomInListDtoPagedResult> {
+    protected processGetRoomsPagingApprove(response: HttpResponseBase): Observable<RoomInListDtoPagedResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2841,7 +2801,7 @@ export class AdminApiRoomApiClient {
      * @param body (optional) 
      * @return Success
      */
-    returnBackSubmit2(id: string, body?: ReturnBackSubmitRequest | undefined): Observable<void> {
+    returnBackSubmitRequest(id: string, body?: ReturnBackSubmitRequest | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/room/return-back-submit/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2860,11 +2820,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processReturnBackSubmit2(response_);
+            return this.processReturnBackSubmitRequest(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processReturnBackSubmit2(response_ as any);
+                    return this.processReturnBackSubmitRequest(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -2873,7 +2833,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processReturnBackSubmit2(response: HttpResponseBase): Observable<void> {
+    protected processReturnBackSubmitRequest(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3070,6 +3030,125 @@ export class AdminApiRoomApiClient {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @return Success
+     */
+    getAllTags(): Observable<string[]> {
+        let url_ = this.baseUrl + "/api/admin/room/tags";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTags(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTags(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string[]>;
+        }));
+    }
+
+    protected processGetAllTags(response: HttpResponseBase): Observable<string[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(item);
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getRoomTags(id: string): Observable<string[]> {
+        let url_ = this.baseUrl + "/api/admin/room/tags/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomTags(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomTags(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<string[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<string[]>;
+        }));
+    }
+
+    protected processGetRoomTags(response: HttpResponseBase): Observable<string[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(item);
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -3190,7 +3269,7 @@ export class AdminApiSeriesApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteAsync2(ids?: string[] | undefined): Observable<void> {
+    deleteSeries(ids?: string[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/series?";
         if (ids === null)
             throw new Error("The parameter 'ids' cannot be null.");
@@ -3206,11 +3285,11 @@ export class AdminApiSeriesApiClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDeleteAsync2(response_);
+            return this.processDeleteSeries(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDeleteAsync2(response_ as any);
+                    return this.processDeleteSeries(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -3219,7 +3298,7 @@ export class AdminApiSeriesApiClient {
         }));
     }
 
-    protected processDeleteAsync2(response: HttpResponseBase): Observable<void> {
+    protected processDeleteSeries(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3348,6 +3427,58 @@ export class AdminApiSeriesApiClient {
     }
 
     /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deleteRoomsSeries(body?: AddRoomSeriesRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/series/post-series";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteRoomsSeries(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteRoomsSeries(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteRoomsSeries(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param keyword (optional) 
      * @param pageIndex (optional) 
      * @param pageSize (optional) 
@@ -3417,7 +3548,7 @@ export class AdminApiSeriesApiClient {
      * @param body (optional) 
      * @return Success
      */
-    addRoomSeries(body?: AddRoomSeriesRequest | undefined): Observable<void> {
+    addRoomToSeries(body?: AddRoomSeriesRequest | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/series/room-series";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3433,11 +3564,11 @@ export class AdminApiSeriesApiClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddRoomSeries(response_);
+            return this.processAddRoomToSeries(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAddRoomSeries(response_ as any);
+                    return this.processAddRoomToSeries(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -3446,7 +3577,7 @@ export class AdminApiSeriesApiClient {
         }));
     }
 
-    protected processAddRoomSeries(response: HttpResponseBase): Observable<void> {
+    protected processAddRoomToSeries(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4964,7 +5095,7 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
     seoDescription?: string | undefined;
     categoryId?: string;
     locateId?: string;
-    tags?: string | undefined;
+    tags?: string[] | undefined;
     bedRoom?: number;
     bathRoom?: number;
     price?: number;
@@ -4996,7 +5127,11 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
             this.seoDescription = _data["seoDescription"];
             this.categoryId = _data["categoryId"];
             this.locateId = _data["locateId"];
-            this.tags = _data["tags"];
+            if (Array.isArray(_data["tags"])) {
+                this.tags = [] as any;
+                for (let item of _data["tags"])
+                    this.tags!.push(item);
+            }
             this.bedRoom = _data["bedRoom"];
             this.bathRoom = _data["bathRoom"];
             this.price = _data["price"];
@@ -5028,7 +5163,11 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
         data["seoDescription"] = this.seoDescription;
         data["categoryId"] = this.categoryId;
         data["locateId"] = this.locateId;
-        data["tags"] = this.tags;
+        if (Array.isArray(this.tags)) {
+            data["tags"] = [];
+            for (let item of this.tags)
+                data["tags"].push(item);
+        }
         data["bedRoom"] = this.bedRoom;
         data["bathRoom"] = this.bathRoom;
         data["price"] = this.price;
@@ -5053,7 +5192,7 @@ export interface ICreateUpdateRoomRequest {
     seoDescription?: string | undefined;
     categoryId?: string;
     locateId?: string;
-    tags?: string | undefined;
+    tags?: string[] | undefined;
     bedRoom?: number;
     bathRoom?: number;
     price?: number;
@@ -5257,6 +5396,7 @@ export interface ILocation {
 }
 
 export class LocationDto implements ILocationDto {
+    id?: string;
     name?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
@@ -5274,6 +5414,7 @@ export class LocationDto implements ILocationDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.name = _data["name"];
             this.province = _data["province"];
             this.slug = _data["slug"];
@@ -5291,6 +5432,7 @@ export class LocationDto implements ILocationDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["name"] = this.name;
         data["province"] = this.province;
         data["slug"] = this.slug;
@@ -5301,6 +5443,7 @@ export class LocationDto implements ILocationDto {
 }
 
 export interface ILocationDto {
+    id?: string;
     name?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
@@ -5887,6 +6030,7 @@ export class RoomDto implements IRoomDto {
     authorUserName?: string | undefined;
     authorName?: string | undefined;
     status?: RoomStatus;
+    categoryId?: string;
     locateId?: string;
     tags?: string | undefined;
     bedRoom?: number;
@@ -5926,6 +6070,7 @@ export class RoomDto implements IRoomDto {
             this.authorUserName = _data["authorUserName"];
             this.authorName = _data["authorName"];
             this.status = _data["status"];
+            this.categoryId = _data["categoryId"];
             this.locateId = _data["locateId"];
             this.tags = _data["tags"];
             this.bedRoom = _data["bedRoom"];
@@ -5965,6 +6110,7 @@ export class RoomDto implements IRoomDto {
         data["authorUserName"] = this.authorUserName;
         data["authorName"] = this.authorName;
         data["status"] = this.status;
+        data["categoryId"] = this.categoryId;
         data["locateId"] = this.locateId;
         data["tags"] = this.tags;
         data["bedRoom"] = this.bedRoom;
@@ -5997,6 +6143,7 @@ export interface IRoomDto {
     authorUserName?: string | undefined;
     authorName?: string | undefined;
     status?: RoomStatus;
+    categoryId?: string;
     locateId?: string;
     tags?: string | undefined;
     bedRoom?: number;
@@ -6026,6 +6173,7 @@ export class RoomInListDto implements IRoomInListDto {
     categoryName?: string | undefined;
     authorUserName?: string | undefined;
     authorName?: string | undefined;
+    categoryId?: string;
     status?: RoomStatus;
 
     constructor(data?: IRoomInListDto) {
@@ -6052,6 +6200,7 @@ export class RoomInListDto implements IRoomInListDto {
             this.categoryName = _data["categoryName"];
             this.authorUserName = _data["authorUserName"];
             this.authorName = _data["authorName"];
+            this.categoryId = _data["categoryId"];
             this.status = _data["status"];
         }
     }
@@ -6078,6 +6227,7 @@ export class RoomInListDto implements IRoomInListDto {
         data["categoryName"] = this.categoryName;
         data["authorUserName"] = this.authorUserName;
         data["authorName"] = this.authorName;
+        data["categoryId"] = this.categoryId;
         data["status"] = this.status;
         return data;
     }
@@ -6097,6 +6247,7 @@ export interface IRoomInListDto {
     categoryName?: string | undefined;
     authorUserName?: string | undefined;
     authorName?: string | undefined;
+    categoryId?: string;
     status?: RoomStatus;
 }
 
@@ -6180,6 +6331,14 @@ export enum RoomStatus {
 }
 
 export class SeriesDto implements ISeriesDto {
+    name?: string | undefined;
+    description?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+    sortOrder?: number;
+    seoKeywords?: string | undefined;
+    ownerUserId?: string;
+    id?: string;
     seoDescription?: string | undefined;
     thumbnail?: string | undefined;
     content?: string | undefined;
@@ -6195,6 +6354,14 @@ export class SeriesDto implements ISeriesDto {
 
     init(_data?: any) {
         if (_data) {
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.slug = _data["slug"];
+            this.isActive = _data["isActive"];
+            this.sortOrder = _data["sortOrder"];
+            this.seoKeywords = _data["seoKeywords"];
+            this.ownerUserId = _data["ownerUserId"];
+            this.id = _data["id"];
             this.seoDescription = _data["seoDescription"];
             this.thumbnail = _data["thumbnail"];
             this.content = _data["content"];
@@ -6210,6 +6377,14 @@ export class SeriesDto implements ISeriesDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["slug"] = this.slug;
+        data["isActive"] = this.isActive;
+        data["sortOrder"] = this.sortOrder;
+        data["seoKeywords"] = this.seoKeywords;
+        data["ownerUserId"] = this.ownerUserId;
+        data["id"] = this.id;
         data["seoDescription"] = this.seoDescription;
         data["thumbnail"] = this.thumbnail;
         data["content"] = this.content;
@@ -6218,6 +6393,14 @@ export class SeriesDto implements ISeriesDto {
 }
 
 export interface ISeriesDto {
+    name?: string | undefined;
+    description?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+    sortOrder?: number;
+    seoKeywords?: string | undefined;
+    ownerUserId?: string;
+    id?: string;
     seoDescription?: string | undefined;
     thumbnail?: string | undefined;
     content?: string | undefined;

@@ -17,5 +17,8 @@ namespace AirBnb.Core.Repositories
         Task<PagedResult<SeriesInListDto>> GetAllPagingSeries(string? keyword,int pageIndex = 1, int pageSize = 10);
         Task AddRoomSeries(Guid roomId, Guid seriesId,int displaypOrder);
         Task<List<RoomInListDto>> GetAllRoomSeries(Guid id);
+        Task RemoveRoomToSeries(Guid seriesId, Guid roomId);
+
+
     }
 }

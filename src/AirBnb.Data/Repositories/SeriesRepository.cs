@@ -54,7 +54,15 @@ namespace AirBnb.Data.Repositories
                 PageSize = pageSize
             };
         }
-
+        public async Task RemoveRoomToSeries(Guid seriesId, Guid roomId)
+        {
+            var postInSeries = await _context.RoomInSeries
+                .FirstOrDefaultAsync(x => x.RoomId == roomId && x.SeriesId == seriesId);
+            if (postInSeries != null)
+            {
+                _context.RoomInSeries.Remove(postInSeries);
+            }
+        }
         public Task<List<RoomInListDto>> GetAllRoomSeries(Guid id)
         {
             var query = from ris in _context.RoomInSeries

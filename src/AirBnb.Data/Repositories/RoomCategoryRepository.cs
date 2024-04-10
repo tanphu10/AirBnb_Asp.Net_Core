@@ -44,5 +44,9 @@ namespace AirBnb.Data.Repositories
             };
 
         }
+        public async Task<bool> HasPost(Guid categoryId)
+        {
+            return await _context.Rooms.AnyAsync(x => x.CategoryId == categoryId);
+        }
     }
 }

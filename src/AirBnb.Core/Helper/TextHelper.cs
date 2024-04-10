@@ -44,5 +44,9 @@ namespace AirBnb.Core.Helper
             return str2;
         }
 
+        public static string ToUnsignedString(char tagName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

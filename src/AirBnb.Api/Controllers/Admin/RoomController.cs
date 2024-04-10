@@ -1,6 +1,7 @@
 ﻿using AirBnb.Api.Extensions;
 using AirBnb.Core.Domain.Content;
 using AirBnb.Core.Domain.Identity;
+using AirBnb.Core.Helper;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
@@ -9,6 +10,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using static AirBnb.Core.SeedWorks.Constansts.Permissions;
 
 namespace AirBnb.Api.Controllers.Admin
 {
@@ -46,6 +49,27 @@ namespace AirBnb.Api.Controllers.Admin
             room.AuthorName = user.UserName;
             room.DateCreated = DateTime.Now;
             _unitOfWork.Rooms.Add(room);
+            // process tag
+            if(request.Tags != null && request.Tags.Length > 0)
+            {
+                foreach (var tagName in request.Tags)
+                {
+                    var tagSlug = TextHelper.ToUnsignedString(tagName);
+                    var tag = await _unitOfWork.Tags.GetBySlug(tagSlug);
+                    Guid tagId;
+                    if (tag == null)
+                    {
+                        tagId = Guid.NewGuid();
+                        _unitOfWork.Tags.Add(new Tag() { Id = tagId, Name = tagName, Slug = tagSlug });
+
+                    }
+                    else
+                    {
+                        tagId = tag.Id;
+                    }
+                    await _unitOfWork.Rooms.AddTagToPost(roomId, tagId);
+                }
+            }
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
@@ -64,7 +88,7 @@ namespace AirBnb.Api.Controllers.Admin
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeletePosts([FromQuery] Guid[] ids)
+        public async Task<IActionResult> DeleteRooms([FromQuery] Guid[] ids)
         {
             foreach (var id in ids)
             {
@@ -80,7 +104,7 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpGet]
         [Route("all-room")]
-        public async Task<ActionResult<RoomDto>> GetAll()
+        public async Task<ActionResult<RoomDto>> GetAllRequest()
         {
             var room = await _unitOfWork.Rooms.GetAllAsync();
             return Ok(room);
@@ -99,9 +123,11 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpGet]
         [Route("paging-aprroval")]
-        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetPostsPagingApprove(string? keyword, Guid? categoryId, int pageIndex, int pageSize = 10)
+        [Authorize(Rooms.View)]
+        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPagingApprove(string? keyword, Guid? categoryId = null, int pageIndex=1, int pageSize = 10)
         {
-            var result = await _unitOfWork.Rooms.GetRoomsPagingApproveAsync(keyword, categoryId, pageIndex, pageSize);
+            var userId = User.GetUserId();
+            var result = await _unitOfWork.Rooms.GetRoomsPagingApproveAsync(keyword, userId, categoryId, pageIndex, pageSize);
             return Ok(result);
         }
         [HttpGet]
@@ -128,7 +154,7 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok();
         }
         [HttpPost("return-back-submit/{id}")]
-        public async Task<IActionResult> ReturnBackSubmit(Guid id, [FromBody] ReturnBackSubmitRequest model)
+        public async Task<IActionResult> ReturnBackSubmitRequest(Guid id, [FromBody] ReturnBackSubmitRequest model)
         {
             var currentUserId = User.GetUserId();
             await _unitOfWork.Rooms.ReturnBackSubmit(id, model.Reason, currentUserId);
@@ -148,11 +174,25 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok(data);
         }
         [HttpGet("latest-publish-room")]
-        public async Task<ActionResult<List<RoomInListDto>>> GetLatestPublishRoomAsync([FromQuery] int top=10)
+        public async Task<ActionResult<List<RoomInListDto>>> GetLatestPublishRoomAsync([FromQuery] int top = 10)
         {
             var data = await _unitOfWork.Rooms.GetLatestPublishRoom(top);
             return Ok(data);
 
+        }
+        [HttpGet("tags")]
+        [Authorize(Rooms.View)]
+        public async Task<ActionResult<List<string>>> GetAllTags()
+        {
+            var logs = await _unitOfWork.Tags.GetAllTags();
+            return Ok(logs);
+        }
+        [HttpGet("tags/{id}")]
+        [Authorize(Rooms.View)]
+        public async Task<ActionResult<List<string>>> GetRoomTags(Guid id)
+        {
+            var tagName = await _unitOfWork.Rooms.GetTagsByRoomtId(id);
+            return Ok(tagName);
         }
     }
 }

@@ -48,7 +48,11 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
 import {
   ADMIN_API_BASE_URL,
   AdminApiAuthApiClient,
+  AdminApiCategoryApiClient,
+  AdminApiLocationApiClient,
   AdminApiRolesApiClient,
+  AdminApiRoomApiClient,
+  AdminApiSeriesApiClient,
   AdminApiTokenApiClient,
   AdminApiUserApiClient,
 } from './api/admin-api.service.generated';
@@ -64,6 +68,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TokenInterceptor } from 'src/app/shared/interceptors/token.interceptor';
 import { GlobalHttpInterceptorService } from 'src/app/shared/interceptors/error-handler.interceptor';
+import { UploadService } from './shared/services/upload.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -104,6 +110,7 @@ const APP_CONTAINERS = [
     HttpClientModule,
     ConfirmDialogModule,
     DynamicDialogModule,
+    ProgressSpinnerModule
   ],
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
@@ -129,11 +136,16 @@ const APP_CONTAINERS = [
     AdminApiRolesApiClient,
     AdminApiTokenApiClient,
     AdminApiUserApiClient,
+    AdminApiCategoryApiClient,
+    AdminApiRoomApiClient,
+    AdminApiLocationApiClient,
+    AdminApiSeriesApiClient,
     TokenStorageService,
     AuthGuard,
     UtilityService,
     DialogService,
     ConfirmationService,
+    UploadService,
   ],
   bootstrap: [AppComponent],
 })

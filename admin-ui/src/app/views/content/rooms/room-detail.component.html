@@ -1,0 +1,134 @@
+<form class="form-horizontal form-label-left" skipValidation [formGroup]="form" (ngSubmit)="saveChange()">
+  <p-panel #pnlDetail header="Thông tin" [toggleable]="true" [collapsed]="false">
+    <div class="formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label for="title" class="block">Tên Khách Sạn <span class="required">*</span></label>
+        <input id="title" type="text" pInputText [pKeyFilter]="noSpecial" formControlName="name"
+          (keyup)="generateSlug()" [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="name" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="slug">Slug<span class="required">*</span></label>
+        <input id="slug" type="text" pInputText [pKeyFilter]="noSpecial" formControlName="slug"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="slug" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="guest">guest<span class="required">*</span></label>
+        <input id="guest" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="guest"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="guest" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+
+      <div class="field col-12">
+        <label for="description" class="block">Mô tả ngắn <span class="required">*</span></label>
+        <textarea id="description" type="text" rows="4" pInputTextarea formControlName="description"
+          [style]="{ width: '100%' }"></textarea>
+        <app-validation-message [entityForm]="form" fieldName="description"
+          [validationMessages]="validationMessages"></app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="categoryId" class="block">Nhóm</label>
+        <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" [showClear]="true"
+          placeholder="Chọn nhóm" autoWidth="false" [style]="{ width: '100%' }">
+        </p-dropdown>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="locateId" class="block">Vị Trí</label>
+        <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" [showClear]="true"
+          placeholder="vị trí" autoWidth="false" [style]="{ width: '100%' }">
+        </p-dropdown>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="bedRoom">bedRoom<span class="required">*</span></label>
+        <input id="bedRoom" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="bedRoom"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="bedRoom" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="bathRoom">bathRoom<span class="required">*</span></label>
+        <input id="bathRoom" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="bathRoom"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="bathRoom" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="price">giá/đêm<span class="required">*</span></label>
+        <input id="price" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="price"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="price" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-12 flex justify-content-center">
+        <div class="field col-6 md:col-4">
+          <label for="televison">tivi<span class="required">*</span></label>
+          <input type="checkbox" id="televison" name="televison" formControlName="televison">
+
+        </div>
+        <div class="field col-6 md:col-4">
+          <label for="wifi">wifi<span class="required">*</span></label>
+          <input type="checkbox" id="wifi" name="wifi" formControlName="wifi">
+        </div>
+      </div>
+      <div class="field col-12 md:col-12 flex justify-content-center">
+        <div class="field col-6 md:col-4">
+          <label for="ironCloth">ironCloth<span class="required">*</span></label>
+          <input type="checkbox" id="ironCloth" name="ironCloth" formControlName="ironCloth">
+        </div>
+        <div class="field col-6 md:col-4">
+          <label for="kitchen">kitchen<span class="required">*</span></label>
+          <input type="checkbox" id="kitchen" name="kitchen" formControlName="kitchen">
+        </div>
+        <div class="field col-6 md:col-4">
+          <label for="airCondirioner">airCondirioner<span class="required">*</span></label>
+          <input type="checkbox" id="airCondirioner" name="airCondirioner" formControlName="airCondirioner">
+        </div>
+
+        <div class="field col-6 md:col-4">
+          <label for="pool">pool<span class="required">*</span></label>
+          <input type="checkbox" id="pool" name="pool" formControlName="pool">
+        </div>
+        <div class="field col-6 md:col-4">
+          <label for="park">park<span class="required">*</span></label>
+          <input type="checkbox" id="park" name="park" formControlName="park">
+        </div>
+      </div>
+
+      <!-- <div class="field col-12 md:col-6">
+        <label for="thumbnailFileContent">Hình ảnh <span class="required">*</span></label>
+        <input type="hidden" formControlName="thumbnail" />
+        <input (change)="onFileChange($event)" type="file" class="w-full" />
+      </div>
+      <div *ngIf="thumbnailImage" class="field col-12 md:col-6">
+        <p-image [src]="thumbnailImage" [preview]="true" [alt]="selectedEntity.name" width="250">
+        </p-image>
+      </div> -->
+      <div class="field col-12">
+        <label for="seoDescription">Mô tả SEO</label>
+        <textarea id="seoDescription" type="text" rows="4" pInputTextarea [pKeyFilter]="noSpecial"
+          formControlName="seoDescription" [style]="{ width: '100%' }"></textarea>
+      </div>
+      <div class="field col-12 md:col-12">
+        <label for="tags">Tags</label>
+        <p-autoComplete formControlName="tags" [suggestions]="filteredTags" (completeMethod)="filterTag($event)"
+          [multiple]="true"></p-autoComplete>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <button type="submit" class="btn btn-primary ms-1" [disabled]="!form.valid || btnDisabled">
+        Lưu nháp
+      </button>
+    </ng-template>
+
+    <p-blockUI [target]="pnlDetail" [blocked]="blockedPanelDetail">
+      <p-progressSpinner [style]="{ width: '100px', height: '100px', position: 'absolute', top: '25%', left: '50%' }"
+        strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
+    </p-blockUI>
+  </p-panel>
+</form>

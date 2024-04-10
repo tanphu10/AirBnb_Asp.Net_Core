@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoomComponent } from './rooms/room.component';
 import { AuthGuard } from './../../shared/auth.guard';
 import { SeriesComponent } from './series/series.component';
-import { RoomCategoriesComponent } from './room-categories/room-categories.component';
-
+// import { RoomCategoriesComponent } from './room-categories/room-categories.component';
+import {RoomCategoryComponent} from './room-categories/room-category.component';
 const routes: Routes = [
   {
     path: '',
@@ -33,10 +33,10 @@ const routes: Routes = [
   },
   {
     path: 'room-categories',
-    component: RoomCategoriesComponent,
+    component: RoomCategoryComponent,
     data: {
-      title: 'series',
-      requiredPolicy:'Permissions.Rooms.View'
+      title: 'room-categories',
+      requiredPolicy:'Permissions.RoomCategories.View'
     },
     canActivate: [AuthGuard],
   },

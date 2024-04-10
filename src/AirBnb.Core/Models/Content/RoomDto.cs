@@ -12,7 +12,7 @@ namespace AirBnb.Core.Models.Content
 {
     public class RoomDto : RoomInListDto
     {
-        //public Guid CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public Guid LocateId { get; set; }
         public string? Tags { get; set; }
         public int BedRoom { get; set; }

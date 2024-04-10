@@ -45,7 +45,7 @@ export const navItems: INavData[] = [
         name: 'Danh mục',
         url: '/content/room-categories',
         attributes:{
-          "policyName":"Permissions.RoomCatetories.View"
+          "policyName":"Permissions.RoomCategories.View"
         }
       },
       {
