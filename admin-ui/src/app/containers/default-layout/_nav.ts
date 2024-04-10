@@ -37,7 +37,7 @@ export const navItems: INavData[] = [
     ],
   },
   {
-    name: 'Nội Dung',
+    name: 'Quản Lí Phòng',
     url: '/content',
     iconComponent: { name: 'cil-puzzle' },
     children: [
@@ -114,6 +114,24 @@ export const navItems: INavData[] = [
         attributes:{
           "policyName":"Permissions.Locations.View"
         }
+      },
+    ],
+  },
+  {
+    name: 'Quản Lí Nội Dung',
+    url: '/management',
+    iconComponent: { name: 'cil-pen' },
+    children: [
+      {
+        name: 'Bình Luận',
+        url: '/management/comment',
+        attributes:{
+          "policyName":"Permissions.Comments.View"
+        }
+      },
+      {
+        name: 'Yêu Thích',
+        url: '/management/like',
       },
     ],
   },

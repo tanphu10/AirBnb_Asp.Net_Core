@@ -33,27 +33,7 @@ namespace AirBnb.Data.Repositories
             });
         }
 
-        public async Task Approve(Guid id, Guid currentId)
-        {
-            var room = await _context.Rooms.FindAsync(id);
-            if (room == null)
-            {
-                throw new Exception("không tồn tại room");
-            }
-            var user = await _context.Users.FindAsync(currentId);
-            await _context.RoomActivityLogs.AddAsync(new RoomActivityLog()
-            {
-                Id = Guid.NewGuid(),
-                FromStatus = room.Status,
-                ToStatus = RoomStatus.Published,
-                UserId = currentId,
-                //UserName=user.UserName,
-                RoomId = id,
-                Note = $"{user?.UserName} duyệt bài"
-            });
-            room.Status = RoomStatus.Published;
-            _context.Rooms.Update(room);
-        }
+
 
         public async Task<List<RoomActivityLogDto>> GetActivityLogAsync(Guid id)
         {
@@ -75,6 +55,62 @@ namespace AirBnb.Data.Repositories
                     Note = log.Note,
                 }).ToListAsync();
             return query;
+        }
+
+        public async Task<List<RoomActivityLogDto>> GetActivityLogs()
+        {
+            var data = _context.RoomActivityLogs.DefaultIfEmpty();
+
+            return await _mapper.ProjectTo<RoomActivityLogDto>(data).ToListAsync();
+
+        }
+
+        public async Task<PagedResult<RoomInListDto>> GetAllPaging(string? keyword, Guid currentUserId, Guid? categoryId, int pageIndex = 1, int pageSize = 10)
+        {
+            var user = await _userManager.FindByIdAsync(currentUserId.ToString());
+            if (user == null)
+            {
+                throw new Exception("Không tồn tại user");
+            }
+            var roles = await _userManager.GetRolesAsync(user);
+            var canApprove = false;
+            if (roles.Contains(Roles.Admin))
+            {
+                canApprove = true;
+            }
+            else
+            {
+                canApprove = await _context.RoleClaims.AnyAsync(x => roles.Contains(x.RoleId.ToString())
+                           && x.ClaimValue == Permissions.Rooms.Approve);
+            }
+
+            var query = _context.Rooms.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = query.Where(x => x.Name.Contains(keyword));
+            }
+            if (categoryId.HasValue)
+            {
+                query = query.Where(x => x.CategoryId == categoryId.Value);
+            }
+
+            if (!canApprove)
+            {
+                query = query.Where(x => x.AuthorUserId == currentUserId);
+            }
+
+            var totalRow = await query.CountAsync();
+
+            query = query.OrderByDescending(x => x.DateCreated)
+               .Skip((pageIndex - 1) * pageSize)
+               .Take(pageSize);
+            return new PagedResult<RoomInListDto>
+            {
+                Results = await _mapper.ProjectTo<RoomInListDto>(query).ToListAsync(),
+                CurrentPage = pageIndex,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
         }
 
         public Task<List<SeriesInListDto>> GetAllSeries(Guid roomId)
@@ -107,7 +143,7 @@ namespace AirBnb.Data.Repositories
             return data?.Note;
         }
 
-        public async Task<PagedResult<RoomInListDto>> GetRoomsPagingApproveAsync(string? keyword, Guid currentUserId, Guid? categoryId=null, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedResult<RoomInListDto>> GetRoomsPagingApproveAsync(string? keyword, Guid currentUserId, Guid? categoryId = null, int pageIndex = 1, int pageSize = 10)
         {
             var user = await _userManager.FindByIdAsync(currentUserId.ToString());
             if (user == null)
@@ -173,30 +209,47 @@ namespace AirBnb.Data.Repositories
 
         }
 
-        public async Task ReturnBackSubmit(Guid id, string reason, Guid ownUserId)
+        public async Task Approve(Guid id, Guid currentId)
         {
-
             var room = await _context.Rooms.FindAsync(id);
             if (room == null)
             {
                 throw new Exception("không tồn tại room");
             }
-            var user = await _userManager.FindByIdAsync(ownUserId.ToString());
-            if (user == null)
+            var user = await _context.Users.FindAsync(currentId);
+            await _context.RoomActivityLogs.AddAsync(new RoomActivityLogs()
             {
-                throw new Exception("user không tồn tại");
-
-            }
-            await _context.RoomActivityLogs.AddAsync(new RoomActivityLog()
-            {
+                Id = Guid.NewGuid(),
+                FromStatus = room.Status,
+                ToStatus = RoomStatus.Published,
+                UserId = currentId,
+                //UserName=user.UserName,
                 RoomId = id,
+                Note = $"{user?.UserName} duyệt bài"
+            });
+            room.Status = RoomStatus.Published;
+            _context.Rooms.Update(room);
+        }
+        public async Task ReturnBackSubmit(Guid id, Guid ownUserId, string note)
+        {
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null)
+            {
+                throw new Exception("không tồn tại room");
+            }
+            var user = await _context.Users.FindAsync(ownUserId);
+            await _context.RoomActivityLogs.AddAsync(new RoomActivityLogs()
+            {
+                Id = Guid.NewGuid(),
                 FromStatus = room.Status,
                 ToStatus = RoomStatus.Rejected,
-                Note = reason,
-                UserId = user.Id,
+                UserId = ownUserId,
+                //UserName=user.UserName,
+                RoomId = id,
+                Note = note
             });
-
-
+            room.Status = RoomStatus.Rejected;
+            _context.Rooms.Update(room);
         }
 
         public async Task SenToApproveRoomPost(Guid id, Guid currentId)
@@ -211,7 +264,7 @@ namespace AirBnb.Data.Repositories
             {
                 throw new Exception("không tồn tại user");
             }
-            await _context.RoomActivityLogs.AddAsync(new RoomActivityLog()
+            await _context.RoomActivityLogs.AddAsync(new RoomActivityLogs()
             {
                 Id = Guid.NewGuid(),
                 FromStatus = room.Status,

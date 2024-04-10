@@ -59,6 +59,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/order/order.module').then((m) => m.OrderModule),
       },
+      {
+        path: 'management',
+        loadChildren: () =>
+          import('./views/management/management.module').then((m) => m.ManagementModule),
+      },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },

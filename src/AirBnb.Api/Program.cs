@@ -126,6 +126,7 @@ builder.Services.AddSwaggerGen(c =>
             new string[]{}
         }
     });
+    c.ParameterFilter<SwaggerNullableParameterFilter>();
 
 });
 builder.Services.AddAuthentication(o =>

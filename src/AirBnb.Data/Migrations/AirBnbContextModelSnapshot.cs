@@ -133,6 +133,14 @@ namespace AirBnb.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -142,16 +150,16 @@ namespace AirBnb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("Thumbnail")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("province")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -273,7 +281,7 @@ namespace AirBnb.Data.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("AirBnb.Core.Domain.Content.RoomActivityLog", b =>
+            modelBuilder.Entity("AirBnb.Core.Domain.Content.RoomActivityLogs", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

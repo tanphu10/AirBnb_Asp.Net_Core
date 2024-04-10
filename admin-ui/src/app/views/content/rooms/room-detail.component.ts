@@ -60,6 +60,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
     private roomCategoryApiClient: AdminApiCategoryApiClient,
     private uploadService: UploadService,
     private locationApiClient: AdminApiLocationApiClient
+    
   ) {}
   ngOnDestroy(): void {
     if (this.ref) {
@@ -99,7 +100,6 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
     var categories = this.roomCategoryApiClient.getAllRoomCategory();
     var tags = this.roomApiClient.getAllTags();
     var locations = this.locationApiClient.getAllLocation();
-    var bool
     this.toggleBlockUI(true);
     forkJoin({
       categories,

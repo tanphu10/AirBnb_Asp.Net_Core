@@ -45,7 +45,7 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
         }
         [HttpGet]
-        public async Task<ActionResult<SeriesInListDto>> GetAllSeries()
+        public async Task<ActionResult<List<SeriesInListDto>>> GetAllSeries()
         {
             var data = await _unitOfWork.Series.GetAllAsync();
             return Ok(data);
@@ -121,10 +121,10 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
         }
      
-        [HttpGet("room-series/{roomid}")]
-        public async Task<ActionResult<List<RoomInListDto>>> GetRoomInSeries(Guid roomid)
+        [HttpGet("room-series/{seriesid}")]
+        public async Task<ActionResult<List<RoomInListDto>>> GetRoomInSeries(Guid seriesid)
         {
-            var room = await _unitOfWork.Series.GetAllRoomSeries(roomid);
+            var room = await _unitOfWork.Series.GetAllRoomSeries(seriesid);
             return Ok(room);
         }
 

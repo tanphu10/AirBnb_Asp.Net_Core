@@ -140,6 +140,7 @@ const APP_CONTAINERS = [
     AdminApiRoomApiClient,
     AdminApiLocationApiClient,
     AdminApiSeriesApiClient,
+    AdminApiLocationApiClient,
     TokenStorageService,
     AuthGuard,
     UtilityService,

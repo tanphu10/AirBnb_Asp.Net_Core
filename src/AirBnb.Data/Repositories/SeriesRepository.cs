@@ -66,9 +66,9 @@ namespace AirBnb.Data.Repositories
         public Task<List<RoomInListDto>> GetAllRoomSeries(Guid id)
         {
             var query = from ris in _context.RoomInSeries
-                        join s in _context.Series on ris.SeriesId equals s.Id
-                        join r in _context.Rooms on ris.RoomId equals r.Id
-                        where r.Id == id
+                        join r in _context.Rooms
+                        on ris.RoomId equals r.Id
+                        where ris.SeriesId == id
                         select r;
             return _mapper.ProjectTo<RoomInListDto>(query).ToListAsync();
 

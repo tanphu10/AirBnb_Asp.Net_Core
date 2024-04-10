@@ -120,6 +120,17 @@ namespace AirBnb.Api.Controllers.Admin
                 return NotFound();
             }
             return Ok(data);
+
+        }
+        [HttpGet]
+        [Route("paging")]
+        [Authorize(Rooms.View)]
+        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPaging(string? keyword, Guid? categoryId,
+         int pageIndex, int pageSize = 10)
+        {
+            var userId = User.GetUserId();
+            var result = await _unitOfWork.Rooms.GetAllPaging(keyword, userId, categoryId, pageIndex, pageSize);
+            return Ok(result);
         }
         [HttpGet]
         [Route("paging-aprroval")]
@@ -157,7 +168,8 @@ namespace AirBnb.Api.Controllers.Admin
         public async Task<IActionResult> ReturnBackSubmitRequest(Guid id, [FromBody] ReturnBackSubmitRequest model)
         {
             var currentUserId = User.GetUserId();
-            await _unitOfWork.Rooms.ReturnBackSubmit(id, model.Reason, currentUserId);
+            await _unitOfWork.Rooms.ReturnBackSubmit(id, currentUserId, model.Reason);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
         [HttpGet("return-reason/{roomid}")]
@@ -192,6 +204,13 @@ namespace AirBnb.Api.Controllers.Admin
         public async Task<ActionResult<List<string>>> GetRoomTags(Guid id)
         {
             var tagName = await _unitOfWork.Rooms.GetTagsByRoomtId(id);
+            return Ok(tagName);
+        }
+        [HttpGet("roomActivityLog")]
+        //[Authorize(Rooms.Edit)] 
+        public async Task<ActionResult<List<RoomActivityLogDto>>> GetRoomActivityLogs()
+        {
+            var tagName = await _unitOfWork.Rooms.GetActivityLogs();
             return Ok(tagName);
         }
     }

@@ -316,11 +316,9 @@ export class AdminApiBookRoomApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getAllPagingBook(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomsDtoPagedResult> {
+    getAllPagingBook(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomsDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/book-room/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -717,11 +715,9 @@ export class AdminApiCategoryApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteRoomCategory(ids?: string[] | undefined): Observable<void> {
+    deleteRoomCategory(ids?: string[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/category?";
-        if (ids === null)
-            throw new Error("The parameter 'ids' cannot be null.");
-        else if (ids !== undefined)
+        if (ids !== undefined && ids !== null)
             ids && ids.forEach(item => { url_ += "ids=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -938,11 +934,9 @@ export class AdminApiCategoryApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getRoomCategoryPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomCategoryDtoPagedResult> {
+    getRoomCategoryPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomCategoryDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/category/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -1294,11 +1288,9 @@ export class AdminApiCommentsApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getPagingComment(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<CommentDtoPagedResult> {
+    getPagingComment(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<CommentDtoPagedResult> {
         let url_ = this.baseUrl + "/api/user/comment/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -1708,11 +1700,9 @@ export class AdminApiLocationApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getLocationPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<LocationDtoPagedResult> {
+    getLocationPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<LocationDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/location/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -1784,11 +1774,9 @@ export class AdminApiMediaApiClient {
      * @param type (optional) 
      * @return Success
      */
-    uploadImage(type?: string | undefined): Observable<void> {
+    uploadImage(type?: string | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/media?";
-        if (type === null)
-            throw new Error("The parameter 'type' cannot be null.");
-        else if (type !== undefined)
+        if (type !== undefined && type !== null)
             url_ += "type=" + encodeURIComponent("" + type) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1957,11 +1945,9 @@ export class AdminApiRolesApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteRole(ids?: string[] | undefined): Observable<void> {
+    deleteRole(ids?: string[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/role?";
-        if (ids === null)
-            throw new Error("The parameter 'ids' cannot be null.");
-        else if (ids !== undefined)
+        if (ids !== undefined && ids !== null)
             ids && ids.forEach(item => { url_ += "ids=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2123,11 +2109,9 @@ export class AdminApiRolesApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getAllPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoleDtoPagedResult> {
+    getAllPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoleDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/role/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -2186,7 +2170,7 @@ export class AdminApiRolesApiClient {
     /**
      * @return Success
      */
-    getAllRolePermission(id: string): Observable<PermissionDto> {
+    getAllRolePermission(id: string | null): Observable<PermissionDto> {
         let url_ = this.baseUrl + "/api/admin/role/{id}/permission";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2357,11 +2341,9 @@ export class AdminApiRoomApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteRooms(ids?: string[] | undefined): Observable<void> {
+    deleteRooms(ids?: string[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/room?";
-        if (ids === null)
-            throw new Error("The parameter 'ids' cannot be null.");
-        else if (ids !== undefined)
+        if (ids !== undefined && ids !== null)
             ids && ids.forEach(item => { url_ += "ids=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2572,15 +2554,78 @@ export class AdminApiRoomApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getRoomsPagingApprove(keyword?: string | undefined, categoryId?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomInListDtoPagedResult> {
-        let url_ = this.baseUrl + "/api/admin/room/paging-aprroval?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+    getRoomsPaging(keyword?: string | null | undefined, categoryId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomInListDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/admin/room/paging?";
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
-        // if (categoryId === null)
-        //     throw new Error("The parameter 'categoryId' cannot be null.");
-        else if (categoryId !== undefined)
+        if (categoryId !== undefined && categoryId !== null)
+            url_ += "categoryId=" + encodeURIComponent("" + categoryId) + "&";
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomsPaging(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomsPaging(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RoomInListDtoPagedResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RoomInListDtoPagedResult>;
+        }));
+    }
+
+    protected processGetRoomsPaging(response: HttpResponseBase): Observable<RoomInListDtoPagedResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RoomInListDtoPagedResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param keyword (optional) 
+     * @param categoryId (optional) 
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     * @return Success
+     */
+    getRoomsPagingApprove(keyword?: string | null | undefined, categoryId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<RoomInListDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/admin/room/paging-aprroval?";
+        if (keyword !== undefined && keyword !== null)
+            url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (categoryId !== undefined && categoryId !== null)
             url_ += "categoryId=" + encodeURIComponent("" + categoryId) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -3149,6 +3194,64 @@ export class AdminApiRoomApiClient {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @return Success
+     */
+    getRoomActivityLogs(): Observable<RoomActivityLogDto[]> {
+        let url_ = this.baseUrl + "/api/admin/room/roomactivitylog";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomActivityLogs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomActivityLogs(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RoomActivityLogDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RoomActivityLogDto[]>;
+        }));
+    }
+
+    protected processGetRoomActivityLogs(response: HttpResponseBase): Observable<RoomActivityLogDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RoomActivityLogDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -3217,7 +3320,7 @@ export class AdminApiSeriesApiClient {
     /**
      * @return Success
      */
-    getAllSeries(): Observable<SeriesInListDto> {
+    getAllSeries(): Observable<SeriesInListDto[]> {
         let url_ = this.baseUrl + "/api/admin/series";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3236,14 +3339,14 @@ export class AdminApiSeriesApiClient {
                 try {
                     return this.processGetAllSeries(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SeriesInListDto>;
+                    return _observableThrow(e) as any as Observable<SeriesInListDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SeriesInListDto>;
+                return _observableThrow(response_) as any as Observable<SeriesInListDto[]>;
         }));
     }
 
-    protected processGetAllSeries(response: HttpResponseBase): Observable<SeriesInListDto> {
+    protected processGetAllSeries(response: HttpResponseBase): Observable<SeriesInListDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3254,7 +3357,14 @@ export class AdminApiSeriesApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = SeriesInListDto.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SeriesInListDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -3269,11 +3379,9 @@ export class AdminApiSeriesApiClient {
      * @param ids (optional) 
      * @return Success
      */
-    deleteSeries(ids?: string[] | undefined): Observable<void> {
+    deleteSeries(ids?: string[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/series?";
-        if (ids === null)
-            throw new Error("The parameter 'ids' cannot be null.");
-        else if (ids !== undefined)
+        if (ids !== undefined && ids !== null)
             ids && ids.forEach(item => { url_ += "ids=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3484,11 +3592,9 @@ export class AdminApiSeriesApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getSeriesPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<SeriesInListDtoPagedResult> {
+    getSeriesPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<SeriesInListDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/series/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -3599,11 +3705,11 @@ export class AdminApiSeriesApiClient {
     /**
      * @return Success
      */
-    getRoomInSeries(roomid: string): Observable<RoomInListDto[]> {
-        let url_ = this.baseUrl + "/api/admin/series/room-series/{roomid}";
-        if (roomid === undefined || roomid === null)
-            throw new Error("The parameter 'roomid' must be defined.");
-        url_ = url_.replace("{roomid}", encodeURIComponent("" + roomid));
+    getRoomInSeries(seriesid: string): Observable<RoomInListDto[]> {
+        let url_ = this.baseUrl + "/api/admin/series/room-series/{seriesid}";
+        if (seriesid === undefined || seriesid === null)
+            throw new Error("The parameter 'seriesid' must be defined.");
+        url_ = url_.replace("{seriesid}", encodeURIComponent("" + seriesid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4054,11 +4160,9 @@ export class AdminApiUserApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getAllUserPaging(keyword?: string | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<UserDtoPagedResult> {
+    getAllUserPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<UserDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/users/paging?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
+        if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
@@ -4280,7 +4384,7 @@ export class AdminApiUserApiClient {
      * @param body (optional) 
      * @return Success
      */
-    assignRoleToUser(id: string, body?: string[] | undefined): Observable<void> {
+    assignRoleToUser(id: string | null, body?: string[] | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/admin/users/{id}/assign-users";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -4993,6 +5097,8 @@ export interface ICreateUpdateCommentRequest {
 
 export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest {
     name?: string | undefined;
+    district?: string | undefined;
+    isACtive?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
@@ -5010,6 +5116,8 @@ export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"];
+            this.district = _data["district"];
+            this.isACtive = _data["isACtive"];
             this.province = _data["province"];
             this.slug = _data["slug"];
             this.nation = _data["nation"];
@@ -5027,6 +5135,8 @@ export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
+        data["district"] = this.district;
+        data["isACtive"] = this.isACtive;
         data["province"] = this.province;
         data["slug"] = this.slug;
         data["nation"] = this.nation;
@@ -5037,6 +5147,8 @@ export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest
 
 export interface ICreateUpdateLocationRequest {
     name?: string | undefined;
+    district?: string | undefined;
+    isACtive?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
@@ -5342,10 +5454,12 @@ export interface ICreateUserRequest {
 export class Location implements ILocation {
     id?: string;
     name!: string;
+    district?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
     thumbnail?: string | undefined;
+    isActive?: boolean;
 
     constructor(data?: ILocation) {
         if (data) {
@@ -5360,10 +5474,12 @@ export class Location implements ILocation {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.district = _data["district"];
             this.province = _data["province"];
             this.slug = _data["slug"];
             this.nation = _data["nation"];
             this.thumbnail = _data["thumbnail"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -5378,10 +5494,12 @@ export class Location implements ILocation {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["district"] = this.district;
         data["province"] = this.province;
         data["slug"] = this.slug;
         data["nation"] = this.nation;
         data["thumbnail"] = this.thumbnail;
+        data["isActive"] = this.isActive;
         return data;
     }
 }
@@ -5389,19 +5507,23 @@ export class Location implements ILocation {
 export interface ILocation {
     id?: string;
     name: string;
+    district?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
     thumbnail?: string | undefined;
+    isActive?: boolean;
 }
 
 export class LocationDto implements ILocationDto {
     id?: string;
     name?: string | undefined;
+    district?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
     thumbnail?: string | undefined;
+    isActive?: boolean;
 
     constructor(data?: ILocationDto) {
         if (data) {
@@ -5416,10 +5538,12 @@ export class LocationDto implements ILocationDto {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.district = _data["district"];
             this.province = _data["province"];
             this.slug = _data["slug"];
             this.nation = _data["nation"];
             this.thumbnail = _data["thumbnail"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -5434,10 +5558,12 @@ export class LocationDto implements ILocationDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["district"] = this.district;
         data["province"] = this.province;
         data["slug"] = this.slug;
         data["nation"] = this.nation;
         data["thumbnail"] = this.thumbnail;
+        data["isActive"] = this.isActive;
         return data;
     }
 }
@@ -5445,10 +5571,12 @@ export class LocationDto implements ILocationDto {
 export interface ILocationDto {
     id?: string;
     name?: string | undefined;
+    district?: string | undefined;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
     thumbnail?: string | undefined;
+    isActive?: boolean;
 }
 
 export class LocationDtoPagedResult implements ILocationDtoPagedResult {

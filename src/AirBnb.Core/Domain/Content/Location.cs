@@ -18,14 +18,17 @@ namespace AirBnb.Core.Domain.Content
         [MaxLength(250)]
         [Required]
         public required string Name { get; set; }
+        [MaxLength(250)]
+        public string District { get; set; }
 
         [MaxLength(250)]
-        public string province { get; set; }
+        public string Province { get; set; }
 
         [Column(TypeName = "varchar(250)")]
         public string Slug { get; set; }
         public string Nation { get; set; }
         [MaxLength(250)]
         public string? Thumbnail { set; get; }
+        public bool IsActive { set; get; }
     }
 }

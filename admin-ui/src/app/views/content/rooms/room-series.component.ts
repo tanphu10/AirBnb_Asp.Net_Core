@@ -70,7 +70,7 @@ export class RoomSeriesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: any) => {
-          // console.log("series response =>>>",repsonse)
+          console.log("series response =>>>",repsonse)
           //Push categories to dropdown list
           var series = repsonse.series as SeriesInListDto[];
           series.forEach((element) => {
@@ -91,13 +91,13 @@ export class RoomSeriesComponent implements OnInit, OnDestroy {
       });
   }
   loadSeries(id: string) {
-    console.log('get series id r', id);
+    // console.log('get series id r', id);
     this.postApiClient
       .getSeriesBelong(id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: SeriesInListDto[]) => {
-          console.log('response', response);
+          // console.log('response', response);
           this.postSeries = response;
           this.toggleBlockUI(false);
         },

@@ -59,10 +59,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   loadData(selectionId = null) {
-    // console.log("categoryId",this.categoryId)
     this.toggleBlockUI(true);
     this.roomApiClient
-      .getRoomsPagingApprove(
+      .getRoomsPaging(
         this.keyword,
         this.categoryId,
         this.pageIndex,
@@ -71,7 +70,6 @@ export class RoomComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: RoomInListDtoPagedResult) => {
-          console.log('check roominlistDto', response);
           this.items = response.results;
           this.totalCount = response.rowCount;
           this.toggleBlockUI(false);
@@ -178,6 +176,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
   }
   addToSeries(id: string) {
+    // console.log("first",id)
     const ref = this.dialogService.open(RoomSeriesComponent, {
       data: {
         id: id,

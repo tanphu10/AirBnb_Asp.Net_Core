@@ -43,11 +43,12 @@ export class SeriesRoomsComponent implements OnInit {
 
   loadData(id: string) {
     this.toggleBlockUI(true);
-    // console.log("check series id =>>",id)
+    console.log("check series id =>>",id)
     this.seriesApiClient.getRoomInSeries(id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: RoomInListDto[]) => {
+          console.log("roomInList",response);
           this.posts = response;
           this.toggleBlockUI(false);
         },
