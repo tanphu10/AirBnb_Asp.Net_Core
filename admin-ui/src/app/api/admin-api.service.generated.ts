@@ -257,6 +257,61 @@ export class AdminApiBookRoomApiClient {
     }
 
     /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateBookRoom(id: string, body?: CreateUpdateBookRoomRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/book-room/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateBookRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateBookRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateBookRoom(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @return Success
      */
     getRoomId(id: string): Observable<BookRoomsDto> {
@@ -637,6 +692,67 @@ export class AdminApiBookRoomApiClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getActivityLog(bookid: string): Observable<BookRoomActivityLogDto[]> {
+        let url_ = this.baseUrl + "/api/admin/book-room/activity-logs/{bookid}";
+        if (bookid === undefined || bookid === null)
+            throw new Error("The parameter 'bookid' must be defined.");
+        url_ = url_.replace("{bookid}", encodeURIComponent("" + bookid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetActivityLog(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetActivityLog(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<BookRoomActivityLogDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<BookRoomActivityLogDto[]>;
+        }));
+    }
+
+    protected processGetActivityLog(response: HttpResponseBase): Observable<BookRoomActivityLogDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(BookRoomActivityLogDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -2499,7 +2615,7 @@ export class AdminApiRoomApiClient {
     /**
      * @return Success
      */
-    getAllRequest(): Observable<RoomDto> {
+    getAllRequest(): Observable<RoomDto[]> {
         let url_ = this.baseUrl + "/api/admin/room/all-room";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2518,14 +2634,14 @@ export class AdminApiRoomApiClient {
                 try {
                     return this.processGetAllRequest(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<RoomDto>;
+                    return _observableThrow(e) as any as Observable<RoomDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<RoomDto>;
+                return _observableThrow(response_) as any as Observable<RoomDto[]>;
         }));
     }
 
-    protected processGetAllRequest(response: HttpResponseBase): Observable<RoomDto> {
+    protected processGetAllRequest(response: HttpResponseBase): Observable<RoomDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2536,7 +2652,14 @@ export class AdminApiRoomApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = RoomDto.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RoomDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -2955,7 +3078,7 @@ export class AdminApiRoomApiClient {
     /**
      * @return Success
      */
-    getActivityLog(roomid: string): Observable<RoomActivityLogDto[]> {
+    getActivityLog2(roomid: string): Observable<RoomActivityLogDto[]> {
         let url_ = this.baseUrl + "/api/admin/room/activity-logs/{roomid}";
         if (roomid === undefined || roomid === null)
             throw new Error("The parameter 'roomid' must be defined.");
@@ -2971,11 +3094,11 @@ export class AdminApiRoomApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetActivityLog(response_);
+            return this.processGetActivityLog2(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetActivityLog(response_ as any);
+                    return this.processGetActivityLog2(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<RoomActivityLogDto[]>;
                 }
@@ -2984,7 +3107,7 @@ export class AdminApiRoomApiClient {
         }));
     }
 
-    protected processGetActivityLog(response: HttpResponseBase): Observable<RoomActivityLogDto[]> {
+    protected processGetActivityLog2(response: HttpResponseBase): Observable<RoomActivityLogDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4520,6 +4643,70 @@ export interface IAuthenticatedResult {
     refreshToken?: string | undefined;
 }
 
+export class BookRoomActivityLogDto implements IBookRoomActivityLogDto {
+    id?: string;
+    roomId?: string;
+    fromStatus?: BookRoomStatus;
+    toStatus?: BookRoomStatus;
+    dateCreated?: Date;
+    note?: string | undefined;
+    userId?: string;
+    userName?: string | undefined;
+
+    constructor(data?: IBookRoomActivityLogDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.roomId = _data["roomId"];
+            this.fromStatus = _data["fromStatus"];
+            this.toStatus = _data["toStatus"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.note = _data["note"];
+            this.userId = _data["userId"];
+            this.userName = _data["userName"];
+        }
+    }
+
+    static fromJS(data: any): BookRoomActivityLogDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BookRoomActivityLogDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["roomId"] = this.roomId;
+        data["fromStatus"] = this.fromStatus;
+        data["toStatus"] = this.toStatus;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["note"] = this.note;
+        data["userId"] = this.userId;
+        data["userName"] = this.userName;
+        return data;
+    }
+}
+
+export interface IBookRoomActivityLogDto {
+    id?: string;
+    roomId?: string;
+    fromStatus?: BookRoomStatus;
+    toStatus?: BookRoomStatus;
+    dateCreated?: Date;
+    note?: string | undefined;
+    userId?: string;
+    userName?: string | undefined;
+}
+
 export class BookRoomInListDto implements IBookRoomInListDto {
     id?: string;
     roomId?: string;
@@ -5098,7 +5285,7 @@ export interface ICreateUpdateCommentRequest {
 export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest {
     name?: string | undefined;
     district?: string | undefined;
-    isACtive?: string | undefined;
+    isACtive?: boolean;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;
@@ -5148,7 +5335,7 @@ export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest
 export interface ICreateUpdateLocationRequest {
     name?: string | undefined;
     district?: string | undefined;
-    isACtive?: string | undefined;
+    isACtive?: boolean;
     province?: string | undefined;
     slug?: string | undefined;
     nation?: string | undefined;

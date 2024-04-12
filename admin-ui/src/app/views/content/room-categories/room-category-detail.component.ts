@@ -38,10 +38,10 @@ export class RoomCategoryDetailComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.complete();
     }
 
-    // public generateSlug() {
-    //     var slug = this.utilService.makeSeoTitle(this.form.get('name').value);
-    //     this.form.controls['slug'].setValue(slug)
-    // }
+    public generateSlug() {
+        var slug = this.utilService.makeSeoTitle(this.form.get('name').value);
+        this.form.controls['slug'].setValue(slug)
+    }
     
     ngOnInit() {
         this.buildForm();

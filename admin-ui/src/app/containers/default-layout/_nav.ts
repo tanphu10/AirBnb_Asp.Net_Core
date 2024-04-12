@@ -92,7 +92,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Đặt Phòng',
-        url: '/order/bookroom',
+        url: '/order/book-rooms',
         attributes:{
           "policyName":"Permissions.BookRooms.View"
         }

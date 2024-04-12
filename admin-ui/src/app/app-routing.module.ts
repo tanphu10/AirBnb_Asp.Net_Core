@@ -55,7 +55,7 @@ const routes: Routes = [
           import('./views/content/content.module').then((m) => m.ContentModule),
       },
       {
-        path: 'bookroom',
+        path: 'order',
         loadChildren: () =>
           import('./views/order/order.module').then((m) => m.OrderModule),
       },

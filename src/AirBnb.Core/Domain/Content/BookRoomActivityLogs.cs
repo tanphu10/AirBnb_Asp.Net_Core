@@ -12,15 +12,12 @@ namespace AirBnb.Core.Domain.Content
     [Table("BookRoomActivityLogs")]
     public class BookRoomActivityLog
     {
-        [Key]
         public Guid Id { get; set; }
         public Guid RoomId { get; set; }
         public BookRoomStatus FromStatus { set; get; }
         public BookRoomStatus ToStatus { set; get; }
 
         public DateTime DateCreated { get; set; }
-
-        [MaxLength(500)]
         public string? Note { set; get; }
 
         public Guid UserId { get; set; }

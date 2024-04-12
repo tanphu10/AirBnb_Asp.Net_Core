@@ -47,7 +47,7 @@ export class RoomActivityLogsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //Load data to form
     this.toggleBlockUI(true);
-    this.roomApiClient.getActivityLog(this.config.data.id)
+    this.roomApiClient.getActivityLog2(this.config.data.id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: RoomActivityLogDto[]) => {

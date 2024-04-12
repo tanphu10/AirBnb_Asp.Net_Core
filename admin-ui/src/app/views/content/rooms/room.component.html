@@ -3,11 +3,11 @@
     <p-header> Quản lý bài viết </p-header>
     <div class="row">
       <div class="col-4">
-        <button appPermission appPolicy="Permissons.Posts.Add" pButton type="button" label="Thêm" icon="fa fa-plus"
+        <button appPermission appPolicy="Permissons.Rooms.Add" pButton type="button" label="Thêm" icon="fa fa-plus"
           (click)="showAddModal()" class="p-button-sm p-button-success ms-1"></button>
-        <button appPermission appPolicy="Permissons.Posts.Delete" pButton type="button" label="Xóa" icon="fa fa-trash"
+        <button appPermission appPolicy="Permissons.Rooms.Delete" pButton type="button" label="Xóa" icon="fa fa-trash"
           class="p-button-sm p-button-danger ms-1" *ngIf="selectedItems.length > 0" (click)="deleteItems()"></button>
-        <button appPermission appPolicy="Permissons.Posts.Edit" pButton type="button" label="Sửa" icon="fa fa-edit"
+        <button appPermission appPolicy="Permissons.Rooms.Edit" pButton type="button" label="Sửa" icon="fa fa-edit"
           class="p-button-sm p-button-warning ms-1" *ngIf="selectedItems.length == 1"
           (click)="showEditModal()"></button>
       </div>

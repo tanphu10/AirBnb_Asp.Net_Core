@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
-import { ContentRoutingModule } from './content-routing.module';
 import { BlockUIModule } from 'primeng/blockui';
 import { PaginatorModule } from 'primeng/paginator';
 import { PanelModule } from 'primeng/panel';
@@ -22,6 +21,9 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+
+
+import { ContentRoutingModule } from './content-routing.module';
 import { SeriesComponent } from './series/series.component';
 import { SeriesDetailComponent } from './series/series-detail.component';
 import { RoomCategoryComponent } from './room-categories/room-category.component';

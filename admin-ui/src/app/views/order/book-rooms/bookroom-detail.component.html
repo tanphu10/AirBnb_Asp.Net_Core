@@ -1,0 +1,56 @@
+<form class="form-horizontal form-label-left" skipValidation [formGroup]="form" (ngSubmit)="saveChange()">
+  <p-panel #pnlDetail header="Thông tin" [toggleable]="true" [collapsed]="false">
+    <div class="formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label for="roomId" class="block">Tên Khách sạn</label>
+        <p-dropdown id="roomId" [options]="roomCategories" formControlName="roomId" [showClear]="true"
+          placeholder="Chọn Khách Sạn" autoWidth="false" [style]="{ width: '100%' }">
+        </p-dropdown>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="guestNumber">số lượng khách<span class="required">*</span></label>
+        <input id="guestNumber" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="guestNumber"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="guestNumber" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="note">ghi chú<span class="required">*</span></label>
+        <input id="note" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="note"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="note" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="dateCheckIn">ngày check in<span class="required">*</span></label>
+        <input id="dateCheckIn" type="date" pInputText [pKeyFilter]="noSpecial" formControlName="dateCheckIn"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="dateCheckIn" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="dateCheckout">ngày check out<span class="required">*</span></label>
+        <input id="dateCheckout" type="date" pInputText [pKeyFilter]="noSpecial" formControlName="dateCheckout"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="dateCheckout" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+
+
+
+    </div>
+    <ng-template pTemplate="footer">
+      <button type="submit" class="btn btn-primary ms-1" [disabled]="!form.valid || btnDisabled">
+        Lưu nháp
+      </button>
+    </ng-template>
+
+    <p-blockUI [target]="pnlDetail" [blocked]="blockedPanelDetail">
+      <p-progressSpinner [style]="{ width: '100px', height: '100px', position: 'absolute', top: '25%', left: '50%' }"
+        strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
+    </p-blockUI>
+  </p-panel>
+</form>

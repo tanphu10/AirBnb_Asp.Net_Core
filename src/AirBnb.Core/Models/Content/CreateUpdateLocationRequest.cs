@@ -14,8 +14,8 @@ namespace AirBnb.Core.Models.Content
     {
         public required string Name { get; set; }
         public string District { get; set; }
-        public string IsACtive { get; set; }
-        public string province { get; set; }
+        public bool IsACtive { get; set; }
+        public string Province { get; set; }
         public string Slug { get; set; }
         public string Nation { get; set; }
         public string? Thumbnail { set; get; }

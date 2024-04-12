@@ -104,7 +104,7 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpGet]
         [Route("all-room")]
-        public async Task<ActionResult<RoomDto>> GetAllRequest()
+        public async Task<ActionResult<List<RoomDto>>> GetAllRequest()
         {
             var room = await _unitOfWork.Rooms.GetAllAsync();
             return Ok(room);

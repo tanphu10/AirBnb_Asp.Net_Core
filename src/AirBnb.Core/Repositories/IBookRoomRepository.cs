@@ -21,5 +21,7 @@ namespace AirBnb.Core.Repositories
         Task ReturnBackSubmit(Guid bookid, string reason, Guid currentUserId);
         Task<string> GetReturnReason(Guid bookId);
         //Task SenToApproveBookRoom(Guid id, Guid currentId);
+        Task<List<BookRoomActivityLogDto>> GetActivityLogAsync(Guid id);
+
     }
 }

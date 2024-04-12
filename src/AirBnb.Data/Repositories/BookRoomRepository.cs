@@ -3,6 +3,7 @@ using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.Repositories;
+using AirBnb.Core.SeedWorks;
 using AirBnb.Data.SeedWorks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,7 +100,7 @@ namespace AirBnb.Data.Repositories
                 UserId = currentUserId,
                 UserName = user.UserName,
                 RoomId = bookroom.RoomId,
-                Note = $"{user?.UserName} duyệt bài"
+                Note = $"{user?.UserName} duyệt đặt phòng"
             });
             bookroom.Status = BookRoomStatus.Approve;
             //bookroom.
@@ -122,36 +125,53 @@ namespace AirBnb.Data.Repositories
 
         public async Task ReturnBackSubmit(Guid bookroomid, string reason, Guid currentUserId)
         {
-                        var bookroom = await _context.BookRooms.FindAsync(bookroomid);
+            var bookroom = await _context.BookRooms.FindAsync(bookroomid);
             if (bookroom == null)
             {
                 throw new Exception("không tồn tại bookroom");
             }
-            var user = await _userManager.FindByIdAsync(currentUserId.ToString());
-            if (user == null)
-            {
-                throw new Exception("user không tồn tại");
+            var user = await _context.Users.FindAsync(currentUserId);
 
-            }
-            await _context.BookRoomActivityLogs.AddAsync(new BookRoomActivityLog()
+            var data = await _context.BookRoomActivityLogs.AddAsync(new BookRoomActivityLog()
             {
+                Id = Guid.NewGuid(),
                 RoomId = bookroomid,
                 FromStatus = bookroom.Status,
                 ToStatus = BookRoomStatus.Rejected,
-                UserId = user.Id,
-                UserName = user?.UserName,
                 Note = reason,
+                UserId = currentUserId,
+                UserName = user?.UserName,
             });
-
             bookroom.Status = BookRoomStatus.Rejected;
             _context.BookRooms.Update(bookroom);
         }
         public async Task<string> GetReturnReason(Guid bookId)
         {
+            //chổ này đổi lại RoomId thành BookID
             var data = await _context.BookRoomActivityLogs.
               Where(x => x.RoomId == bookId && x.ToStatus == BookRoomStatus.Rejected).OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
             return data?.Note;
         }
+
+        public async Task<List<BookRoomActivityLogDto>> GetActivityLogAsync(Guid id)
+        {
+            var data = await _context.BookRoomActivityLogs.Where(x => x.RoomId == id).OrderByDescending(x => x.DateCreated).ToListAsync();
+            var activity = data.Select(act => new BookRoomActivityLogDto
+            {
+                Id = act.Id,
+                RoomId = act.RoomId,
+                FromStatus = act.FromStatus,
+                ToStatus = act.ToStatus,
+                DateCreated = act.DateCreated,
+                Note = act.Note,
+                UserId = act.UserId,
+                UserName = act.UserName,
+            }).ToList();
+            return activity;
+        }
+
+
+
 
         //public async Task SenToApproveBookRoom(Guid id,Guid currentId)
         //{

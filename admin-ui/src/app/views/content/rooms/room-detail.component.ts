@@ -125,6 +125,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
               label: element.name,
             });
           });
+          // console.log(this.config.data.id)
           if (this.utilService.isEmpty(this.config.data?.id) == false) {
             this.roomApiClient
               .getRoomTags(this.config.data?.id)
@@ -141,8 +142,10 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
         },
       });
   }
+
+
   loadFormDetails(id: string) {
-    // console.log('id form detail', id);
+    console.log('id form detail', id);
     this.roomApiClient
       .getRoomId(id)
       .pipe(takeUntil(this.ngUnsubscribe))
