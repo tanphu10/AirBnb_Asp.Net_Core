@@ -9,13 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
-
 // Import app component
 import { AppComponent } from './app.component';
-
 // Import containers
 import {
   DefaultFooterComponent,
@@ -50,6 +47,7 @@ import {
   AdminApiAuthApiClient,
   AdminApiBookRoomApiClient,
   AdminApiCategoryApiClient,
+  AdminApiCommentsApiClient,
   AdminApiLocationApiClient,
   AdminApiRolesApiClient,
   AdminApiRoomApiClient,
@@ -76,6 +74,7 @@ const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
+ 
 ];
 
 @NgModule({
@@ -143,6 +142,7 @@ const APP_CONTAINERS = [
     AdminApiSeriesApiClient,
     AdminApiLocationApiClient,
     AdminApiBookRoomApiClient,
+    AdminApiCommentsApiClient,
     TokenStorageService,
     AuthGuard,
     UtilityService,

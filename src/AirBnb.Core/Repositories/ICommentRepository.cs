@@ -12,7 +12,9 @@ namespace AirBnb.Core.Repositories
 {
     public interface ICommentRepository:IRepository<Comments,Guid>
     {
-        Task<List<CommentDto>> GetCommentsRoom(Guid roomid);
-        Task<PagedResult<CommentDto>> GetAllPaging(string? keyword, int pageIndex, int pageSize);
+        Task<List<CommentInListDto>> GetCommentsRoom(Guid roomid);
+        Task<List<CommentInListDto>> GetCommentAllAsync();
+        Task<CommentDto> GetCommentId(Guid id);
+        Task<PagedResult<CommentInListDto>> GetAllPaging(string? keyword,Guid? roomId, int pageIndex, int pageSize);
     }
 }

@@ -2,6 +2,7 @@
 using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
+using AirBnb.Core.Models.System;
 using AirBnb.Core.Repositories;
 using AirBnb.Core.SeedWorks;
 using AirBnb.Data.SeedWorks;
@@ -34,13 +35,17 @@ namespace AirBnb.Data.Repositories
         }
 
 
-        public async Task<PagedResult<BookRoomInListDto>> GetAllPaging(string? keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedResult<BookRoomInListDto>> GetAllPaging(string? keyword, Guid? roomId, int pageIndex = 1, int pageSize = 10)
         {
             var query = _context.BookRooms.AsQueryable();
-            //if (!string.IsNullOrEmpty(keyword))
-            //{
-            //    //query= query.Where(x=>x.)
-            //}
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(x => x.RoomName.Contains(keyword));
+            }
+            if (roomId.HasValue)
+            {
+                query = query.Where(x => x.RoomId == roomId);
+            }
             var totalRow = await query.CountAsync();
             query.OrderByDescending(x => x.DateCheckIn).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return new PagedResult<BookRoomInListDto>
@@ -170,9 +175,11 @@ namespace AirBnb.Data.Repositories
             return activity;
         }
 
-
-
-
+        public async Task<NewBookRooms> GetUserBooked(Guid fromUserId)
+        {
+            var data = _context.BookRooms.Where(x => x.AuthorUserId == fromUserId);
+            return _mapper.Map<NewBookRooms>(data);
+        }
         //public async Task SenToApproveBookRoom(Guid id,Guid currentId)
         //{
         //    var book = await _context.BookRooms.FindAsync(id);

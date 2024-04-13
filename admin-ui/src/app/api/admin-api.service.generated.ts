@@ -367,14 +367,17 @@ export class AdminApiBookRoomApiClient {
 
     /**
      * @param keyword (optional) 
+     * @param roomId (optional) 
      * @param pageIndex (optional) 
      * @param pageSize (optional) 
      * @return Success
      */
-    getAllPagingBook(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomsDtoPagedResult> {
+    getAllPagingBook(keyword?: string | null | undefined, roomId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomsDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/book-room/paging?";
         if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (roomId !== undefined && roomId !== null)
+            url_ += "roomId=" + encodeURIComponent("" + roomId) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
         else if (pageIndex !== undefined)
@@ -1282,7 +1285,61 @@ export class AdminApiCommentsApiClient {
     /**
      * @return Success
      */
-    getAllComments(): Observable<CommentDto[]> {
+    getCommentById(id: string): Observable<CommentDto> {
+        let url_ = this.baseUrl + "/api/user/comment/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCommentById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCommentById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CommentDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CommentDto>;
+        }));
+    }
+
+    protected processGetCommentById(response: HttpResponseBase): Observable<CommentDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CommentDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllComments(): Observable<CommentInListDto[]> {
         let url_ = this.baseUrl + "/api/user/comment/all";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1301,14 +1358,14 @@ export class AdminApiCommentsApiClient {
                 try {
                     return this.processGetAllComments(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<CommentDto[]>;
+                    return _observableThrow(e) as any as Observable<CommentInListDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<CommentDto[]>;
+                return _observableThrow(response_) as any as Observable<CommentInListDto[]>;
         }));
     }
 
-    protected processGetAllComments(response: HttpResponseBase): Observable<CommentDto[]> {
+    protected processGetAllComments(response: HttpResponseBase): Observable<CommentInListDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1322,7 +1379,7 @@ export class AdminApiCommentsApiClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(CommentDto.fromJS(item));
+                    result200!.push(CommentInListDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -1340,7 +1397,7 @@ export class AdminApiCommentsApiClient {
     /**
      * @return Success
      */
-    getCommentRoom(roomid: string): Observable<CommentDto[]> {
+    getCommentRoom(roomid: string): Observable<CommentInListDto[]> {
         let url_ = this.baseUrl + "/api/user/comment/room/{roomid}";
         if (roomid === undefined || roomid === null)
             throw new Error("The parameter 'roomid' must be defined.");
@@ -1362,14 +1419,14 @@ export class AdminApiCommentsApiClient {
                 try {
                     return this.processGetCommentRoom(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<CommentDto[]>;
+                    return _observableThrow(e) as any as Observable<CommentInListDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<CommentDto[]>;
+                return _observableThrow(response_) as any as Observable<CommentInListDto[]>;
         }));
     }
 
-    protected processGetCommentRoom(response: HttpResponseBase): Observable<CommentDto[]> {
+    protected processGetCommentRoom(response: HttpResponseBase): Observable<CommentInListDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1383,7 +1440,7 @@ export class AdminApiCommentsApiClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(CommentDto.fromJS(item));
+                    result200!.push(CommentInListDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -1400,14 +1457,17 @@ export class AdminApiCommentsApiClient {
 
     /**
      * @param keyword (optional) 
+     * @param roomId (optional) 
      * @param pageIndex (optional) 
      * @param pageSize (optional) 
      * @return Success
      */
-    getPagingComment(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<CommentDtoPagedResult> {
+    getPagingComment(keyword?: string | null | undefined, roomId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<CommentInListDtoPagedResult> {
         let url_ = this.baseUrl + "/api/user/comment/paging?";
         if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (roomId !== undefined && roomId !== null)
+            url_ += "roomId=" + encodeURIComponent("" + roomId) + "&";
         if (pageIndex === null)
             throw new Error("The parameter 'pageIndex' cannot be null.");
         else if (pageIndex !== undefined)
@@ -1433,14 +1493,14 @@ export class AdminApiCommentsApiClient {
                 try {
                     return this.processGetPagingComment(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<CommentDtoPagedResult>;
+                    return _observableThrow(e) as any as Observable<CommentInListDtoPagedResult>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<CommentDtoPagedResult>;
+                return _observableThrow(response_) as any as Observable<CommentInListDtoPagedResult>;
         }));
     }
 
-    protected processGetPagingComment(response: HttpResponseBase): Observable<CommentDtoPagedResult> {
+    protected processGetPagingComment(response: HttpResponseBase): Observable<CommentInListDtoPagedResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1451,7 +1511,7 @@ export class AdminApiCommentsApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CommentDtoPagedResult.fromJS(resultData200);
+            result200 = CommentInListDtoPagedResult.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5005,6 +5065,8 @@ export interface IChangePasswordRequest {
 export class CommentDto implements ICommentDto {
     id?: string;
     roomId?: string;
+    roomName?: string | undefined;
+    authorUserName?: string | undefined;
     userId?: string;
     dateCreated?: Date;
     content?: string | undefined;
@@ -5022,6 +5084,8 @@ export class CommentDto implements ICommentDto {
         if (_data) {
             this.id = _data["id"];
             this.roomId = _data["roomId"];
+            this.roomName = _data["roomName"];
+            this.authorUserName = _data["authorUserName"];
             this.userId = _data["userId"];
             this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
             this.content = _data["content"];
@@ -5039,6 +5103,8 @@ export class CommentDto implements ICommentDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["roomId"] = this.roomId;
+        data["roomName"] = this.roomName;
+        data["authorUserName"] = this.authorUserName;
         data["userId"] = this.userId;
         data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         data["content"] = this.content;
@@ -5049,12 +5115,74 @@ export class CommentDto implements ICommentDto {
 export interface ICommentDto {
     id?: string;
     roomId?: string;
+    roomName?: string | undefined;
+    authorUserName?: string | undefined;
     userId?: string;
     dateCreated?: Date;
     content?: string | undefined;
 }
 
-export class CommentDtoPagedResult implements ICommentDtoPagedResult {
+export class CommentInListDto implements ICommentInListDto {
+    id?: string;
+    roomId?: string;
+    roomName?: string | undefined;
+    authorUserName?: string | undefined;
+    userId?: string;
+    dateCreated?: Date;
+    content?: string | undefined;
+
+    constructor(data?: ICommentInListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.roomId = _data["roomId"];
+            this.roomName = _data["roomName"];
+            this.authorUserName = _data["authorUserName"];
+            this.userId = _data["userId"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.content = _data["content"];
+        }
+    }
+
+    static fromJS(data: any): CommentInListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommentInListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["roomId"] = this.roomId;
+        data["roomName"] = this.roomName;
+        data["authorUserName"] = this.authorUserName;
+        data["userId"] = this.userId;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["content"] = this.content;
+        return data;
+    }
+}
+
+export interface ICommentInListDto {
+    id?: string;
+    roomId?: string;
+    roomName?: string | undefined;
+    authorUserName?: string | undefined;
+    userId?: string;
+    dateCreated?: Date;
+    content?: string | undefined;
+}
+
+export class CommentInListDtoPagedResult implements ICommentInListDtoPagedResult {
     currentPage?: number;
     pageCount?: number;
     pageSize?: number;
@@ -5062,9 +5190,9 @@ export class CommentDtoPagedResult implements ICommentDtoPagedResult {
     readonly firstRowOnPage?: number;
     readonly lastRowOnPage?: number;
     additionalData?: string | undefined;
-    results?: CommentDto[] | undefined;
+    results?: CommentInListDto[] | undefined;
 
-    constructor(data?: ICommentDtoPagedResult) {
+    constructor(data?: ICommentInListDtoPagedResult) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -5085,14 +5213,14 @@ export class CommentDtoPagedResult implements ICommentDtoPagedResult {
             if (Array.isArray(_data["results"])) {
                 this.results = [] as any;
                 for (let item of _data["results"])
-                    this.results!.push(CommentDto.fromJS(item));
+                    this.results!.push(CommentInListDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): CommentDtoPagedResult {
+    static fromJS(data: any): CommentInListDtoPagedResult {
         data = typeof data === 'object' ? data : {};
-        let result = new CommentDtoPagedResult();
+        let result = new CommentInListDtoPagedResult();
         result.init(data);
         return result;
     }
@@ -5115,7 +5243,7 @@ export class CommentDtoPagedResult implements ICommentDtoPagedResult {
     }
 }
 
-export interface ICommentDtoPagedResult {
+export interface ICommentInListDtoPagedResult {
     currentPage?: number;
     pageCount?: number;
     pageSize?: number;
@@ -5123,7 +5251,7 @@ export interface ICommentDtoPagedResult {
     firstRowOnPage?: number;
     lastRowOnPage?: number;
     additionalData?: string | undefined;
-    results?: CommentDto[] | undefined;
+    results?: CommentInListDto[] | undefined;
 }
 
 export class CreateUpdateBookRoomRequest implements ICreateUpdateBookRoomRequest {
@@ -5245,6 +5373,7 @@ export interface ICreateUpdateCategoryRequest {
 export class CreateUpdateCommentRequest implements ICreateUpdateCommentRequest {
     roomId?: string;
     content?: string | undefined;
+    dateCreated?: Date;
 
     constructor(data?: ICreateUpdateCommentRequest) {
         if (data) {
@@ -5259,6 +5388,7 @@ export class CreateUpdateCommentRequest implements ICreateUpdateCommentRequest {
         if (_data) {
             this.roomId = _data["roomId"];
             this.content = _data["content"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
         }
     }
 
@@ -5273,6 +5403,7 @@ export class CreateUpdateCommentRequest implements ICreateUpdateCommentRequest {
         data = typeof data === 'object' ? data : {};
         data["roomId"] = this.roomId;
         data["content"] = this.content;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         return data;
     }
 }
@@ -5280,6 +5411,7 @@ export class CreateUpdateCommentRequest implements ICreateUpdateCommentRequest {
 export interface ICreateUpdateCommentRequest {
     roomId?: string;
     content?: string | undefined;
+    dateCreated?: Date;
 }
 
 export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest {

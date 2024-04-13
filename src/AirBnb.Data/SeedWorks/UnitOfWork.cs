@@ -28,6 +28,7 @@ namespace AirBnb.Data.SeedWorks
             BookRooms = new BookRoomRepository(context, mapper, userManager);
             Comments = new CommentRepository(context, mapper);
             Tags = new TagRepositiory(context, mapper);
+            Transactions = new TransactionRepository(context, mapper);
         }
         public ICommentRepository Comments { get; private set; }
         public IRoomRepository Rooms { get; private set; }
@@ -37,6 +38,8 @@ namespace AirBnb.Data.SeedWorks
         public ISeriesRepository Series { get; private set; }
         public IBookRoomRepository BookRooms { get; private set; }
         public ITagRepository Tags { get; private set; }
+
+        public ITransactionRepository Transactions { get; private set; }
 
         public async Task<int> CompleteAsync()
         {

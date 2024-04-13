@@ -5,8 +5,9 @@
       <div class="col-4">
         <button appPermission appPolicy="Permissons.BookRooms.Edit" pButton type="button" label="Thêm" icon="fa fa-plus"
           (click)="showAddModal()" class="p-button-sm p-button-success ms-1"></button>
-        <button appPermission appPolicy="Permissons.BookRooms.Delete" pButton type="button" label="Xóa" icon="fa fa-trash"
-          class="p-button-sm p-button-danger ms-1" *ngIf="selectedItems.length > 0" (click)="deleteItems()"></button>
+        <button appPermission appPolicy="Permissons.BookRooms.Delete" pButton type="button" label="Xóa"
+          icon="fa fa-trash" class="p-button-sm p-button-danger ms-1" *ngIf="selectedItems.length > 0"
+          (click)="deleteItems()"></button>
         <button appPermission appPolicy="Permissons.BookRooms.Edit" pButton type="button" label="Sửa" icon="fa fa-edit"
           class="p-button-sm p-button-warning ms-1" *ngIf="selectedItems.length == 1"
           (click)="showEditModal()"></button>
@@ -15,12 +16,15 @@
         <div class="row">
           <div class="col">
             <input id="txtKeyword" pInputText (keyup.enter)="loadData()" [(ngModel)]="keyword"
-              placeholder="Nhập từ khóa..." type="text" />
+              placeholder="Nhập tên phòng..." type="text" />
           </div>
           <div class="col">
-            <p-dropdown [options]="roomLocations" (onChange)="loadData()" [style]="{ width: '100%' }"
-              placeholder="Chọn Vị Trí" [showClear]="true" [(ngModel)]="locateId">
-            </p-dropdown>
+            <p-dropdown [options]="roomLocations" (onChange)="loadData()"  [(ngModel)]="roomId"
+            name="roomId" placeholder="Chọn phòng"
+              (keyup.enter)="loadData()" placeholder="chọn khách sạn" [editable]="true"></p-dropdown>
+            <!-- <p-dropdown [options]="roomLocations" (onChange)="loadData()" [style]="{ width: '100%' }"
+              placeholder="Chọn Vị Trí" [showClear]="true" [(ngModel)]="roomId">
+            </p-dropdown> -->
           </div>
           <div class="col">
             <button type="button" pButton (click)="loadData()">Tìm</button>
@@ -67,14 +71,14 @@
             <td>
               <!-- <button pButton pRipple type="button" icon="pi pi-list" pTooltip="Loạt bài" tooltipPosition="top"
                 (click)="addToSeries(row.id)" class="p-button-rounded p-button-text"></button> -->
-              <button *ngIf="row.status != 3" pButton appPermission appPolicy="Permissons.BookRooms.Approve" pRipple type="button"
-                icon="pi pi-check" pTooltip="Duyệt bài" tooltipPosition="top" (click)="approve(row.id)"
+              <button *ngIf="row.status != 3" pButton appPermission appPolicy="Permissons.BookRooms.Approve" pRipple
+                type="button" icon="pi pi-check" pTooltip="Duyệt bài" tooltipPosition="top" (click)="approve(row.id)"
                 class="p-button-rounded p-button-text p-button-success"></button>
-              <button *ngIf="row.status != 3 && row.status != 1" pButton pRipple type="button" icon="pi pi-forward" pTooltip="Gửi duyệt" tooltipPosition="top"
-                (click)="sendToApprove(row.id)" appPermission appPolicy="Permissons.BookRooms.Edit"
-                class="p-button-rounded p-button-text p-button-danger"></button>
-              <button *ngIf="row.status != 3" pButton pRipple type="button" icon="pi pi-backward" pTooltip="Trả lại" tooltipPosition="top"
-                (click)="reject(row.id)" appPermission appPolicy="Permissons.BookRooms.Approve"
+              <button *ngIf="row.status != 3 && row.status != 1" pButton pRipple type="button" icon="pi pi-forward"
+                pTooltip="Gửi duyệt" tooltipPosition="top" (click)="sendToApprove(row.id)" appPermission
+                appPolicy="Permissons.BookRooms.Edit" class="p-button-rounded p-button-text p-button-danger"></button>
+              <button *ngIf="row.status != 3" pButton pRipple type="button" icon="pi pi-backward" pTooltip="Trả lại"
+                tooltipPosition="top" (click)="reject(row.id)" appPermission appPolicy="Permissons.BookRooms.Approve"
                 class="p-button-rounded p-button-text p-button-danger"></button>
               <button pButton pRipple type="button" icon="pi pi-history" pTooltip="Xem lịch sử" tooltipPosition="top"
                 (click)="showLogs(row.id)" appPermission appPolicy="Permissons.BookRooms.View"

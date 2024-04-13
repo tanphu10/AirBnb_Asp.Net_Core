@@ -13,10 +13,10 @@ const routes: Routes = [
     path: 'comment',
     component: CommentsComponent,
     data: {
-      title: 'comment-rooms',
+      title: 'comment-room',
+      requiredPolicy:'Permissions.Comments.View'
     },
     canActivate:[AuthGuard]
-
   },
 ];
 

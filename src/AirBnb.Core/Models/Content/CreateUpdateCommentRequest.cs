@@ -13,6 +13,7 @@ namespace AirBnb.Core.Models.Content
     {
         public Guid RoomId { get; set; }
         public string Content { get; set; }
+        public DateTime DateCreated { get; set; }
         public class AutoMapperProfiles : Profile
         {
             public AutoMapperProfiles()

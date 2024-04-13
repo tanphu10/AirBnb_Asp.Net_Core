@@ -1,0 +1,46 @@
+<form class="form-horizontal form-label-left" skipValidation [formGroup]="form" (ngSubmit)="saveChange()">
+  <p-panel #pnlDetail header="Thông Tin" [toggleable]="true" [collapsed]="false">
+    <div class="formgrid grid">
+
+      <div class="field col-12 md:col-6">
+        <label for="roomId">Tên Khách Sạn<span class="required">*</span></label>
+        <p-dropdown id="roomId" [options]="roomCategories" formControlName="roomId" name="roomId"
+          placeholder="chọn khách sạn" [editable]="true"></p-dropdown>
+        
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="authorUserName">Người Bình Luận<span class="required">*</span></label>
+        <input id="authorUserName" type="text" pInputText [pKeyFilter]="noSpecial" [ngModel]="authorUserName"
+         [style]="{ width: '100%' }" [disabled]="btnDisabedName"/>
+         <app-validation-message [entityForm]="form" fieldName="note" [validationMessages]="validationMessages">
+        </app-validation-message>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="dateCreated">Ngày Bình Luận<span class="required">*</span></label>
+        <input id="dateCreated" type="date" name="dateCreated" pInputText [pKeyFilter]="noSpecial"
+          formControlName="dateCreated" [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="name"
+          [validationMessages]="validationMessages"></app-validation-message>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="content">Nội Dung<span class="required">*</span></label>
+        <input id="content" name="content" type="text" pInputText [pKeyFilter]="noSpecial" formControlName="content"
+          [style]="{ width: '100%' }" />
+        <app-validation-message [entityForm]="form" fieldName="name"
+          [validationMessages]="validationMessages"></app-validation-message>
+      </div>
+
+    </div>
+    <ng-template pTemplate="footer">
+      <button type="submit" class="btn btn-primary">
+        {{ saveBtnName }}
+      </button>
+    </ng-template>
+
+    <p-blockUI [target]="pnlDetail" [blocked]="blockedPanelDetail">
+      <p-progressSpinner [style]="{ width: '100px', height: '100px', position: 'absolute', top: '25%', left: '50%' }"
+        strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
+    </p-blockUI>
+  </p-panel>
+</form>

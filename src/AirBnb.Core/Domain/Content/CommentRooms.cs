@@ -18,6 +18,5 @@ namespace AirBnb.Core.Domain.Content
         public DateTime DateCreated { get; set; }
         [MaxLength(250)]
         public string Content { get; set; }
-
     }
 }

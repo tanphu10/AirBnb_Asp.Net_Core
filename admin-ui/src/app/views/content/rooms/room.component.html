@@ -18,9 +18,9 @@
               placeholder="Nhập từ khóa..." type="text" />
           </div>
           <div class="col">
-            <p-dropdown [options]="roomCategories" (onChange)="loadData()" [style]="{ width: '100%' }"
-              placeholder="Chọn danh mục" [showClear]="true" [(ngModel)]="categoryId">
-            </p-dropdown>
+            <p-dropdown [options]="roomCategories" (onChange)="loadData()" [(ngModel)]="categoryId" name="categoryId"
+              placeholder="Chọn danh mục" (keyup.enter)="loadData()" placeholder="chọn khách sạn"
+              [editable]="true"></p-dropdown>
           </div>
           <div class="col">
             <button type="button" pButton (click)="loadData()">Tìm</button>
@@ -68,14 +68,14 @@
             <td>
               <button pButton pRipple type="button" icon="pi pi-list" pTooltip="Loạt bài" tooltipPosition="top"
                 (click)="addToSeries(row.id)" class="p-button-rounded p-button-text"></button>
-              <button *ngIf="row.status != 3" pButton appPermission appPolicy="Permissons.Rooms.Approve" pRipple type="button"
-                icon="pi pi-check" pTooltip="Duyệt bài" tooltipPosition="top" (click)="approve(row.id)"
+              <button *ngIf="row.status != 3" pButton appPermission appPolicy="Permissons.Rooms.Approve" pRipple
+                type="button" icon="pi pi-check" pTooltip="Duyệt bài" tooltipPosition="top" (click)="approve(row.id)"
                 class="p-button-rounded p-button-text p-button-success"></button>
-              <button *ngIf="row.status != 3 && row.status != 1" pButton pRipple type="button" icon="pi pi-forward" pTooltip="Gửi duyệt" tooltipPosition="top"
-                (click)="sendToApprove(row.id)" appPermission appPolicy="Permissons.Rooms.Edit"
-                class="p-button-rounded p-button-text p-button-danger"></button>
-              <button *ngIf="row.status != 3" pButton pRipple type="button" icon="pi pi-backward" pTooltip="Trả lại" tooltipPosition="top"
-                (click)="reject(row.id)" appPermission appPolicy="Permissons.Rooms.Approve"
+              <button *ngIf="row.status != 3 && row.status != 1" pButton pRipple type="button" icon="pi pi-forward"
+                pTooltip="Gửi duyệt" tooltipPosition="top" (click)="sendToApprove(row.id)" appPermission
+                appPolicy="Permissons.Rooms.Edit" class="p-button-rounded p-button-text p-button-danger"></button>
+              <button *ngIf="row.status != 3" pButton pRipple type="button" icon="pi pi-backward" pTooltip="Trả lại"
+                tooltipPosition="top" (click)="reject(row.id)" appPermission appPolicy="Permissons.Rooms.Approve"
                 class="p-button-rounded p-button-text p-button-danger"></button>
               <button pButton pRipple type="button" icon="pi pi-history" pTooltip="Xem lịch sử" tooltipPosition="top"
                 (click)="showLogs(row.id)" appPermission appPolicy="Permissons.Rooms.View"

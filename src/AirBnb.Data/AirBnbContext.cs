@@ -22,6 +22,7 @@ namespace AirBnb.Data
         public DbSet<BookRoomActivityLog> BookRoomActivityLogs { set; get; }
         public DbSet<Comments> Comments { set; get; }
         public DbSet<Location> Locations { set; get; }
+        public DbSet<Transaction> Transactions { set; get; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

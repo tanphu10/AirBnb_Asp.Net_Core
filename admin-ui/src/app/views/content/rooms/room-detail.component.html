@@ -31,17 +31,21 @@
           [validationMessages]="validationMessages"></app-validation-message>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="categoryId" class="block">Nhóm</label>
-        <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" [showClear]="true"
+        <label for="categoryId" class="block">Nhóm <span class="required">*</span></label>
+        <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" name="categoryId"
+        placeholder="chọn nhóm" [editable]="true"></p-dropdown>
+        <!-- <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" 
           placeholder="Chọn nhóm" autoWidth="false" [style]="{ width: '100%' }">
-        </p-dropdown>
+        </p-dropdown> -->
       </div>
 
-      <div class="field col-12 md:col-6">
-        <label for="locateId" class="block">Vị Trí</label>
-        <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" [showClear]="true"
+      <div class="field col-12 md:col-6 mt-3">
+        <label for="locateId" class="block">Vị Trí <span class="required"> **</span></label>
+        <!-- <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" [showClear]="true"
           placeholder="vị trí" autoWidth="false" [style]="{ width: '100%' }">
-        </p-dropdown>
+        </p-dropdown> -->
+        <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" name="locateId"
+        placeholder="vị trí" [editable]="true"></p-dropdown>
       </div>
       <div class="field col-12 md:col-6">
         <label for="bedRoom">bedRoom<span class="required">*</span></label>

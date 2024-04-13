@@ -5,9 +5,11 @@ using AirBnb.Core.ConfigOptions;
 using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
+using AirBnb.Core.Services;
 using AirBnb.Data;
 using AirBnb.Data.Repositories;
 using AirBnb.Data.SeedWorks;
+using AirBnb.Data.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -64,6 +66,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+
 // Business services and repositories
 var services = typeof(RoomRepository).Assembly.GetTypes()
     .Where(x => x.GetInterfaces().Any(i => i.Name == typeof(IRepository<,>).Name)
@@ -86,7 +89,10 @@ builder.Services.Configure<MediaSettings>(configuration.GetSection("MediaSetting
 builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPayRoomService, PayRoomService>();
+
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
