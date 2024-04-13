@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-
 import { DefaultLayoutComponent } from './containers';
 import { Page404Component } from './views/auth/page404/page404.component';
 import { Page500Component } from './views/auth/page500/page500.component';
@@ -22,7 +20,7 @@ const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home',
+      title: 'admin',
     },
     children: [
       {
@@ -55,9 +53,14 @@ const routes: Routes = [
           import('./views/content/content.module').then((m) => m.ContentModule),
       },
       {
-        path: 'bookroom',
+        path: 'order',
         loadChildren: () =>
           import('./views/order/order.module').then((m) => m.OrderModule),
+      },
+      {
+        path: 'management',
+        loadChildren: () =>
+          import('./views/management/management.module').then((m) => m.ManagementModule),
       },
     ],
   },

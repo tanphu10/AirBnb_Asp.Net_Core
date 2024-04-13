@@ -24,6 +24,9 @@ namespace AirBnb.Core.Domain.Content
         [MaxLength(250)]
         public string Note { get; set; }
         public BookRoomStatus Status { get; set; }
+        public bool IsPaid { get; set; }
+        public int PayRoomAmount { get; set; }
+        public DateTime? PaidDate { get; set; }
         public enum BookRoomStatus
         {
             Draft = 0,

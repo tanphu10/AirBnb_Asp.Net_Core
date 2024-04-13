@@ -36,30 +36,38 @@ namespace AirBnb.Api.Controllers.Admin
         public async Task<IActionResult> UpdateCommentAsync(Guid id, [FromBody] CreateUpdateCommentRequest model)
         {
             var checkId = await _unitOfWork.Comments.GetByIdAsync(id);
-            if (checkId == null) return NotFound("không chứ comments");
+            if (checkId == null) return NotFound("không chứa comments");
             _mapper.Map(model, checkId);
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
-        [HttpGet("all")]
-        public async Task<ActionResult<List<CommentDto>>> GetAllCommentsAsync()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CommentDto>> getCommentById(Guid id)
         {
-            var data = await _unitOfWork.Comments.GetAllAsync();
+            var data = await _unitOfWork.Comments.GetCommentId(id);
+            return Ok(data);
+        }
+        [HttpGet("all")]
+        public async Task<ActionResult<List<CommentInListDto>>> GetAllCommentsAsync()
+        {
+            var data = await _unitOfWork.Comments.GetCommentAllAsync();
             return Ok(data);
         }
         [HttpGet("room/{roomid}")]
-        public async Task<ActionResult<List<CommentDto>>>
+        public async Task<ActionResult<List<CommentInListDto>>>
             GetCommentRoomAsync(Guid roomid)
         {
             var data = await _unitOfWork.Comments.GetCommentsRoom(roomid);
             return Ok(data);
         }
+
         [HttpGet("paging")]
-        public async Task<ActionResult<PagedResult<CommentDto>>> GetPagingCommentAsync(string? keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<ActionResult<PagedResult<CommentInListDto>>> GetPagingCommentAsync(string? keyword,Guid? roomId, int pageIndex = 1, int pageSize = 10)
         {
-            var data = await _unitOfWork.Comments.GetAllPaging(keyword, pageIndex, pageSize);
+            var data = await _unitOfWork.Comments.GetAllPaging(keyword, roomId,pageIndex, pageSize);
             return Ok(data);
         }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync([FromBody] Guid[] ids)
         {

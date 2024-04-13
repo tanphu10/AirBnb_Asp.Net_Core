@@ -18,6 +18,8 @@ namespace AirBnb.Core.Models.Content
         public required string CategoryName { get; set; }
         public string AuthorUserName { get; set; }
         public string AuthorName { get; set; }
+        public Guid CategoryId { get; set; }
+
         public RoomStatus Status { get; set; }
         //public bool IsPaid { get; set; }
         //public DateTime? PaidDate { get; set; }

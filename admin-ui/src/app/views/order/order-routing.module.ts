@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/app/shared/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'rooms',
+    redirectTo: 'order',
     pathMatch:'full'
   },
   {
@@ -14,9 +14,9 @@ const routes: Routes = [
     component: BookRoomComponent,
     data: {
       title: 'book-rooms',
+      requiredPolicy:'Permissions.BookRooms.View'
     },
     canActivate:[AuthGuard]
-
   },
 ];
 

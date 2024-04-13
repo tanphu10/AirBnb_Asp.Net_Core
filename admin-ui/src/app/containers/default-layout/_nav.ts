@@ -37,7 +37,7 @@ export const navItems: INavData[] = [
     ],
   },
   {
-    name: 'Nội Dung',
+    name: 'Quản Lí Phòng',
     url: '/content',
     iconComponent: { name: 'cil-puzzle' },
     children: [
@@ -45,7 +45,7 @@ export const navItems: INavData[] = [
         name: 'Danh mục',
         url: '/content/room-categories',
         attributes:{
-          "policyName":"Permissions.RoomCatetories.View"
+          "policyName":"Permissions.RoomCategories.View"
         }
       },
       {
@@ -92,7 +92,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Đặt Phòng',
-        url: '/order/bookroom',
+        url: '/order/book-rooms',
         attributes:{
           "policyName":"Permissions.BookRooms.View"
         }
@@ -114,6 +114,24 @@ export const navItems: INavData[] = [
         attributes:{
           "policyName":"Permissions.Locations.View"
         }
+      },
+    ],
+  },
+  {
+    name: 'Quản Lí Nội Dung',
+    url: '/management',
+    iconComponent: { name: 'cil-pen' },
+    children: [
+      {
+        name: 'Bình Luận',
+        url: '/management/comment',
+        attributes:{
+          "policyName":"Permissions.Comments.View"
+        }
+      },
+      {
+        name: 'Yêu Thích',
+        url: '/management/like',
       },
     ],
   },

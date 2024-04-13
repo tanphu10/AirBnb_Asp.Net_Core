@@ -14,6 +14,9 @@ namespace AirBnb.Core.Models.Content
         public DateTime DateCheckout { get; set; }
         public int GuestNumber { get; set; }
         public BookRoomStatus Status { get; set; }
+        public bool IsPaid { get; set; }
+        public int PayRoomAmount { get; set; }       
+
         public class AutoMapperProfiles : Profile
         {
             public AutoMapperProfiles()

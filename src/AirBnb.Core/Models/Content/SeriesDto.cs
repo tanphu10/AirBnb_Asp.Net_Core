@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AirBnb.Core.Models.Content
 {
-    public class SeriesDto
+    public class SeriesDto : SeriesInListDto
     {
+        public Guid Id { get; set; }
+
         [MaxLength(250)]
         public string? SeoDescription { get; set; }
 

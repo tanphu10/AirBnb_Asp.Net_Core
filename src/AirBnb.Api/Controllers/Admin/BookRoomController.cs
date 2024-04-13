@@ -46,14 +46,30 @@ namespace AirBnb.Api.Controllers.Admin
             var data = _mapper.Map<CreateUpdateBookRoomRequest, BookRooms>(model);
             var userId = User.GetUserId();
             var user = await _userManager.FindByIdAsync(userId.ToString());
+            data.Id = Guid.NewGuid();
             data.AuthorUserId = user.Id;
             data.AuthorName = user.LastName;
             data.AuthorUserName = user.UserName;
             data.RoomName = room.Name;
             data.Status = BookRoomStatus.WaitingForApproval;
+            data.IsPaid = false;
+            data.PayRoomAmount = room.Price;
             _unitOfWork.BookRooms.Add(data);
             await _unitOfWork.CompleteAsync();
             return Ok();
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBookRoom(Guid id, [FromBody] CreateUpdateBookRoomRequest request)
+        {
+            var data = await _unitOfWork.BookRooms.GetByIdAsync(id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(request, data);
+
+            var result = await _unitOfWork.CompleteAsync();
+            return result > 0 ? Ok() : BadRequest();
         }
 
         [HttpGet]
@@ -86,9 +102,9 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
         }
         [HttpGet("Paging")]
-        public async Task<ActionResult<PagedResult<BookRoomsDto>>> GetAllPagingBookAsync(string? keyword, int pageIndex, int pageSize)
+        public async Task<ActionResult<PagedResult<BookRoomsDto>>> GetAllPagingBookAsync(string? keyword, Guid? roomId, int pageIndex, int pageSize)
         {
-            var data = await _unitOfWork.BookRooms.GetAllPaging(keyword, pageIndex, pageSize);
+            var data = await _unitOfWork.BookRooms.GetAllPaging(keyword, roomId, pageIndex, pageSize);
             return Ok(data);
         }
 
@@ -98,15 +114,7 @@ namespace AirBnb.Api.Controllers.Admin
             var data = await _unitOfWork.BookRooms.GetAllRoomBooked();
             return Ok(data);
         }
-        //userManger submit to admin
-        //[HttpPost("approval-submit/{bookid}")]
-        //public async Task<IActionResult> SendToApproveBookRoomAsync(Guid bookid)
-        //{
-        //    await _unitOfWork.BookRooms.SenToApproveBookRoom(bookid, User.GetUserId());
-        //    await _unitOfWork.CompleteAsync();
-        //    return Ok();
-        //}
-        //custumer send to Owner 
+
         [HttpPut("edit-bookroom-submit/{bookid}")]
         public async Task<IActionResult> SendUpdateBookRoomAsync(Guid bookid, [FromBody] CreateUpdateBookRoomRequest model)
         {
@@ -132,12 +140,19 @@ namespace AirBnb.Api.Controllers.Admin
         {
             var currentUserId = User.GetUserId();
             await _unitOfWork.BookRooms.ReturnBackSubmit(bookid, model.Reason, currentUserId);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
         [HttpGet("return-reason/{bookid}")]
         public async Task<ActionResult<string>> GetReturnReasonAsync(Guid bookid)
         {
             var data = await _unitOfWork.BookRooms.GetReturnReason(bookid);
+            return Ok(data);
+        }
+        [HttpGet("activity-logs/{bookid}")]
+        public async Task<ActionResult<List<BookRoomActivityLogDto>>> GetActivityLog(Guid bookid)
+        {
+            var data = await _unitOfWork.BookRooms.GetActivityLogAsync(bookid);
             return Ok(data);
         }
     }

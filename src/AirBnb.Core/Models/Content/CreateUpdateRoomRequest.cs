@@ -19,7 +19,7 @@ namespace AirBnb.Core.Models.Content
         public string? SeoDescription { get; set; }
         public Guid CategoryId { get; set; }
         public Guid LocateId { get; set; }
-        public string? Tags { get; set; }
+        public string[] Tags { get; set; }
         public int BedRoom { get; set; }
         public int BathRoom { get; set; }
         public int Price { get; set; }

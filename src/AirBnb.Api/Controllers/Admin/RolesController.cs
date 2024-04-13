@@ -52,7 +52,7 @@ namespace AirBnb.Api.Controllers.Admin
         }
         [HttpDelete]
         [Authorize(Permissions.Roles.Delete)]
-        public async Task<ActionResult> DeleteRole([FromBody] Guid[] ids)
+        public async Task<ActionResult> DeleteRole([FromQuery] Guid[] ids)
         {
             foreach (var id in ids)
             {

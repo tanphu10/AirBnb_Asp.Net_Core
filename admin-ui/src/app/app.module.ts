@@ -9,13 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
-
 // Import app component
 import { AppComponent } from './app.component';
-
 // Import containers
 import {
   DefaultFooterComponent,
@@ -48,7 +45,13 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
 import {
   ADMIN_API_BASE_URL,
   AdminApiAuthApiClient,
+  AdminApiBookRoomApiClient,
+  AdminApiCategoryApiClient,
+  AdminApiCommentsApiClient,
+  AdminApiLocationApiClient,
   AdminApiRolesApiClient,
+  AdminApiRoomApiClient,
+  AdminApiSeriesApiClient,
   AdminApiTokenApiClient,
   AdminApiUserApiClient,
 } from './api/admin-api.service.generated';
@@ -64,11 +67,14 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TokenInterceptor } from 'src/app/shared/interceptors/token.interceptor';
 import { GlobalHttpInterceptorService } from 'src/app/shared/interceptors/error-handler.interceptor';
+import { UploadService } from './shared/services/upload.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
+ 
 ];
 
 @NgModule({
@@ -104,6 +110,7 @@ const APP_CONTAINERS = [
     HttpClientModule,
     ConfirmDialogModule,
     DynamicDialogModule,
+    ProgressSpinnerModule
   ],
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
@@ -129,11 +136,19 @@ const APP_CONTAINERS = [
     AdminApiRolesApiClient,
     AdminApiTokenApiClient,
     AdminApiUserApiClient,
+    AdminApiCategoryApiClient,
+    AdminApiRoomApiClient,
+    AdminApiLocationApiClient,
+    AdminApiSeriesApiClient,
+    AdminApiLocationApiClient,
+    AdminApiBookRoomApiClient,
+    AdminApiCommentsApiClient,
     TokenStorageService,
     AuthGuard,
     UtilityService,
     DialogService,
     ConfirmationService,
+    UploadService,
   ],
   bootstrap: [AppComponent],
 })

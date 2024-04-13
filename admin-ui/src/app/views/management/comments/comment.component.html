@@ -1,0 +1,71 @@
+<div class="animated fadeIn">
+  <p-panel #pnl [style]="{'margin-bottom':'10px'}">
+    <p-header>
+      Quản lý loại bài viết
+    </p-header>
+    <div class="row">
+      <div class="col">
+        <button appPermission appPolicy="Permissons.Comments.Create" pButton type="button" label="Thêm"
+          icon="fa fa-plus" (click)="showAddModal()" class="p-button-sm p-button-info ms-1"></button>
+        <button appPermission appPolicy="Permissons.Comments.Delete" pButton type="button" label="Xóa"
+          icon="fa fa-trash" class="p-button-sm p-button-danger ms-1" *ngIf="selectedItems.length > 0"
+          (click)="deleteItems()"></button>
+        <button appPermission appPolicy="Permissons.Comments.Edit" pButton type="button" label="Sửa" icon="fa fa-edit"
+          class="p-button-sm p-button-warning ms-1" *ngIf="selectedItems.length== 1" (click)="showEditModal()"></button>
+      </div>
+      <div class="col-8">
+        <div class="row">
+          <div class="col">
+            <p-dropdown [options]="roomCategories" (onChange)="loadData()" [(ngModel)]="roomId" name="roomId"
+              placeholder="Chọn phòng" (keyup.enter)="loadData()" placeholder="chọn khách sạn"
+              [editable]="true"></p-dropdown>
+          </div>
+          <div class="col">
+            <button type="button" pButton (click)="loadData()">Tìm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <p-table #dt [value]="items" selectionMode="multiple" dataKey="id" [(selection)]="selectedItems"
+        [metaKeySelection]="true" [responsive]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 10px">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th>Tên Khách Sạn</th>
+            <th>Người Bình Luận</th>
+            <th>Ngày tháng</th>
+            <th>Nội Dung</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr [pSelectableRow]="row">
+            <td style="width: 10px"><span class="ui-column-title"></span>
+              <p-tableCheckbox [value]="row"></p-tableCheckbox>
+            </td>
+            <td>{{row.roomName}}</td>
+            <td>{{row.authorUserName}}</td>
+            <td>{{row.dateCreated | date}}</td>
+            <td>{{row.content}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div style="text-align: left">
+            Tổng số: {{totalCount | number}}
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-paginator [rows]="pageSize" [totalRecords]="totalCount" (onPageChange)="pageChanged($event)"
+      [rowsPerPageOptions]="[10, 20, 50, 100]"></p-paginator>
+
+
+    <p-blockUI [target]="pnl" [blocked]="blockedPanel">
+      <p-progressSpinner [style]="{width: '100px', height: '100px', position:'absolute',top:'25%',left:'50%'}"
+        strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
+    </p-blockUI>
+  </p-panel>
+</div>

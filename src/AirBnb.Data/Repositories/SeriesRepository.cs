@@ -54,13 +54,21 @@ namespace AirBnb.Data.Repositories
                 PageSize = pageSize
             };
         }
-
+        public async Task RemoveRoomToSeries(Guid seriesId, Guid roomId)
+        {
+            var postInSeries = await _context.RoomInSeries
+                .FirstOrDefaultAsync(x => x.RoomId == roomId && x.SeriesId == seriesId);
+            if (postInSeries != null)
+            {
+                _context.RoomInSeries.Remove(postInSeries);
+            }
+        }
         public Task<List<RoomInListDto>> GetAllRoomSeries(Guid id)
         {
             var query = from ris in _context.RoomInSeries
-                        join s in _context.Series on ris.SeriesId equals s.Id
-                        join r in _context.Rooms on ris.RoomId equals r.Id
-                        where r.Id == id
+                        join r in _context.Rooms
+                        on ris.RoomId equals r.Id
+                        where ris.SeriesId == id
                         select r;
             return _mapper.ProjectTo<RoomInListDto>(query).ToListAsync();
 

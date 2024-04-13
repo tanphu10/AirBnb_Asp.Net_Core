@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AirBnb.Core.Domain.Content
 {
     [Table("RoomActivityLogs")]
-    public class RoomActivityLog
+    public class RoomActivityLogs
     {
         [Key]
         public Guid Id { get; set; }

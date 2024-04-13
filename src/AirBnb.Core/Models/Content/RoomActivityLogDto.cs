@@ -27,7 +27,7 @@ namespace AirBnb.Core.Models.Content
         {
             public AutoMapperProfiles()
             {
-                CreateMap<RoomActivityLog, RoomActivityLogDto>();
+                CreateMap<RoomActivityLogs, RoomActivityLogDto>();
             }
         }
         //thêm trường userName

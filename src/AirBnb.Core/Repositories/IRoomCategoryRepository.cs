@@ -13,6 +13,6 @@ namespace AirBnb.Core.Repositories
     public interface IRoomCategoryRepository :IRepository<RoomCategory,Guid>
     {
         Task<PagedResult<RoomCategoryDto>> GetCategoryPagingAsync(string keyword, int pageIndex = 1, int pageSize = 10);
-
+        Task<bool> HasPost(Guid categoryId);
     }
 }

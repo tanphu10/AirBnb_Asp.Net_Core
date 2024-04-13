@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { navItems } from './_nav';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { Router } from '@angular/router';
@@ -11,7 +10,6 @@ import { UrlConstants } from './../../shared/constants/url.contants';
 })
 export class DefaultLayoutComponent implements OnInit {
   public navItems = [];
-
   constructor(
     private tokenService: TokenStorageService,
     private router: Router

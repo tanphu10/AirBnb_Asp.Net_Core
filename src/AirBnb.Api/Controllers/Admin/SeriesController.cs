@@ -4,8 +4,10 @@ using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
+using AirBnb.Core.SeedWorks.Constansts;
 using AutoMapper;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +45,7 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
         }
         [HttpGet]
-        public async Task<ActionResult<SeriesInListDto>> GetAllSeriesAsync()
+        public async Task<ActionResult<List<SeriesInListDto>>> GetAllSeries()
         {
             var data = await _unitOfWork.Series.GetAllAsync();
             return Ok(data);
@@ -70,8 +72,23 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
 
         }
+        [Route("post-series")]
+        [HttpDelete()]
+        //[Authorize(Permissions.Series.Edit)]
+        public async Task<IActionResult> DeleteRoomsSeries([FromBody] AddRoomSeriesRequest request)
+        {
+            var isExisted = await _unitOfWork.Series.IsRoomInSeries(request.SeriesId, request.RoomId);
+            if (!isExisted)
+            {
+                return NotFound();
+            }
+            await _unitOfWork.Series.RemoveRoomToSeries(request.SeriesId, request.RoomId);
+            var result = await _unitOfWork.CompleteAsync();
+            return result > 0 ? Ok() : BadRequest();
+        }
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync([FromQuery] Guid[] ids)
+        [Authorize(Permissions.Series.Delete)]
+        public async Task<IActionResult> DeleteSeriesAsync([FromQuery] Guid[] ids)
         {
             foreach (var id in ids)
             {
@@ -92,7 +109,7 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok(result);
         }
         [HttpPost("room-series")]
-        public async Task<IActionResult> AddRoomSeries([FromBody] AddRoomSeriesRequest model)
+        public async Task<IActionResult> AddRoomToSeries([FromBody] AddRoomSeriesRequest model)
         {
             var isExisted = await _unitOfWork.Series.IsRoomInSeries(model.SeriesId, model.RoomId);
             if (isExisted)
@@ -103,10 +120,11 @@ namespace AirBnb.Api.Controllers.Admin
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
-        [HttpGet("room-series/{roomid}")]
-        public async Task<ActionResult<List<RoomInListDto>>> GetRoomInSeries(Guid roomid)
+     
+        [HttpGet("room-series/{seriesid}")]
+        public async Task<ActionResult<List<RoomInListDto>>> GetRoomInSeries(Guid seriesid)
         {
-            var room = await _unitOfWork.Series.GetAllRoomSeries(roomid);
+            var room = await _unitOfWork.Series.GetAllRoomSeries(seriesid);
             return Ok(room);
         }
 

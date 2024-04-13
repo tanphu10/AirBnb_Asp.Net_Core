@@ -10,10 +10,11 @@ const routes: Routes = [
     pathMatch:'full'
   },
   {
-    path: 'local',
+    path: 'locals',
     component: LocalComponent,
     data: {
-      title: 'User',
+      title: 'Location-room',
+      requiredPolicy:'Permissions.Rooms.View'
     },
     canActivate:[AuthGuard]
   },
