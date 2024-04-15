@@ -272,6 +272,9 @@ namespace AirBnb.Data.Migrations
                     b.Property<bool>("Televison")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
 
@@ -499,6 +502,33 @@ namespace AirBnb.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("AirBnb.Core.Domain.Content.TypeRoom", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.ToTable("TypeRooms");
                 });
 
             modelBuilder.Entity("AirBnb.Core.Domain.Identity.AppRole", b =>

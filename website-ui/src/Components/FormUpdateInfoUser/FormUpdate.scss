@@ -1,0 +1,20 @@
+#EditBookedRoom {
+  .footer_card {
+    .btnDatPhong {
+      // background: white;
+      background: linear-gradient(to left, #f12711, #f5af19);
+      background-clip: text;
+      color: transparent;
+      // color: black;
+      transition: all 0.5s;
+      border: 1px solid orange;
+      &:hover {
+        background: #f12711;
+        background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+        background: linear-gradient(to left, #f12711, #f5af19);
+        color: white;
+        // background-color: black;
+      }
+    }
+  }
+}

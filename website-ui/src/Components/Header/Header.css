@@ -1,0 +1,77 @@
+
+        /* Thiết lập kiểu cho nút button */
+        .expandable-button {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100px;
+            height: 25px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        /* Thiết lập kiểu cho nút button khi mở rộng */
+        .expanded {
+            width: 100vw;
+            /* 100% chiều rộng của viewport */
+            height: 20vh;
+            top: 10px;
+            /* Chiều cao 20% của viewport */
+            border-radius: 50px;
+            /* Không có góc bo khi mở rộng */
+        }
+
+        /* Thiết lập kiểu cho cửa sổ mở rộng */
+        .expanded-content {
+            position: absolute;
+            top: 70%;
+            /* bottom: 30%; */
+            /* left: 50%; */
+            transform: translate(-50%, -50%);
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Thiết lập kiểu cho nút button khi mở rộng */
+        .expanded .expanded-content {
+            transform: scaleY(1);
+            color: #e74c3c;
+            background-color: #e74c3c;
+        }
+
+        /* Thiết lập kiểu cho ô tìm kiếm bên trong cửa sổ mở rộng */
+        .search-input {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Thiết lập kiểu cho nút bình thường bên trong cửa sổ mở rộng */
+        .inner-button {
+            width: 100px;
+            height: 40px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }

@@ -13,7 +13,7 @@ namespace AirBnb.Core.Repositories
 {
     public interface IBookRoomRepository : IRepository<BookRooms, Guid>
     {
-        Task<PagedResult<BookRoomInListDto>> GetAllPaging(string? keyword,Guid? roomId, int pageIndex = 1, int pageSize = 10);
+        Task<PagedResult<BookRoomInListDto>> GetAllPaging(string? keyword, Guid? roomId, int pageIndex = 1, int pageSize = 10);
         Task<bool> GetDateBookRoomAsync(Guid roomId, DateTime checkIn, DateTime checkOut);
         Task<List<BookRoomInListDto>> GetAllRoomBooked();
         Task SendRequestToOwner(Guid id, CreateUpdateBookRoomRequest model, Guid AuthorUserId
@@ -23,8 +23,7 @@ namespace AirBnb.Core.Repositories
         Task<string> GetReturnReason(Guid bookId);
         //Task SenToApproveBookRoom(Guid id, Guid currentId);
         Task<List<BookRoomActivityLogDto>> GetActivityLogAsync(Guid id);
-
-        Task<NewBookRooms> GetUserBooked(Guid fromUserId);
-
+        Task<NewBookRooms> GetUserBooked(Guid fromUserId, Guid bookId);
+        Task<BookRooms> GetUserBookedd(Guid fromUserId, Guid bookId);
     }
 }

@@ -372,7 +372,7 @@ export class AdminApiBookRoomApiClient {
      * @param pageSize (optional) 
      * @return Success
      */
-    getAllPagingBook(keyword?: string | null | undefined, roomId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomsDtoPagedResult> {
+    getAllPagingBook(keyword?: string | null | undefined, roomId?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<BookRoomInListDtoPagedResult> {
         let url_ = this.baseUrl + "/api/admin/book-room/paging?";
         if (keyword !== undefined && keyword !== null)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
@@ -403,14 +403,14 @@ export class AdminApiBookRoomApiClient {
                 try {
                     return this.processGetAllPagingBook(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<BookRoomsDtoPagedResult>;
+                    return _observableThrow(e) as any as Observable<BookRoomInListDtoPagedResult>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<BookRoomsDtoPagedResult>;
+                return _observableThrow(response_) as any as Observable<BookRoomInListDtoPagedResult>;
         }));
     }
 
-    protected processGetAllPagingBook(response: HttpResponseBase): Observable<BookRoomsDtoPagedResult> {
+    protected processGetAllPagingBook(response: HttpResponseBase): Observable<BookRoomInListDtoPagedResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -421,7 +421,7 @@ export class AdminApiBookRoomApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BookRoomsDtoPagedResult.fromJS(resultData200);
+            result200 = BookRoomInListDtoPagedResult.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1978,6 +1978,152 @@ export class AdminApiMediaApiClient {
     }
 
     protected processUploadImage(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class AdminApiPayRoomApiClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(ADMIN_API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @param keyword (optional) 
+     * @param fromMonth (optional) 
+     * @param fromYear (optional) 
+     * @param toMonth (optional) 
+     * @param toYear (optional) 
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     * @return Success
+     */
+    getTransactionHistory(keyword?: string | null | undefined, fromMonth?: number | undefined, fromYear?: number | undefined, toMonth?: number | undefined, toYear?: number | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<TransactionDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/admin/pay-room/transaction-histories?";
+        if (keyword !== undefined && keyword !== null)
+            url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (fromMonth === null)
+            throw new Error("The parameter 'fromMonth' cannot be null.");
+        else if (fromMonth !== undefined)
+            url_ += "fromMonth=" + encodeURIComponent("" + fromMonth) + "&";
+        if (fromYear === null)
+            throw new Error("The parameter 'fromYear' cannot be null.");
+        else if (fromYear !== undefined)
+            url_ += "fromYear=" + encodeURIComponent("" + fromYear) + "&";
+        if (toMonth === null)
+            throw new Error("The parameter 'toMonth' cannot be null.");
+        else if (toMonth !== undefined)
+            url_ += "toMonth=" + encodeURIComponent("" + toMonth) + "&";
+        if (toYear === null)
+            throw new Error("The parameter 'toYear' cannot be null.");
+        else if (toYear !== undefined)
+            url_ += "toYear=" + encodeURIComponent("" + toYear) + "&";
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransactionHistory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransactionHistory(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TransactionDtoPagedResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TransactionDtoPagedResult>;
+        }));
+    }
+
+    protected processGetTransactionHistory(response: HttpResponseBase): Observable<TransactionDtoPagedResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TransactionDtoPagedResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    payRoom(userid: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/pay-room/{userid}";
+        if (userid === undefined || userid === null)
+            throw new Error("The parameter 'userid' must be defined.");
+        url_ = url_.replace("{userid}", encodeURIComponent("" + userid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPayRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPayRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processPayRoom(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4776,6 +4922,8 @@ export class BookRoomInListDto implements IBookRoomInListDto {
     dateCheckout?: Date;
     guestNumber?: number;
     status?: BookRoomStatus;
+    isPaid?: boolean;
+    payRoomAmount?: number;
 
     constructor(data?: IBookRoomInListDto) {
         if (data) {
@@ -4796,6 +4944,8 @@ export class BookRoomInListDto implements IBookRoomInListDto {
             this.dateCheckout = _data["dateCheckout"] ? new Date(_data["dateCheckout"].toString()) : <any>undefined;
             this.guestNumber = _data["guestNumber"];
             this.status = _data["status"];
+            this.isPaid = _data["isPaid"];
+            this.payRoomAmount = _data["payRoomAmount"];
         }
     }
 
@@ -4816,6 +4966,8 @@ export class BookRoomInListDto implements IBookRoomInListDto {
         data["dateCheckout"] = this.dateCheckout ? this.dateCheckout.toISOString() : <any>undefined;
         data["guestNumber"] = this.guestNumber;
         data["status"] = this.status;
+        data["isPaid"] = this.isPaid;
+        data["payRoomAmount"] = this.payRoomAmount;
         return data;
     }
 }
@@ -4829,6 +4981,80 @@ export interface IBookRoomInListDto {
     dateCheckout?: Date;
     guestNumber?: number;
     status?: BookRoomStatus;
+    isPaid?: boolean;
+    payRoomAmount?: number;
+}
+
+export class BookRoomInListDtoPagedResult implements IBookRoomInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    readonly firstRowOnPage?: number;
+    readonly lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: BookRoomInListDto[] | undefined;
+
+    constructor(data?: IBookRoomInListDtoPagedResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentPage = _data["currentPage"];
+            this.pageCount = _data["pageCount"];
+            this.pageSize = _data["pageSize"];
+            this.rowCount = _data["rowCount"];
+            (<any>this).firstRowOnPage = _data["firstRowOnPage"];
+            (<any>this).lastRowOnPage = _data["lastRowOnPage"];
+            this.additionalData = _data["additionalData"];
+            if (Array.isArray(_data["results"])) {
+                this.results = [] as any;
+                for (let item of _data["results"])
+                    this.results!.push(BookRoomInListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): BookRoomInListDtoPagedResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new BookRoomInListDtoPagedResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentPage"] = this.currentPage;
+        data["pageCount"] = this.pageCount;
+        data["pageSize"] = this.pageSize;
+        data["rowCount"] = this.rowCount;
+        data["firstRowOnPage"] = this.firstRowOnPage;
+        data["lastRowOnPage"] = this.lastRowOnPage;
+        data["additionalData"] = this.additionalData;
+        if (Array.isArray(this.results)) {
+            data["results"] = [];
+            for (let item of this.results)
+                data["results"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IBookRoomInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    firstRowOnPage?: number;
+    lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: BookRoomInListDto[] | undefined;
 }
 
 export enum BookRoomStatus {
@@ -4847,6 +5073,8 @@ export class BookRoomsDto implements IBookRoomsDto {
     dateCheckout?: Date;
     guestNumber?: number;
     status?: BookRoomStatus;
+    isPaid?: boolean;
+    payRoomAmount?: number;
     note?: string | undefined;
     authorUserName?: string | undefined;
     authorName?: string | undefined;
@@ -4870,6 +5098,8 @@ export class BookRoomsDto implements IBookRoomsDto {
             this.dateCheckout = _data["dateCheckout"] ? new Date(_data["dateCheckout"].toString()) : <any>undefined;
             this.guestNumber = _data["guestNumber"];
             this.status = _data["status"];
+            this.isPaid = _data["isPaid"];
+            this.payRoomAmount = _data["payRoomAmount"];
             this.note = _data["note"];
             this.authorUserName = _data["authorUserName"];
             this.authorName = _data["authorName"];
@@ -4893,6 +5123,8 @@ export class BookRoomsDto implements IBookRoomsDto {
         data["dateCheckout"] = this.dateCheckout ? this.dateCheckout.toISOString() : <any>undefined;
         data["guestNumber"] = this.guestNumber;
         data["status"] = this.status;
+        data["isPaid"] = this.isPaid;
+        data["payRoomAmount"] = this.payRoomAmount;
         data["note"] = this.note;
         data["authorUserName"] = this.authorUserName;
         data["authorName"] = this.authorName;
@@ -4909,81 +5141,11 @@ export interface IBookRoomsDto {
     dateCheckout?: Date;
     guestNumber?: number;
     status?: BookRoomStatus;
+    isPaid?: boolean;
+    payRoomAmount?: number;
     note?: string | undefined;
     authorUserName?: string | undefined;
     authorName?: string | undefined;
-}
-
-export class BookRoomsDtoPagedResult implements IBookRoomsDtoPagedResult {
-    currentPage?: number;
-    pageCount?: number;
-    pageSize?: number;
-    rowCount?: number;
-    readonly firstRowOnPage?: number;
-    readonly lastRowOnPage?: number;
-    additionalData?: string | undefined;
-    results?: BookRoomsDto[] | undefined;
-
-    constructor(data?: IBookRoomsDtoPagedResult) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.currentPage = _data["currentPage"];
-            this.pageCount = _data["pageCount"];
-            this.pageSize = _data["pageSize"];
-            this.rowCount = _data["rowCount"];
-            (<any>this).firstRowOnPage = _data["firstRowOnPage"];
-            (<any>this).lastRowOnPage = _data["lastRowOnPage"];
-            this.additionalData = _data["additionalData"];
-            if (Array.isArray(_data["results"])) {
-                this.results = [] as any;
-                for (let item of _data["results"])
-                    this.results!.push(BookRoomsDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): BookRoomsDtoPagedResult {
-        data = typeof data === 'object' ? data : {};
-        let result = new BookRoomsDtoPagedResult();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["currentPage"] = this.currentPage;
-        data["pageCount"] = this.pageCount;
-        data["pageSize"] = this.pageSize;
-        data["rowCount"] = this.rowCount;
-        data["firstRowOnPage"] = this.firstRowOnPage;
-        data["lastRowOnPage"] = this.lastRowOnPage;
-        data["additionalData"] = this.additionalData;
-        if (Array.isArray(this.results)) {
-            data["results"] = [];
-            for (let item of this.results)
-                data["results"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IBookRoomsDtoPagedResult {
-    currentPage?: number;
-    pageCount?: number;
-    pageSize?: number;
-    rowCount?: number;
-    firstRowOnPage?: number;
-    lastRowOnPage?: number;
-    additionalData?: string | undefined;
-    results?: BookRoomsDto[] | undefined;
 }
 
 export class ChangeEmailRequest implements IChangeEmailRequest {
@@ -7063,6 +7225,146 @@ export class TokenRequest implements ITokenRequest {
 export interface ITokenRequest {
     accessToken?: string | undefined;
     refreshToken?: string | undefined;
+}
+
+export class TransactionDto implements ITransactionDto {
+    fromUserName?: string | undefined;
+    fromUserId?: string;
+    toOwnerId?: string;
+    toOwnerName?: string | undefined;
+    amount?: number;
+    transactionType?: TransactionType;
+    dateCreated?: Date;
+    note?: string | undefined;
+
+    constructor(data?: ITransactionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.fromUserName = _data["fromUserName"];
+            this.fromUserId = _data["fromUserId"];
+            this.toOwnerId = _data["toOwnerId"];
+            this.toOwnerName = _data["toOwnerName"];
+            this.amount = _data["amount"];
+            this.transactionType = _data["transactionType"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.note = _data["note"];
+        }
+    }
+
+    static fromJS(data: any): TransactionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransactionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fromUserName"] = this.fromUserName;
+        data["fromUserId"] = this.fromUserId;
+        data["toOwnerId"] = this.toOwnerId;
+        data["toOwnerName"] = this.toOwnerName;
+        data["amount"] = this.amount;
+        data["transactionType"] = this.transactionType;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["note"] = this.note;
+        return data;
+    }
+}
+
+export interface ITransactionDto {
+    fromUserName?: string | undefined;
+    fromUserId?: string;
+    toOwnerId?: string;
+    toOwnerName?: string | undefined;
+    amount?: number;
+    transactionType?: TransactionType;
+    dateCreated?: Date;
+    note?: string | undefined;
+}
+
+export class TransactionDtoPagedResult implements ITransactionDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    readonly firstRowOnPage?: number;
+    readonly lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: TransactionDto[] | undefined;
+
+    constructor(data?: ITransactionDtoPagedResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentPage = _data["currentPage"];
+            this.pageCount = _data["pageCount"];
+            this.pageSize = _data["pageSize"];
+            this.rowCount = _data["rowCount"];
+            (<any>this).firstRowOnPage = _data["firstRowOnPage"];
+            (<any>this).lastRowOnPage = _data["lastRowOnPage"];
+            this.additionalData = _data["additionalData"];
+            if (Array.isArray(_data["results"])) {
+                this.results = [] as any;
+                for (let item of _data["results"])
+                    this.results!.push(TransactionDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TransactionDtoPagedResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransactionDtoPagedResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentPage"] = this.currentPage;
+        data["pageCount"] = this.pageCount;
+        data["pageSize"] = this.pageSize;
+        data["rowCount"] = this.rowCount;
+        data["firstRowOnPage"] = this.firstRowOnPage;
+        data["lastRowOnPage"] = this.lastRowOnPage;
+        data["additionalData"] = this.additionalData;
+        if (Array.isArray(this.results)) {
+            data["results"] = [];
+            for (let item of this.results)
+                data["results"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface ITransactionDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    firstRowOnPage?: number;
+    lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: TransactionDto[] | undefined;
+}
+
+export enum TransactionType {
+    _0 = 0,
 }
 
 export class UpdateUserRequest implements IUpdateUserRequest {

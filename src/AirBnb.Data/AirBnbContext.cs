@@ -1,5 +1,6 @@
 ﻿using AirBnb.Core.Domain.Content;
 using AirBnb.Core.Domain.Identity;
+using AirBnb.Core.SeedWorks.Constansts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace AirBnb.Data
         public DbSet<Comments> Comments { set; get; }
         public DbSet<Location> Locations { set; get; }
         public DbSet<Transaction> Transactions { set; get; }
+        public DbSet<TypeRoom> TypeRooms { set; get; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -32,6 +34,23 @@ namespace AirBnb.Data
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.RoleId, x.UserId });
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => new { x.UserId });
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker
+               .Entries()
+               .Where(e => e.State == EntityState.Added);
+
+            foreach (var entityEntry in entries)
+            {
+                var dateCreatedProp = entityEntry.Entity.GetType().GetProperty(SystemConsts.DateCreatedField);
+                if (entityEntry.State == EntityState.Added
+                    && dateCreatedProp != null)
+                {
+                    dateCreatedProp.SetValue(entityEntry.Entity, DateTime.Now);
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

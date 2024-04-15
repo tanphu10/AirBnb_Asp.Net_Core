@@ -2,12 +2,12 @@ import { Subject, takeUntil } from 'rxjs';
 import {
   AdminApiBookRoomApiClient,
   BookRoomInListDto,
-  BookRoomsDtoPagedResult,
   BookRoomsDto,
   AdminApiLocationApiClient,
   LocationDto,
   AdminApiRoomApiClient,
   RoomInListDto,
+  BookRoomInListDtoPagedResult,
 } from 'src/app/api/admin-api.service.generated';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { DialogService, DynamicDialogComponent } from 'primeng/dynamicdialog';
@@ -80,7 +80,8 @@ export class BookRoomComponent implements OnDestroy, OnInit {
       )
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
-        next: (response: BookRoomsDtoPagedResult) => {
+        next: (response: BookRoomInListDtoPagedResult) => {
+          console.log("check",response)
           this.items = response.results;
           this.totalCount = response.rowCount;
           this.toggleBlockUI(false);

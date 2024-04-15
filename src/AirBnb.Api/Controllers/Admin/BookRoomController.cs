@@ -67,7 +67,6 @@ namespace AirBnb.Api.Controllers.Admin
                 return NotFound();
             }
             _mapper.Map(request, data);
-
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
         }
@@ -102,7 +101,7 @@ namespace AirBnb.Api.Controllers.Admin
             return result > 0 ? Ok() : BadRequest();
         }
         [HttpGet("Paging")]
-        public async Task<ActionResult<PagedResult<BookRoomsDto>>> GetAllPagingBookAsync(string? keyword, Guid? roomId, int pageIndex, int pageSize)
+        public async Task<ActionResult<PagedResult<BookRoomInListDto>>> GetAllPagingBookAsync(string? keyword, Guid? roomId, int pageIndex, int pageSize)
         {
             var data = await _unitOfWork.BookRooms.GetAllPaging(keyword, roomId, pageIndex, pageSize);
             return Ok(data);
