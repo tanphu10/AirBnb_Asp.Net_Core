@@ -1,0 +1,52 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  .drop-shadow {
+    .header_content {
+      margin: 0 auto;
+
+      #navbar-user {
+        background: #f12711;
+        background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+        background: linear-gradient(to left, #f12711, #f5af19);
+
+        .btn_header {
+          position: relative;
+          .btn_header_navbar::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            right: -16px;
+            width: 1.6px;
+            height: 60%;
+            background-color: #fff;
+            transition: 0.25s;
+          }
+        }
+      }
+      .showInput {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  // .logo {
+  //   margin-bottom: 100px;
+  // }
+  // .btn_dropdown {
+  //   margin-bottom: 100px;
+  // }
+  // .block {
+  //   // margin-bottom: 50px;
+  // }
+}
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-default:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
+  border: 1px solid orangered;
+}
+
+

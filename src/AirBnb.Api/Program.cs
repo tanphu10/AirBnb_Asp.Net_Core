@@ -31,7 +31,7 @@ builder.Services.AddCors(o => o.AddPolicy(TanPhuCorsPolicy, builder =>
 {
     builder.AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins(configuration["AllowedOrigins"])
+        .WithOrigins(configuration["AllowedOrigins"], "http://localhost:3000")
         .AllowCredentials();
 }));
 // Add services to the container.
@@ -65,7 +65,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
 // Business services and repositories
 var services = typeof(RoomRepository).Assembly.GetTypes()

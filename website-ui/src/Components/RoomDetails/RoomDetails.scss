@@ -1,0 +1,226 @@
+#detailsRoom {
+  .comment_users .comment_users_items {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // background-color: #3a3b3c;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .name_room {
+    button {
+      font-size: 18px;
+    }
+    .name {
+      background: linear-gradient(to left, #f12711, #f5af19);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  .sub_title {
+    .sub_title_left {
+      .ort {
+        cursor: pointer;
+        &:hover {
+          background: linear-gradient(to left, #f12711, #f5af19);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+    }
+    .sub_title_right {
+      span {
+        // transition: all 0.5s;
+        &:hover {
+          background: linear-gradient(to left, #f12711, #f5af19);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+      i {
+        &:hover {
+          //   font-weight: bold;
+          background: linear-gradient(to left, #f12711, #f5af19);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+    }
+  }
+  .description_room {
+    .description_room_left {
+      .extra_info {
+        .btnInfo {
+          background: linear-gradient(to left, #f12711, #f5af19);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+      .translate_info {
+        .btntranslate {
+          &:hover {
+            background: linear-gradient(to left, #f12711, #f5af19);
+            background-clip: text;
+            color: transparent;
+          }
+        }
+        .btnAnimation {
+          background: linear-gradient(to left, #f12711, #f5af19);
+          background-clip: text;
+          color: transparent;
+          i {
+            background: linear-gradient(to left, #f12711, #f5af19);
+            background-clip: text;
+            color: transparent;
+            animation: leftToRight 1s linear infinite;
+          }
+        }
+      }
+      .utilities_room {
+        .btn {
+          .btnShow {
+            transition: all 0.5s;
+            &:hover {
+              background: #f12711;
+              background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+              background: linear-gradient(to left, #f12711, #f5af19);
+              color: white;
+              // border: transparent;
+            }
+          }
+        }
+      }
+    }
+    .description_room_right {
+      .animated-button1 {
+        // background: linear-gradient(-30deg, #3d0b0b 50%, #2b0808 50%);
+        // background: black;
+
+        .header_card {
+          h3 {
+            background: linear-gradient(to left, #f12711, #f5af19);
+            background-clip: text;
+            color: transparent;
+          }
+        }
+        .footer_card {
+          .btnDatPhong {
+            // background: white;
+            background: linear-gradient(to left, #f12711, #f5af19);
+            background-clip: text;
+            color: transparent;
+            // color: black;
+            transition: all 0.5s;
+            border: 1px solid orange;
+            &:hover {
+              background: #f12711;
+              background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+              background: linear-gradient(to left, #f12711, #f5af19);
+              color: white;
+              // background-color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+  .comment_users {
+    .comment_users_items {
+      .nameUsers_avatar {
+        .img_users {
+          width: 50px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes leftToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes animateTop {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+}
+@keyframes animateBottom {
+  0% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@keyframes animateLeft {
+  0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+}
+
+#Calender {
+  .ant-input-number-group-addon {
+    background: linear-gradient(to left, #f12711, #f5af19);
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number-group
+    .ant-input-number-group-addon {
+    border: 1px solid #f5af19;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number-group-wrapper,
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-space-vertical {
+    width: 100%;
+    margin-top: 10px;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number {
+    border: 1px solid #f5af19;
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item {
+  padding: 0;
+}
+
+#DeleteUser {
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid orangered;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary:hover {
+    background-color: #f12711;
+    color: white !important;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn > span {
+    color: black !important;
+  }
+}

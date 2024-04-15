@@ -44,6 +44,7 @@
             <th>Ngày CheckIn</th>
             <th>Ngày CheckOut</th>
             <th>số lượng khách</th>
+            <th>Thanh Toán Room</th>
             <th style="width: 150px">Duyệt</th>
             <th>Trạng Thái</th>
           </tr>
@@ -58,10 +59,10 @@
             <td>{{ row.dateCheckIn | date : 'dd-MM-yyyy hh:mm' }}</td>
             <td>{{ row.dateCheckout | date : 'dd-MM-yyyy hh:mm' }}</td>
             <td>{{ row.guestNumber |number }}</td>
-            <!-- <td>
+            <td>
               <p-badge *ngIf="row.isPaid == 0" value="Chưa TT" severity="danger"></p-badge>
               <p-badge *ngIf="row.isPaid == 1" value="Đã TT" severity="success"></p-badge>
-            </td> -->
+            </td>
             <td style="width: 150px">
               <p-badge *ngIf="row.status == 0" value="Nháp" severity="info"></p-badge>
               <p-badge *ngIf="row.status == 1" value="Đợi duyệt" severity="warning"></p-badge>

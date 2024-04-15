@@ -30,13 +30,13 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok(result);
         }
         [HttpPost]
-        [Route("{userId}")]
+        [Route("{ownerid}/{bookid}")]
         //[Authorize(Royalty.Pay)]
-        public async Task<IActionResult> PayRoom(Guid userid)
+        public async Task<IActionResult> PayRoom(Guid ownerid, Guid bookid)
         {
             var fromUserId = User.GetUserId();
-
-            await _payRoomService.PayCashForOwnerAsync(fromUserId, userid);
+            await _payRoomService.PayCashForOwnerAsync(fromUserId, ownerid, bookid);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 

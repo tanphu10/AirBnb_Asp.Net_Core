@@ -13,8 +13,8 @@ namespace AirBnb.Core.Models.PayRoom
         public required string FromUserName { get; set; }
 
         public Guid FromUserId { get; set; }
-        public Guid ToUserId { get; set; }
-        public required string ToUserName { get; set; }
+        public Guid ToOwnerId { get; set; }
+        public required string ToOwnerName { get; set; }
         public double Amount { get; set; }
         public TransactionType TransactionType { get; set; }
         public DateTime DateCreated { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AirBnb.Core.Models.System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace AirBnb.Core.Models.Auth
     {
         public required string Token { get; set; }
         public required string RefreshToken { get; set; }
+        //public UserDto User { get; set; }
 
     }
 }

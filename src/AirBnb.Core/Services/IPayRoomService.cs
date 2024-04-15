@@ -8,6 +8,6 @@ namespace AirBnb.Core.Services
 {
     public interface IPayRoomService
     {
-        Task PayCashForOwnerAsync(Guid fromUserId, Guid toUserId);
+        Task PayCashForOwnerAsync(Guid fromUserId, Guid toUserId,Guid bookId);
     }
 }

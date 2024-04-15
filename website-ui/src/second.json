@@ -1,0 +1,147 @@
+{
+    "status": 200,
+    "message": "get theo room_id thành công",
+    "content": [
+        {
+            "id": 24,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-09T00:00:00.000Z",
+            "content": "chuẩn luôn",
+            "rate": 1,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 37,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-09T00:00:00.000Z",
+            "content": "ccccccc",
+            "rate": 3,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 42,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-09T00:00:00.000Z",
+            "content": "ssssss",
+            "rate": 5,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 44,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-10T00:00:00.000Z",
+            "content": "aaaa rev01",
+            "rate": 3,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 47,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-09T00:00:00.000Z",
+            "content": "aaa rv01 rev02",
+            "rate": 5,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 57,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-09T00:00:00.000Z",
+            "content": "bình luận",
+            "rate": 5,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        },
+        {
+            "id": 65,
+            "room_id": 1,
+            "user_id": 22,
+            "date_comment": "2023-11-11T00:00:00.000Z",
+            "content": "võ thị như ý",
+            "rate": 3,
+            "users": {
+                "id": 22,
+                "full_name": "võ thị như ý",
+                "email": "phantanphu10@gmail.com",
+                "pass_word": "$2b$10$yyhV9Irxk7cUz0s6TusfXuPhU4hATAMPMAUBe9MKL34y1CYH.kKsS",
+                "phone": "12344",
+                "birth_day": "2023-11-07T00:00:00.000Z",
+                "gender": "string",
+                "role": "ADMIN",
+                "avatar": "1699673884435_avt_beautiful.jpg",
+                "face_app_id": "string"
+            }
+        }
+    ],
+    "dateTime": "2023-11-11T08:39:47.224Z"
+}

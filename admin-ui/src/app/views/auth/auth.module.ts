@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     LoginComponent,
     Page403Component,
-
     Page404Component,
     Page500Component
   ],

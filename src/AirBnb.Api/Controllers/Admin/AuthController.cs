@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Text.Json;
 
 namespace AirBnb.Api.Controllers.Admin
-{   
+{
     [Route("api/admin/auth")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -43,7 +43,7 @@ namespace AirBnb.Api.Controllers.Admin
                 return Unauthorized();
             }
             //var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, false, true);
-            var result= await _signInManager.PasswordSignInAsync(user, request.Password, false, true);
+            var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, true);
             if (!result.Succeeded)
             {
                 return Unauthorized();
@@ -68,11 +68,11 @@ namespace AirBnb.Api.Controllers.Admin
             user.RefreshToken = refreshToken;
             user.RefreshTOkenExpiryTime = DateTime.Now.AddDays(30);
             await _userManager.UpdateAsync(user);
-
             return Ok(new AuthenticatedResult()
             {
                 Token = accessToken,
                 RefreshToken = refreshToken,
+                //User = user,
             });
         }
 

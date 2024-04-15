@@ -49,7 +49,7 @@ namespace AirBnb.Core.Domain.Content
         public DateTime? DateModified { get; set; }
         public int ViewCount { get; set; }
         public RoomStatus Status { get; set; }
-
+        public Guid? TypeId { get; set; }
 
     }
     public enum RoomStatus

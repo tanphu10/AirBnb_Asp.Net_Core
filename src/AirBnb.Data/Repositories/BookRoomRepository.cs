@@ -175,35 +175,16 @@ namespace AirBnb.Data.Repositories
             return activity;
         }
 
-        public async Task<NewBookRooms> GetUserBooked(Guid fromUserId)
+        public async Task<NewBookRooms> GetUserBooked(Guid fromUserId,Guid bookId)
         {
-            var data = _context.BookRooms.Where(x => x.AuthorUserId == fromUserId);
+            var data =await _context.BookRooms.Where(x => x.AuthorUserId == fromUserId && x.Id==bookId).FirstOrDefaultAsync();
             return _mapper.Map<NewBookRooms>(data);
         }
-        //public async Task SenToApproveBookRoom(Guid id,Guid currentId)
-        //{
-        //    var book = await _context.BookRooms.FindAsync(id);
-        //    if (book == null)
-        //    {
-        //        throw new Exception("không tồn tại book room");
-        //    }
-        //    var user = await _context.Users.FindAsync(currentId);
-        //    if (user == null)
-        //    {
-        //        throw new Exception("không tồn tại user");
-        //    }
-        //    await _context.BookRoomActivityLogs.AddAsync(new BookRoomActivityLog()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        FromStatus = book.Status,
-        //        ToStatus = BookRoomStatus.WaitingForApproval,
-        //        UserId = user.Id,
-        //        UserName = user?.UserName,
-        //        RoomId = book.Id,
-        //        Note = $"{user?.UserName} gửi chờ duyệt"
-        //    });
-        //    book.Status = BookRoomStatus.WaitingForApproval;
-        //    _context.BookRooms.Update(book);
-        //}
+
+        public async Task<BookRooms> GetUserBookedd(Guid fromUserId, Guid bookId)
+        {
+            var data = await _context.BookRooms.Where(x => x.AuthorUserId == fromUserId && x.Id == bookId).FirstOrDefaultAsync();
+            return data;
+        }
     }
 }

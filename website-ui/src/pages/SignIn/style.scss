@@ -1,0 +1,16 @@
+// #SignIn {
+:where(.css-dev-only-do-not-override-14wwjjs) a:hover {
+  color: orangered !important;
+  transition: all 0, 2s;
+  //   decoration: underline;
+}
+.ant-modal-header {
+  display: flex;
+  justify-content: center;
+  .ant-modal-title {
+    font-size: 20px;
+  }
+}
+.ant-modal-footer {
+  display: none;
+}
