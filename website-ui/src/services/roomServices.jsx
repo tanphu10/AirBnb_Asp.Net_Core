@@ -1,7 +1,6 @@
 import { https } from "./config";
 export const roomServ = {
   getAllRoom: () => {
-    console.log("services room")
     return https.get("/api/admin/room/all-room");
   },
   getDetailRoom: (id) => {

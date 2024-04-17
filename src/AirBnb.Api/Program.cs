@@ -1,4 +1,4 @@
-using AirBnb.Api;
+﻿using AirBnb.Api;
 using AirBnb.Api.Authorization;
 using AirBnb.Api.Services;
 using AirBnb.Core.ConfigOptions;
@@ -177,6 +177,9 @@ if (app.Environment.IsDevelopment())
         c.DisplayRequestDuration();
     });
 }
+// phần này thêm hình
+app.UseStaticFiles();
+
 app.UseCors(TanPhuCorsPolicy);
 app.UseHttpsRedirection();
 

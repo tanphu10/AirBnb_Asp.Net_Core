@@ -1,40 +1,28 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Dropdown, Popconfirm, Space, message } from "antd";
 import {
-  findRoomBooker,
   getAllRoomAPI,
   getRoomUserBookedApi,
 } from "../../redux/slices/roomSLices";
-import { layDuLieuLocal } from "../../util/localStorage";
-import {
-  editAvatarApi,
-  getAllUser,
-  getInfoUserApi,
-} from "../../redux/slices/adminUserSlices";
 import { roomServ } from "../../services/roomServices";
 import FormUpdateUser from "../../Components/FormUpdateInfoUser/FormUpdateUser/FormUpdateUser";
 import EditBookedRoom from "../../Components/FormUpdateInfoUser/EditBookRoom/EditBookedRoom";
 import { DOMAIN_BE_IMG } from "../../util/constants";
+import { editAvatarApi } from "../../redux/slices/userSlice";
+import { getUser } from "../../shared/function/token-storage";
 
 const InfoUser = () => {
-  const maNguoiDung = layDuLieuLocal("user");
-  // console.log(maNguoiDung);
+  const maNguoiDung = getUser().id;
+  // console.log("mã người dùng",maNguoiDung)
   const [data, setData] = useState();
-  // console.log(data);
   const dispatch = useDispatch();
-  // console.log(controlRoom);
   useEffect(() => {
-    dispatch(getAllUser());
     dispatch(getAllRoomAPI());
     dispatch(getRoomUserBookedApi(maNguoiDung));
   }, []);
-  // const { controlRoom } = useSelector((state) => state.room);
-  // console.log(arrayRoom);
-  // console.log("controlRoom", controlRoom);
-  // console.log(maNguoiDung);
-  // console.log("arrRederItem", arrRenderItem);
+
   const handleHideChose = () => {
     let x = document.getElementById("myImg");
     x.style.display === "none"
@@ -45,8 +33,7 @@ const InfoUser = () => {
     const file = e.target.files[0];
     setData(file);
   };
-  const { getUser } = useSelector((state) => state.adminUser);
-  // console.log("getUser", getUser);
+  const { ObUser } = useSelector((state) => state.user);
   return (
     <Fragment>
       <div className="border-b" style={{ margin: "100px 10px 0 10px" }}>
@@ -54,8 +41,7 @@ const InfoUser = () => {
           <h2>
             Welcome to Airbnb ,Hello
             <span className="font-semibold text-red-600 ml-2">
-              {/* {layDuLieuLocal("user")?.user.name} */}
-              {getUser?.full_name}
+              {ObUser?.full_name}
             </span>
           </h2>
         </div>
@@ -72,10 +58,10 @@ const InfoUser = () => {
               <div className="relative w-full">
                 <div className="header_card border-b  font-semibold flex items-center flex-col mt-3 ">
                   <div style={{ width: "150px", height: "150px" }}>
-                    {getUser?.avatar ? (
+                    {ObUser?.avatar ? (
                       <img
                         style={{ height: "100%", borderRadius: "60%" }}
-                        src={DOMAIN_BE_IMG + getUser.avatar}
+                        src={DOMAIN_BE_IMG + ObUser.avatar}
                         alt=""
                       />
                     ) : (
@@ -117,7 +103,6 @@ const InfoUser = () => {
                     />
                     <button
                       onClick={() => {
-                        // console.log(data);
                         dispatch(editAvatarApi(data));
                       }}
                       className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3 "
@@ -299,7 +284,7 @@ const FormUpdateBookRoom = (props) => {
   const { id, maNguoiDung } = props;
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const maUser = layDuLieuLocal("user").content.user;
+  const maUser = getUser();
   const cancel = (e) => {
     // console.log(e);
     message.error("Click on No");

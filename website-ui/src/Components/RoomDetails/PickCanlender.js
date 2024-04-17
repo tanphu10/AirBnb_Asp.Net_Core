@@ -1,28 +1,18 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DatePicker } from "antd";
-import { layDuLieuLocal } from "../../util/localStorage";
-import { useFormik } from "formik";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import * as yup from "yup";
-import moment from "moment/moment";
-import RoomDetails from "./RoomDetails";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  getAllBookRoomApi,
-  getControlBookApi,
-  getRoomUserBookedApi,
-} from "../../redux/slices/bookingRoomSlice";
+import { getControlBookApi } from "../../redux/slices/bookingRoomSlice";
 import { InfoBooking } from "../../_model/InfoBooking";
 import dayjs from "dayjs";
-import SignIn from "../../pages/SignIn/SignIn";
+import { getUser } from "../../shared/function/token-storage";
 
 const { RangePicker } = DatePicker;
 
 const PickCanlender = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
-  const nguoiDung = layDuLieuLocal("user")?.content;
-  // console.log("nguoiDung", nguoiDung);
+  const user = getUser();
 
   const [date, setDate] = useState([]);
   // console.log("date", date);
@@ -82,13 +72,15 @@ const PickCanlender = (props) => {
           type="submit"
           className="btnDatPhong  w-full py-2 px-4 mt-3 rounded-lg  text-lg font-semibold "
           onClick={() => {
-            if (!layDuLieuLocal("user")) {
+            if (!user) {
               return document.getElementById("SignIn").click();
             } else {
               const infoBooking = new InfoBooking();
               infoBooking.room_id = Number(params.id);
-              infoBooking.user_id = Number(nguoiDung?.user?.id);
-              infoBooking.number_guest =Number(document.getElementById("guestNumber").value)
+              infoBooking.user_id = Number(user?.id);
+              infoBooking.number_guest = Number(
+                document.getElementById("guestNumber").value
+              );
               infoBooking.date_on = date[0];
               infoBooking.date_out = date[1];
               // console.log(first)

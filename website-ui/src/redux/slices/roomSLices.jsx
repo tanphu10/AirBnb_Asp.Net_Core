@@ -2,13 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { roomServ } from "../../services/roomServices";
 import { userService } from "../../services/userService";
-import { set_loading_end, set_loading_started } from "./loadingSlice";
-import { adminUser } from "../../services/adminUser";
 
 export const getApiTypeRoom = createAsyncThunk(
   "room/getTypeRoomApi",
   async () => {
-    console.log("type")
+    // console.log("type")
     const res = await roomServ.getTypeRoom();
     // console.log("type redux",res.data);
     return res.data;
@@ -19,14 +17,14 @@ export const getApiTypeRoomId = createAsyncThunk(
   async (id) => {
     const res = await roomServ.getTypeRoomId(id);
     // console.log(res);
-    return res.data.content;
+    return res.data;
   }
 );
 export const getAllRoomAPI = createAsyncThunk(
   "room/getAllRoomAPI",
   async () => {
     const res = await roomServ.getAllRoom();
-    console.log(res);
+    // console.log(res);
     return res.data;
   }
 );
@@ -50,7 +48,7 @@ export const putBookedRoomApi = createAsyncThunk(
   "room/putBookedRoomApi",
   async (data) => {
     // console.log(data);
-    const res = await adminUser.adminPutRentId(data.id, data);
+    const res = await userService.adminPutRentId(data.id, data);
     // console.log(res);
     alert("bạn đã update thành công");
     return res.data;
@@ -59,9 +57,9 @@ export const putBookedRoomApi = createAsyncThunk(
 export const searchRoomApi = createAsyncThunk(
   "room/searchRoomApi",
   async (data) => {
-    console.log(data);
+    // console.log(data);
     const res = await roomServ.searchRoom(data);
-    console.log(res);
+    // console.log(res);
     return res.data;
   }
 );
@@ -113,7 +111,7 @@ export const roomSlice = createSlice({
     });
 
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
-      console.log("action: ", action.payload);
+      // console.log("action: ", action.payload);
       state.arrayRoom = action.payload;
       // dispatch(set_loading_end());
       // console.log(state.arrayRoom);

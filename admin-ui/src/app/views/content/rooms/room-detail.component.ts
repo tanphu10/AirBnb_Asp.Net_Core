@@ -50,7 +50,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
   filteredTags: string[] | undefined;
   roomTags: string[];
   formSavedEventEmitter: EventEmitter<any> = new EventEmitter();
-  public booleanValue: boolean ;
+  public booleanValue: boolean;
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -60,7 +60,6 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
     private roomCategoryApiClient: AdminApiCategoryApiClient,
     private uploadService: UploadService,
     private locationApiClient: AdminApiLocationApiClient
-    
   ) {}
   ngOnDestroy(): void {
     if (this.ref) {
@@ -143,9 +142,8 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-
   loadFormDetails(id: string) {
-    console.log('id form detail', id);
+    // console.log('id form detail', id);
     this.roomApiClient
       .getRoomId(id)
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -164,9 +162,9 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
 
   onFileChange(event) {
     if (event.target.files && event.target.files.length) {
-      this.uploadService.uploadImage('posts', event.target.files).subscribe({
+      this.uploadService.uploadImage('rooms', event.target.files).subscribe({
         next: (response: any) => {
-          this.form.controls['thumbnail'].setValue(response.path);
+          this.form.controls['photo'].setValue(response.path);
           this.thumbnailImage = environment.API_URL + response.path;
         },
         error: (err: any) => {
@@ -256,7 +254,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
       bedRoom: new FormControl(this.selectedEntity.bedRoom || null),
       bathRoom: new FormControl(this.selectedEntity.bathRoom || null),
       price: new FormControl(this.selectedEntity.price || null),
-      washMachine: new FormControl(this.selectedEntity.washMachine ||false),
+      washMachine: new FormControl(this.selectedEntity.washMachine || false),
       ironCloth: new FormControl(this.selectedEntity.ironCloth || false),
       kitchen: new FormControl(this.selectedEntity.kitchen || false),
       airCondirioner: new FormControl(
@@ -266,11 +264,12 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
       televison: new FormControl(this.selectedEntity.televison || false),
       pool: new FormControl(this.selectedEntity.pool || false),
       park: new FormControl(this.selectedEntity.park || false),
-      thumbnail: new FormControl(this.selectedEntity.photo || false),
       tags: new FormControl(this.roomTags),
+      photo: new FormControl(this.selectedEntity.photo || null),
     });
     if (this.selectedEntity.photo) {
       this.thumbnailImage = environment.API_URL + this.selectedEntity.photo;
+      console.log('thumbnailImage,', this.thumbnailImage);
     }
   }
   filterTag(event: AutoCompleteCompleteEvent) {

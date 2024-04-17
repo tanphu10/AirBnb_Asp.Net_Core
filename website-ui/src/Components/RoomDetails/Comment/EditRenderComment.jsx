@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SendOutlined } from "@ant-design/icons";
-import { layDuLieuLocal } from "../../../util/localStorage";
-import dayjs from "dayjs";
-import {
-  editCommentApi,
-  findRoomUser,
-  getAllCommentApi,
-  layDataSetComment,
-} from "../../../redux/slices/commentUserSlice";
+import { editCommentApi } from "../../../redux/slices/commentUserSlice";
 import { message } from "antd";
+import { getUser } from "../../../shared/function/token-storage";
+import { Comment } from "../../../_model/Comment";
 
 const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-  // const params = useParams();
   const { id, noiDung, setComment } = props;
   const { arrSetComment } = useSelector((state) => state.commentUser);
+  const { arrComment } = useSelector((state) => state.commentUser);
+  console.log("arrSetComment", arrSetComment);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-
-  let giaTri = arrSetComment.find((item) => {
-    return id == item.id;
-  });
+  // console.log("content", content);
+  // let giaTri = arrSetComment.find((item) => {
+  //   return id == item.id;
+  // });
+  // let giaTri = ;
   // console.log(giaTri);
-  useEffect(() => {
-    setContent(giaTri ? giaTri : "");
-    // dispatch(layDataSetComment(id));
-  }, [arrSetComment]);
-  // console.log(content);
-  if (giaTri) {
+  // useEffect(() => {
+  //   setContent(giaTri ? giaTri : "");
+  // }, [arrSetComment]);
+  if (arrSetComment.id == id) {
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
         {contextHolder}
@@ -52,21 +47,19 @@ const EditRenderComment = (props) => {
           className="hover:text-red-600"
           type="button"
           onClick={() => {
-            if (!layDuLieuLocal("user")) {
+            if (!getUser()) {
               return document.getElementById("SignIn").click();
             } else {
               if (document.getElementById("editValue").value) {
-                // console.log(giaTri);
-                const comment = new Comment();
-                comment.id = giaTri.id;
-                comment.user_id = giaTri.user_id;
-                comment.room_id = giaTri.room_id;
-                comment.date_comment = new Date();
-                comment.content = document.getElementById("editValue").value;
-                comment.rate = 0;
-                console.log("comment", comment);
-                dispatch(editCommentApi(comment));
-                setComment(arrSetComment);
+                const binhLuan = new Comment();
+                binhLuan.roomId = props.id;
+                binhLuan.dateCreated = new Date();
+                binhLuan.content = content;
+                binhLuan.id = arrSetComment.id;
+                console.log(binhLuan);
+                dispatch(editCommentApi(binhLuan));
+                messageApi.success("updatethành công");
+                setComment(arrComment);
               }
             }
           }}

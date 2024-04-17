@@ -3,22 +3,22 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import { adminUser } from "../../../services/adminUser";
-import { layDuLieuLocal } from "../../../util/localStorage";
-import { getInfoUserApi } from "../../../redux/slices/adminUserSlices";
+import { userService } from "../../../services/userService";
+import { getInfoUserApi } from "../../../redux/slices/userSlice";
+import { getUser } from "../../../shared/function/token-storage";
 
 const UpdateItems = (props) => {
   // console.log(props);
   const { setIsModalOpen } = props;
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
-  const { getUser } = useSelector((state) => state.adminUser);
-  // console.log("getUser", getUser);
+  const { ObUser } = useSelector((state) => state.user);
+  const userId = getUser().id;
   useEffect(() => {
-    if (getUser) {
-      formik.setValues(getUser);
+    if (ObUser) {
+      formik.setValues(ObUser);
     }
-  }, [getUser]);
+  }, [ObUser]);
   const formik = useFormik({
     initialValues: {
       id: " ",
@@ -63,12 +63,9 @@ const UpdateItems = (props) => {
       console.log("values check >>>", values);
       try {
         // xử lí gửi dữ liệu lên server
-        const res = await adminUser.adminUserIdPut(
-          layDuLieuLocal("user").content.user.id,
-          values
-        );
+        const res = await userService.adminUserIdPut(getUser().id, values);
         console.log(res);
-        dispatch(getInfoUserApi(layDuLieuLocal("user").content.user.id));
+        dispatch(getInfoUserApi(userId));
         messageApi.success("update thành công");
       } catch (error) {
         console.log(error);
@@ -92,11 +89,7 @@ const UpdateItems = (props) => {
   // console.log("check>>>", values);
   const btnCapNhat = async () => {
     try {
-      const res = await adminUser.adminUserIdPut(
-        layDuLieuLocal("user").content.user.id,
-        values
-      );
-      // console.log("res: ", res);
+      await userService.adminUserIdPut(userId, values);
       messageApi.success("cập nhập thành công!!!");
     } catch (error) {
       console.log(error);

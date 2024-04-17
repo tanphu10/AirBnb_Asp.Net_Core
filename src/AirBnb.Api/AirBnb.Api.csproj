@@ -21,4 +21,8 @@
     <ProjectReference Include="..\AirBnb.Data\AirBnb.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

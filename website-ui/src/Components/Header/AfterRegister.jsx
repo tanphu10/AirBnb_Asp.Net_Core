@@ -1,67 +1,37 @@
 import React, { useEffect } from "react";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  FolderOpenOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import SignIn from "../../pages/SignIn/SignIn";
 import { Button, Dropdown, Space, message } from "antd";
-import Header from "./Header.scss";
-import { setDataName } from "../../redux/slices/userSlice";
-import { layDuLieuLocal, xoaLocal } from "../../util/localStorage";
-import { getInfoUserApi } from "../../redux/slices/adminUserSlices";
+import { getInfoUserApi, setDataName } from "../../redux/slices/userSlice";
 import PressSign from "./PressSign";
 import { DOMAIN_BE_IMG } from "../../util/constants";
+import { getUser, signOut } from "../../shared/function/token-storage";
 const AfterRegister = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { inFo } = useSelector((state) => state.user);
+  // console.log(inFo);
+
   useEffect(() => {
-    const nguoiDung = layDuLieuLocal("user")?.content?.user?.id;
-    if (nguoiDung) {
-      dispatch(getInfoUserApi(nguoiDung));
+    const userId = getUser()?.id;
+    if (userId) {
+      dispatch(getInfoUserApi(userId));
     }
   }, []);
-  const { getUser } = useSelector((state) => state.adminUser);
-  // console.log(getUser);
-  const handleMenuClick = (e) => {
-    // message.info("Log out Successed");
-    // console.log("click", e);
-  };
   const logOut = () => {
-    xoaLocal("user");
+    signOut();
     dispatch(setDataName(null));
     navigate("/");
     message.success("đăng xuất thành công");
   };
-  const displayQuanTri = () => {
-    const admin = layDuLieuLocal("user")?.content.user?.role;
-    console.log(admin);
-    if (admin == "ADMIN") {
-      navigate("/admin-login");
-      // console.log("chuyển đến admin");
-    } else {
-      navigate("/");
-      // console.log("chuyển đến home");
-    }
-  };
-
   const items = [
     {
       label: <NavLink to={"/infouser"}>Thông tin người dùng</NavLink>,
       key: "1",
       icon: <UserOutlined />,
-    },
-    {
-      label: "Quản Trị",
-      key: "2",
-      icon: <FolderOpenOutlined />,
-      onClick: displayQuanTri,
     },
     {
       label: "Đăng Xuất",
@@ -72,7 +42,6 @@ const AfterRegister = () => {
   ];
   const menuProps = {
     items,
-    // onClick: handleMenuClick,
   };
 
   return (
@@ -90,11 +59,11 @@ const AfterRegister = () => {
               }}
             >
               {<div className="min-w-max">
-                <img src={getUser?.avatar} alt="" />
+                <img src={inFo?.avatar} alt="" />
               </div> ? (
                 <div className="min-w-max">
                   <img
-                    src={DOMAIN_BE_IMG + getUser?.avatar}
+                    src={DOMAIN_BE_IMG + inFo?.avatar}
                     alt=""
                     style={{
                       width: "50px",

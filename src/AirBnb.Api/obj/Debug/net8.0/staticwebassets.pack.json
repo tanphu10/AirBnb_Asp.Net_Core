@@ -1,0 +1,73 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\564826.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\564826.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\Doc-chin-khoanh-Ha-Giang.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\Doc-chin-khoanh-Ha-Giang.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\bali-1542569_1280.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\bali-1542569_1280.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\bali-4882642_1280.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\bali-4882642_1280.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\ga-tam-ky.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\ga-tam-ky.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\hanoi-23333.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\hanoi-23333.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pexels-thanhhoa-tran-1488259.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\pexels-thanhhoa-tran-1488259.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\phan-thiet.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\phan-thiet.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pho-co-2.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\pho-co-2.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\saigon.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\saigon.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\119878.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\users\\042024\\119878.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\avt_beautiful.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\users\\042024\\avt_beautiful.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\silk-3705336_1280.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\users\\042024\\silk-3705336_1280.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AirBnb.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.AirBnb.Api.props",
+      "PackagePath": "build\\AirBnb.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.AirBnb.Api.props",
+      "PackagePath": "buildMultiTargeting\\AirBnb.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.AirBnb.Api.props",
+      "PackagePath": "buildTransitive\\AirBnb.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

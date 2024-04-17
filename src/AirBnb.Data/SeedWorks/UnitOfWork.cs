@@ -16,7 +16,6 @@ namespace AirBnb.Data.SeedWorks
     {
         private readonly AirBnbContext _context;
         //private readonly UserManager<AppUser> _userManager;
-
         public UnitOfWork(AirBnbContext context, IMapper mapper, UserManager<AppUser> userManager)
         {
             _context = context;
