@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { https } from "../../services/config";
+import { https } from "../../shared/services/config";
+
 
 const ListRoom = () => {
   useEffect(() => {

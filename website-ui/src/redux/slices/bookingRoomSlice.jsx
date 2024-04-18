@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { roomServ } from "../../services/roomServices";
-import { userService } from "../../services/userService";
+import { roomServ } from "./../../shared/services/roomServices";
+import { userService } from "./../../shared/services/userService";
 
-export const getControlBookApi = createAsyncThunk(
-  "book/getControlBookApi",
+export const PostBookRoomApi = createAsyncThunk(
+  "book/PostBookRoomApi",
   async (infoBooking) => {
     console.log("infoBooking", infoBooking);
     try {
       const res = await roomServ.postControlBook(infoBooking);
-      alert("Đặt phòng thành công");
+      // document.getElementById("guestNumber").value = "";
       console.log(res);
-      document.getElementById("guestNumber").value = "";
-      // document.getElementById("ngayThang").value = "";
-      return res.data;
+      alert("yêu cầu thanh toán tiền");
+      return res;
     } catch (error) {
       alert("Đặt phòng thất bại");
       console.log("error", error);
@@ -28,13 +27,10 @@ export const bookingRoomSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getControlBookApi.fulfilled, (state, action) => {
+    builder.addCase(PostBookRoomApi.fulfilled, (state, action) => {
       state.ListRoom = action.payload;
       // console.log("state.payload: ", action.payload);
       // console.log("state.ListRoom: ", state.ListRoom);
-    });
-    builder.addCase(getControlBookApi.rejected, (state, action) => {
-      // console.log("action: ", action);
     });
   },
 });

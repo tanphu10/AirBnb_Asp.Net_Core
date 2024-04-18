@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { DatePicker } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getControlBookApi } from "../../redux/slices/bookingRoomSlice";
+import { PostBookRoomApi } from "../../redux/slices/bookingRoomSlice";
 import { InfoBooking } from "../../_model/InfoBooking";
 import dayjs from "dayjs";
 import { getUser } from "../../shared/function/token-storage";
@@ -13,6 +13,7 @@ const PickCanlender = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
   const user = getUser();
+  const navigate = useNavigate();
 
   const [date, setDate] = useState([]);
   // console.log("date", date);
@@ -48,23 +49,32 @@ const PickCanlender = (props) => {
       <div className="relative z-0 w-full my-5 group">
         {/* <h3>phòn</h3> */}
         <input
-          type="text"
+          type="number"
           id="guestNumber"
           // onChange={handleChange}
           // onBlur={handleBlur}
           className="block   px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-orange-500 appearance-none dark:text-white dark:border-orange-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
         />
-        {/* {formik.errors.soLuongKhach && formik.touched.soLuongKhach ? (
-            <p className="text-red-600">{formik.errors.soLuongKhach}</p>
-          ) : (
-            ""
-          )} */}
         <label
           htmlFor="floating_email"
           className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
           Số Lượng khách
+        </label>
+      </div>
+      <div className="relative z-0 w-full my-5 group">
+        <input
+          type="text"
+          id="noteBook"
+          className="block   px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-orange-500 appearance-none dark:text-white dark:border-orange-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+        />
+        <label
+          htmlFor="floating_email"
+          className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+         ghi chú
         </label>
       </div>
       <div className="footer_card mt-5 text-center flex items-center justify-between gap-3">
@@ -76,16 +86,16 @@ const PickCanlender = (props) => {
               return document.getElementById("SignIn").click();
             } else {
               const infoBooking = new InfoBooking();
-              infoBooking.room_id = Number(params.id);
-              infoBooking.user_id = Number(user?.id);
-              infoBooking.number_guest = Number(
+              infoBooking.roomId = params.id;
+              infoBooking.guestNumber = Number(
                 document.getElementById("guestNumber").value
               );
-              infoBooking.date_on = date[0];
-              infoBooking.date_out = date[1];
-              // console.log(first)
-              console.log("infoBooking", infoBooking.date_on);
-              dispatch(getControlBookApi(infoBooking));
+              infoBooking.dateCheckIn = date[0];
+              infoBooking.dateCheckout = date[1];
+              infoBooking.note=  document.getElementById("noteBook").value
+              console.log("infoBooking", infoBooking);
+              dispatch(PostBookRoomApi(infoBooking));
+              navigate("/pay-room")
             }
           }}
         >

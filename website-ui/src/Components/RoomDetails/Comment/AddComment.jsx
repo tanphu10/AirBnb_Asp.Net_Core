@@ -1,20 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import * as commentUserSlice from "../../../redux/slices/commentUserSlice";
 import ".././RoomDetails.scss";
 import EditRenderComment from "./EditRenderComment";
 import { SendOutlined } from "@ant-design/icons";
 import { Dropdown, Popconfirm, Rate, Space, message } from "antd";
-import { commentService } from "../../../services/commentService";
+import { commentService } from "./../../../shared/services/commentService";
 import { getUser } from "../../../shared/function/token-storage";
 import { Comment } from "../../../_model/Comment";
 
 const AddComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const { arrComment } = useSelector((state) => state.commentUser);
-  const { setComment, roomId } = props;
+  const { setComment, roomId, arrComment,setDataUpdated } = props;
   const sendComment = () => {
     if (!getUser()) {
       return document.getElementById("SignIn").click();
@@ -86,7 +85,7 @@ const AddComment = (props) => {
                   </div>
                   {getUser() ? (
                     <div className="font-thin ">
-                      <UpdateComment id={id} />
+                      <ConfirmComment id={id} />
                     </div>
                   ) : (
                     ""
@@ -96,10 +95,11 @@ const AddComment = (props) => {
                   <span style={{ minWidth: "max-content", marginRight: "5px" }}>
                     bình luận :
                   </span>
+                  {/* ở đây là render ra nội dung hoặc chỉnh sửa thì hiện lên */}
                   <EditRenderComment
                     id={id}
                     noiDung={content}
-                    setComment={setComment}
+                    setDataUpdated={setDataUpdated}
                   />
                 </div>
               </div>
@@ -171,7 +171,7 @@ const AddComment = (props) => {
 };
 export default AddComment;
 
-const UpdateComment = (props) => {
+const ConfirmComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   const params = useParams();
   const { id } = props;
@@ -221,7 +221,6 @@ const UpdateComment = (props) => {
           onClick={() => {
             // dispatch(commentUserSlice.layDataSetComment(id));
             dispatch(commentUserSlice.getCommentId(id));
-          
           }}
         >
           Edit

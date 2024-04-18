@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { userService } from "../../services/userService";
+import { userService } from "./../../shared/services/userService";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setDataName } from "../../redux/slices/userSlice";

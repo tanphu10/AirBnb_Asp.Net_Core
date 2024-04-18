@@ -8,22 +8,15 @@ import { Comment } from "../../../_model/Comment";
 
 const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-  const { id, noiDung, setComment } = props;
+  const { id, noiDung, setDataUpdated } = props;
   const { arrSetComment } = useSelector((state) => state.commentUser);
-  const { arrComment } = useSelector((state) => state.commentUser);
-  console.log("arrSetComment", arrSetComment);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  // console.log("content", content);
-  // let giaTri = arrSetComment.find((item) => {
-  //   return id == item.id;
-  // });
-  // let giaTri = ;
-  // console.log(giaTri);
-  // useEffect(() => {
-  //   setContent(giaTri ? giaTri : "");
-  // }, [arrSetComment]);
-  if (arrSetComment.id == id) {
+  let giaTri = arrSetComment.id == id;
+  useEffect(() => {
+    setContent(giaTri ? arrSetComment : "");
+  }, [arrSetComment]);
+  if (giaTri) {
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
         {contextHolder}
@@ -52,14 +45,15 @@ const EditRenderComment = (props) => {
             } else {
               if (document.getElementById("editValue").value) {
                 const binhLuan = new Comment();
-                binhLuan.roomId = props.id;
+                binhLuan.roomId = arrSetComment.roomId;
                 binhLuan.dateCreated = new Date();
                 binhLuan.content = content;
                 binhLuan.id = arrSetComment.id;
-                console.log(binhLuan);
-                dispatch(editCommentApi(binhLuan));
-                messageApi.success("updatethành công");
-                setComment(arrComment);
+                if (binhLuan) {
+                  dispatch(editCommentApi(binhLuan));
+                  messageApi.success("updatethành công");
+                  setDataUpdated(true);
+                }
               }
             }
           }}

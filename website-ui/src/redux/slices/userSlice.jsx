@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { commentService } from "../../services/commentService";
 import { getUser } from "../../shared/function/token-storage";
-import { userService } from "../../services/userService";
-
+import { commentService } from "./../../shared/services/commentService";
+import { userService } from "./../../shared/services/userService";
 export const userCMTAPI = createAsyncThunk("user/userCMTAPI", async (id) => {
   const res = await commentService.getCommentRoom(id);
   return res.data;

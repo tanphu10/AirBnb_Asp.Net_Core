@@ -135,6 +135,25 @@ namespace AirBnb.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("AirBnb.Core.Domain.Content.LikeRoom", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Like")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "RoomId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("AirBnb.Core.Domain.Content.Location", b =>
                 {
                     b.Property<Guid>("Id")

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import { userService } from "../../../services/userService";
+import { userService } from "./../../../shared/services/userService";
 import { getInfoUserApi } from "../../../redux/slices/userSlice";
 import { getUser } from "../../../shared/function/token-storage";
 

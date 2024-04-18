@@ -18,9 +18,10 @@ const RoomDetails = () => {
   const { room } = useSelector((state) => state.room);
   const { arrComment } = useSelector((state) => state.commentUser);
   const [comment, setComment] = useState();
+  const [dataUpdated, setDataUpdated] = useState(false);
 
-  
-  useEffect(() => {
+
+    useEffect(() => {
     // console.log(room.length);
     if (!room.length > 0) {
       dispatch(getDetailRoomAPI(params.id));
@@ -28,7 +29,7 @@ const RoomDetails = () => {
     // if (!arrComment.length > 0) {
     dispatch(getCommentRoom(params.id));
     // }
-  }, [comment]);
+  }, [comment,dataUpdated]);
   const {
     id,
     name,
@@ -295,7 +296,6 @@ const RoomDetails = () => {
                       <PickCanlender
                         giaTien={price}
                         guest={guest}
-                        arrComment={arrComment}
                       />
                     </div>
                   </div>
@@ -382,7 +382,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <AddComment  roomId={id} setComment={setComment} />
+          <AddComment setDataUpdated={setDataUpdated}  arrComment={arrComment} roomId={id} setComment={setComment} />
         </div>
       </div>
     </div>

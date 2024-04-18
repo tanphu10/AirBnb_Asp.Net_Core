@@ -7,6 +7,7 @@ import RoomDetails from "./Components/RoomDetails/RoomDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./pages/Loading/Loading";
 import InfoUser from "./pages/InfoUser/InfoUser";
+import PayRoom from "./pages/PayRoom/PayRoom";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/infouser" element={<InfoUser />} />
+          <Route path="/pay-room" element={<PayRoom/>} />
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path="/loading" element={<Loading />} />

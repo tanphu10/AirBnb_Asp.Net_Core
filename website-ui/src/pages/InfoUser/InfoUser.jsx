@@ -6,7 +6,7 @@ import {
   getAllRoomAPI,
   getRoomUserBookedApi,
 } from "../../redux/slices/roomSLices";
-import { roomServ } from "../../services/roomServices";
+import { roomServ } from "./../../shared/services/roomServices";
 import FormUpdateUser from "../../Components/FormUpdateInfoUser/FormUpdateUser/FormUpdateUser";
 import EditBookedRoom from "../../Components/FormUpdateInfoUser/EditBookRoom/EditBookedRoom";
 import { DOMAIN_BE_IMG } from "../../util/constants";
