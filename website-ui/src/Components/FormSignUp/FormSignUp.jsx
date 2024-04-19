@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { useFormik } from "formik";
 import React from "react";
-import { userService } from "../../services/userService";
+import { userService } from "./../../shared/services/userService";
 import { useNavigate } from "react-router";
 import * as yup from "yup";
 const FormSignUp = () => {

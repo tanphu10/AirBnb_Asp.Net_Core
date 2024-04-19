@@ -2,9 +2,13 @@
   <p-panel #pnlDetail header="Thông tin" [toggleable]="true" [collapsed]="false">
     <div class="row">
         <div class="field col-4 md:col-4">
-          <p-dropdown id="seriesId" [options]="allSeries" formControlName="seriesId" [showClear]="true"
+          <p-dropdown id="seriesId" [options]="allSeries" formControlName="seriesId" name="seriesId"
+          placeholder="loạt phòng" [editable]="true"></p-dropdown>
+         
+         
+          <!-- <p-dropdown id="seriesId" [options]="allSeries" formControlName="seriesId" [showClear]="true"
             placeholder="Chọn loạt bài" autoWidth="false" [style]="{ width: '100%' }">
-          </p-dropdown>
+          </p-dropdown> -->
         </div>
         <div class="field col-6 md:col-6">
           <label for="sortOrder">Thứ tự <span class="required">*</span></label>

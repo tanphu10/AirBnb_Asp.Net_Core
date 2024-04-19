@@ -21,8 +21,6 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
-
 import { ContentRoutingModule } from './content-routing.module';
 import { SeriesComponent } from './series/series.component';
 import { SeriesDetailComponent } from './series/series-detail.component';
@@ -34,6 +32,10 @@ import { RoomReturnReasonComponent } from './rooms/room-return-reason.component'
 import { RoomActivityLogsComponent } from './rooms/room-activity-logs.component';
 import { RoomDetailComponent } from './rooms/room-detail.component';
 import { SeriesRoomsComponent } from './series/series-room.component';
+import { TypeRoomComponent } from './type-rooms/type-room.component';
+import { TypeRoomDetailComponent } from './type-rooms/type-room-detail.component';
+import { RoomTypesComponent } from './rooms/room-type.component';
+import { TypeFromRoomsComponent } from './type-rooms/type-from-room.component';
 
 @NgModule({
   imports: [
@@ -69,9 +71,13 @@ import { SeriesRoomsComponent } from './series/series-room.component';
     RoomReturnReasonComponent,
     RoomActivityLogsComponent,
     RoomDetailComponent,
+    RoomTypesComponent,
     SeriesComponent,
     SeriesDetailComponent,
-    SeriesRoomsComponent
+    SeriesRoomsComponent,
+    TypeRoomComponent,
+    TypeRoomDetailComponent,
+    TypeFromRoomsComponent
   ],
 })
 export class ContentModule {}

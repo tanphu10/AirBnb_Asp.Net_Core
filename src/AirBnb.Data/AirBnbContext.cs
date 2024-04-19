@@ -4,6 +4,7 @@ using AirBnb.Core.SeedWorks.Constansts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace AirBnb.Data
 {
@@ -25,7 +26,9 @@ namespace AirBnb.Data
         public DbSet<Location> Locations { set; get; }
         public DbSet<Transaction> Transactions { set; get; }
         public DbSet<TypeRoom> TypeRooms { set; get; }
+        public DbSet<LikeRoom> LikeRooms { set; get; }
 
+        public DbSet<RoomInTypes> RoomInTypes { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,7 +37,10 @@ namespace AirBnb.Data
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.RoleId, x.UserId });
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => new { x.UserId });
+            builder.Entity<LikeRoom>().HasKey(lr => new { lr.UserId, lr.RoomId });
+
         }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var entries = ChangeTracker

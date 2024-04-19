@@ -6,6 +6,9 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { formatDate } from '@angular/common';
 import { AdminApiRolesApiClient, AdminApiUserApiClient, RoleDto, UserDto } from 'src/app/api/admin-api.service.generated';
+import { UploadService } from 'src/app/shared/services/upload.service';
+import { environment } from 'src/environments/environment';
+
 @Component({
   templateUrl: 'user-detail.component.html',
 })
@@ -32,7 +35,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private utilService: UtilityService,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private uploadService:UploadService,
   ) { }
   ngOnDestroy(): void {
     if (this.ref) {
@@ -110,20 +114,16 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   onFileChange(event) {
-    const reader = new FileReader();
-
     if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.form.patchValue({
-          avatarFileName: file.name,
-          avatarFileContent: reader.result,
-        });
-
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
+      this.uploadService.uploadImage('users', event.target.files).subscribe({
+        next: (response: any) => {
+          this.form.controls['avatar'].setValue(response.path);
+          this.avatarImage = environment.API_URL + response.path;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
     }
   }
   saveChange() {
@@ -218,5 +218,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       isActive: new FormControl(this.selectedEntity.isActive || true),
       royaltyAmountPerPost: new FormControl(this.selectedEntity.royaltyAmountPerPost || 0, Validators.required)
     });
+    if (this.selectedEntity.avatar) {
+      this.avatarImage = environment.API_URL + this.selectedEntity.avatar;
+    }
   }
 }

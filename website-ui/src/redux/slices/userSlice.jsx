@@ -1,43 +1,71 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userService } from "../../services/userService";
-import { commentService } from "../../services/commentService";
-
-import { layDuLieuLocal } from "../../util/localStorage";
-
+import { getUser } from "../../shared/function/token-storage";
+import { commentService } from "./../../shared/services/commentService";
+import { userService } from "./../../shared/services/userService";
 export const userCMTAPI = createAsyncThunk("user/userCMTAPI", async (id) => {
   const res = await commentService.getCommentRoom(id);
-  return res.data.content;
+  return res.data;
 });
+
+export const getInfoUserApi = createAsyncThunk(
+  "users/getInfoUserApi",
+  async (id) => {
+    const res = await userService.getInfoUser(id);
+    // console.log(res);
+    return res.data;
+  }
+);
+
+export const editAvatarApi = createAsyncThunk(
+  "users/editAvatarApi",
+  async (data) => {
+    // console.log(data);
+    let file = data;
+    let formData = new FormData();
+    formData.append("file", file);
+    console.log("file", file);
+    try {
+      const res = await userService.editAvatar(formData);
+      alert("upload thành công");
+      return res.data.content;
+    } catch (error) {
+      alert(error);
+    }
+    // console.log(res);
+  }
+);
+
 // lần đầu tiên người ta vào trang web store sẽ được khởi tạo
 const initialState = {
-  inFo: layDuLieuLocal("user"),
+  inFo: getUser(),
+  ObUser: [],
+  editAvt: [],
 };
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // ở đây  chúng ta tạo một phương thức giúp sử lí state bên trên store redux
     setDataName: (state, action) => {
-      //  check xem hoTen có dữ liệu hay không nếu không có set dữ liệu cho nó
       if (state.inFo == null) {
         state.inFo = action.payload;
       } else if (action.payload == null) {
         state.inFo = action.payload;
       }
-      // state.inFo == action.payload;
-      // console.log(" state.inFo", state.inFo);
-      // ở đây khi lần đầu đăng nhập vào bên trong trang web thì dữ liệu trên local chưa có nên chúng ta sẽ lấy dữ liệu state.hoTen gán cho nó dữ liệu action.payload mà người dùng đăng nhập vào
-      // payload== tất cả các dữ liệu mà người dùng đăng nhập vào để gửi lên redux
     },
   },
   extraReducers: (builder) => {
     builder.addCase(userCMTAPI.fulfilled, (state, action) => {
       state.arrUersCMT = action.payload;
-      // console.log("arrUersCMT: ", state.arrUersCMT);
+    });
+
+    builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
+      state.ObUser = action.payload;
+    });
+    builder.addCase(editAvatarApi.fulfilled, (state, action) => {
+      // console.log(state.ObUser);
+      state.ObUser = action.payload;
     });
   },
 });
-// phương thức giúp cho chúng ta đem vào sài ở phương thức component
 export const { setDataName } = userSlice.actions;
-// giúp chúng ta import vào bên trong store redux
 export default userSlice.reducer;

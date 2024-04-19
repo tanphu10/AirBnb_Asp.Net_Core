@@ -23,6 +23,7 @@ namespace AirBnb.Core.Domain.Content
         [Required]
         [MaxLength(250)]
         public string Note { get; set; }
+        public string? ImageRoom { get; set; }
         public BookRoomStatus Status { get; set; }
         public bool IsPaid { get; set; }
         public int PayRoomAmount { get; set; }

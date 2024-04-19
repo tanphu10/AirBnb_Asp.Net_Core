@@ -277,5 +277,15 @@ namespace AirBnb.Data.Repositories
             room.Status = RoomStatus.WaitingForApproval;
             _context.Rooms.Update(room);
         }
+
+        public Task<List<TypeInListDto>> GetAllTypes(Guid roomId)
+        {
+            var query = from rit in _context.RoomInTypes
+                        join s in _context.TypeRooms on rit.TypeId equals s.Id
+                        join r in _context.Rooms on rit.RoomId equals r.Id
+                        where rit.RoomId == roomId
+                        select s;
+            return _mapper.ProjectTo<TypeInListDto>(query).ToListAsync();
+        }
     }
 }

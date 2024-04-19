@@ -37,6 +37,7 @@ export class TokenStorageService {
   }
 
   public saveUser(user: any): void {
+    console.log('user check ===>', user);
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
@@ -49,7 +50,6 @@ export class TokenStorageService {
     const user: UserModel = JSON.parse(this.b64DecodeUnicode(base64));
     return user;
   }
-
   b64DecodeUnicode(str: any) {
     return decodeURIComponent(
       Array.prototype.map

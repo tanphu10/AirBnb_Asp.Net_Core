@@ -9,7 +9,6 @@ import roomSLices, {
 } from "../../../redux/slices/roomSLices";
 import { Modal, message } from "antd";
 import { NavLink } from "react-router-dom";
-import { layDuLieuLocal } from "../../../util/localStorage";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import { InfoBooking } from "../../../_model/InfoBooking";
@@ -58,7 +57,6 @@ export default EditBookedRoom;
 const UpdateInfoBooked = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const nguoiDung = layDuLieuLocal("user");
 
   const { editRoom, pickCashRenderEdit } = useSelector((state) => state.room);
   // console.log("editRoom", editRoom);

@@ -58,9 +58,11 @@ namespace AirBnb.Api.Controllers.Admin
                 new Claim(UserClaims.Id,user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier,user.UserName),
                 new Claim(ClaimTypes.Name,user.UserName),
+                new Claim(UserClaims.UserName,user.UserName),
                 new Claim(UserClaims.FirstName,user.FirstName),
                 new Claim(UserClaims.Roles,string.Join(";",roles)),
-                 new Claim(UserClaims.Permissions,JsonSerializer.Serialize(permission)),
+                new Claim(UserClaims.Avatar,user.Avatar),
+                new Claim(UserClaims.Permissions,JsonSerializer.Serialize(permission)),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var accessToken = _tokenService.GenerateAccessToken(claims);

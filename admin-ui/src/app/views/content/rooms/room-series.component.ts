@@ -70,7 +70,7 @@ export class RoomSeriesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: any) => {
-          console.log("series response =>>>",repsonse)
+          // console.log("series response =>>>",repsonse)
           //Push categories to dropdown list
           var series = repsonse.series as SeriesInListDto[];
           series.forEach((element) => {

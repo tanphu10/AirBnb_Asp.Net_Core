@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SendOutlined } from "@ant-design/icons";
-import { layDuLieuLocal } from "../../../util/localStorage";
-import dayjs from "dayjs";
-import {
-  editCommentApi,
-  findRoomUser,
-  getAllCommentApi,
-  layDataSetComment,
-} from "../../../redux/slices/commentUserSlice";
+import { editCommentApi } from "../../../redux/slices/commentUserSlice";
 import { message } from "antd";
+import { getUser } from "../../../shared/function/token-storage";
+import { Comment } from "../../../_model/Comment";
 
 const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-  // const params = useParams();
-  const { id, noiDung, setComment } = props;
+  const { id, noiDung, setDataUpdated } = props;
   const { arrSetComment } = useSelector((state) => state.commentUser);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-
-  let giaTri = arrSetComment.find((item) => {
-    return id == item.id;
-  });
-  // console.log(giaTri);
+  let giaTri = arrSetComment.id == id;
   useEffect(() => {
-    setContent(giaTri ? giaTri : "");
-    // dispatch(layDataSetComment(id));
+    setContent(giaTri ? arrSetComment : "");
   }, [arrSetComment]);
-  // console.log(content);
   if (giaTri) {
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
@@ -52,21 +40,20 @@ const EditRenderComment = (props) => {
           className="hover:text-red-600"
           type="button"
           onClick={() => {
-            if (!layDuLieuLocal("user")) {
+            if (!getUser()) {
               return document.getElementById("SignIn").click();
             } else {
               if (document.getElementById("editValue").value) {
-                // console.log(giaTri);
-                const comment = new Comment();
-                comment.id = giaTri.id;
-                comment.user_id = giaTri.user_id;
-                comment.room_id = giaTri.room_id;
-                comment.date_comment = new Date();
-                comment.content = document.getElementById("editValue").value;
-                comment.rate = 0;
-                console.log("comment", comment);
-                dispatch(editCommentApi(comment));
-                setComment(arrSetComment);
+                const binhLuan = new Comment();
+                binhLuan.roomId = arrSetComment.roomId;
+                binhLuan.dateCreated = new Date();
+                binhLuan.content = content;
+                binhLuan.id = arrSetComment.id;
+                if (binhLuan) {
+                  dispatch(editCommentApi(binhLuan));
+                  messageApi.success("updatethành công");
+                  setDataUpdated(true);
+                }
               }
             }
           }}

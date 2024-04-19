@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userService } from "../../services/userService";
-import { set_loading_end, set_loading_started } from "./loadingSlice";
-import { commentService } from "../../services/commentService";
-import { message } from "antd";
-import { adminUser } from "../../services/adminUser";
+import { commentService } from "./../../shared/services/commentService";
 
 export const getAllCommentApi = createAsyncThunk(
   "room/getAllCommentApi",
@@ -27,6 +23,18 @@ export const getCommentRoom = createAsyncThunk(
     }
   }
 );
+export const getCommentId = createAsyncThunk(
+  "room/getCommentId",
+  async (id) => {
+    try {
+      const res = await commentService.getCommentId(id);
+      console.log("comment by id", res.data);
+      return res.data;
+    } catch (error) {
+      alert("đã xảy ra lỗi");
+    }
+  }
+);
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
   async (comment) => {
@@ -43,10 +51,11 @@ export const postCommentApi = createAsyncThunk(
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
   async (data) => {
-    console.log(data);
+    console.log("redux data edi>>>", data);
     try {
-      const res = await commentService.editComment(data.id, data);
-      return res.data;
+      const res = await commentService.editComment(data);
+      console.log(res);
+      return res;
     } catch (error) {}
   }
 );
@@ -59,39 +68,31 @@ const initialState = {
 export const commentUserSlice = createSlice({
   name: "room",
   initialState,
-  reducers: {
-    layDataSetComment: (state, action) => {
-      state.arrComment.find((item) => {
-        if (item.id == action.payload) {
-          state.arrSetComment.push(item);
-        }
-      });
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllCommentApi.fulfilled, (state, action) => {
       state.arrCommentMaPhong = action.payload;
     });
     builder.addCase(getCommentRoom.fulfilled, (state, action) => {
       state.arrComment = action.payload;
+      // console.log("arrComment=>>>redux",state.arrComment)
+    });
+    builder.addCase(getCommentId.fulfilled, (state, action) => {
+      state.arrSetComment = action.payload;
+      console.log("action set arr", action.payload);
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
+      console.log("action post comment", action);
       state.arrComment.push(action.payload);
       console.log("arrComment: ", state.arrComment);
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
-      console.log("action: ", action.payload);
-      let index = state.arrComment.findIndex(
-        (item) => item.id == action.payload.id
-      );
-      if (index != -1) {
-        state.arrComment[index] = action.payload;
-        state.arrSetComment = [];
-      }
+      console.log("action edit: ", action);
+      state.arrSetComment = [];
     });
   },
 });
-export const { findRoomUser, layDataSetComment } = commentUserSlice.actions;
+export const {} = commentUserSlice.actions;
 // để sử dụng trong component
 export default commentUserSlice.reducer;
 // import trong store của redux

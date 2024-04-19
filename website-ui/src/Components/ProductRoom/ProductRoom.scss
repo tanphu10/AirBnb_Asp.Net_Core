@@ -113,15 +113,10 @@
     .sub_title {
       .btnChiTiet {
         border-radius: 10px;
-        // border-color: #f12711;
         border: 1px solid #f12711;
         background: linear-gradient(to left, #f12711, #f5af19);
         background-clip: text;
         color: transparent;
-        // background: #f12711;
-        // background: -webkit-linear-gradient(to left, #f12711, #f5af19);
-        // background: linear-gradient(to left, #f12711, #f5af19);
-        // color: black;
         &:hover {
           color: white;
           background: #f12711;

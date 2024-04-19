@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -175,15 +176,38 @@ namespace AirBnb.Data.Repositories
             return activity;
         }
 
-        public async Task<NewBookRooms> GetUserBooked(Guid fromUserId,Guid bookId)
+        public async Task<NewBookRooms> GetUserBooked(Guid fromUserId, Guid bookId)
         {
-            var data =await _context.BookRooms.Where(x => x.AuthorUserId == fromUserId && x.Id==bookId).FirstOrDefaultAsync();
+            var data = await _context.BookRooms.Where(x => x.AuthorUserId == fromUserId && x.Id == bookId).FirstOrDefaultAsync();
             return _mapper.Map<NewBookRooms>(data);
         }
 
         public async Task<BookRooms> GetUserBookedd(Guid fromUserId, Guid bookId)
         {
             var data = await _context.BookRooms.Where(x => x.AuthorUserId == fromUserId && x.Id == bookId).FirstOrDefaultAsync();
+            return data;
+        }
+
+        public async Task<List<BookRoomsDto>> getBookedUser(Guid userId)
+        {
+            var data = await _context.BookRooms.Where(x => x.AuthorUserId == userId).
+                      SelectMany(img => _context.Rooms.Where(room => room.Id == img.RoomId).DefaultIfEmpty(),
+             (img, room) => new BookRoomsDto
+                  {
+                    Id = img.Id,
+                    RoomId = img.RoomId,
+                    RoomName = img.RoomName,
+                    AuthorUserId = img.AuthorUserId,
+                    AuthorUserName = img.AuthorUserName,
+                    AuthorName = img.AuthorName,
+                    DateCheckout = img.DateCheckout,
+                    GuestNumber = img.GuestNumber,
+                    Note = img.Note,
+                    ImageRoom = room.Photo,
+                    Status = img.Status,
+                    IsPaid = img.IsPaid,
+                    PayRoomAmount = img.PayRoomAmount,
+                }).ToListAsync();
             return data;
         }
     }

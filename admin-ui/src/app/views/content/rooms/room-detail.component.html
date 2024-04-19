@@ -33,19 +33,19 @@
       <div class="field col-12 md:col-6">
         <label for="categoryId" class="block">Nhóm <span class="required">*</span></label>
         <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" name="categoryId"
-        placeholder="chọn nhóm" [editable]="true"></p-dropdown>
-        <!-- <p-dropdown id="categoryId" [options]="roomCategories" formControlName="categoryId" 
-          placeholder="Chọn nhóm" autoWidth="false" [style]="{ width: '100%' }">
-        </p-dropdown> -->
+          placeholder="chọn nhóm" [editable]="true"></p-dropdown>
+
       </div>
 
       <div class="field col-12 md:col-6 mt-3">
         <label for="locateId" class="block">Vị Trí <span class="required"> **</span></label>
-        <!-- <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" [showClear]="true"
-          placeholder="vị trí" autoWidth="false" [style]="{ width: '100%' }">
-        </p-dropdown> -->
         <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" name="locateId"
-        placeholder="vị trí" [editable]="true"></p-dropdown>
+          placeholder="vị trí" [editable]="true"></p-dropdown>
+      </div>
+      <div class="field col-12 md:col-6 mt-3">
+        <label for="typeId" class="block">Type-Room <span class="required"> **</span></label>
+        <p-dropdown id="typeId" [options]="arrTypes" formControlName="typeId" name="typeId"
+          placeholder="type rooms" [editable]="true"></p-dropdown>
       </div>
       <div class="field col-12 md:col-6">
         <label for="bedRoom">bedRoom<span class="required">*</span></label>
@@ -104,15 +104,15 @@
         </div>
       </div>
 
-      <!-- <div class="field col-12 md:col-6">
+      <div class="field col-12 md:col-6">
         <label for="thumbnailFileContent">Hình ảnh <span class="required">*</span></label>
-        <input type="hidden" formControlName="thumbnail" />
+        <input type="hidden" formControlName="photo" />
         <input (change)="onFileChange($event)" type="file" class="w-full" />
       </div>
       <div *ngIf="thumbnailImage" class="field col-12 md:col-6">
         <p-image [src]="thumbnailImage" [preview]="true" [alt]="selectedEntity.name" width="250">
         </p-image>
-      </div> -->
+      </div>
       <div class="field col-12">
         <label for="seoDescription">Mô tả SEO</label>
         <textarea id="seoDescription" type="text" rows="4" pInputTextarea [pKeyFilter]="noSpecial"

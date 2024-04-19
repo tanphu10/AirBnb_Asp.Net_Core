@@ -2,19 +2,13 @@ import { Drawer, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import UpdateItems from "./UpdateItems";
-import { useDispatch, useSelector } from "react-redux";
-import { layDuLieuLocal } from "../../../util/localStorage";
-import { getInfoUserApi } from "../../../redux/slices/adminUserSlices";
+import { useDispatch } from "react-redux";
+import { getInfoUserApi } from "../../../redux/slices/userSlice";
+import { getUser } from "../../../shared/function/token-storage";
 
 const FormUpdateUser = () => {
-  const id = layDuLieuLocal("user").user?.id;
-  // const [open, setOpen] = useState(false);
-  // const showDrawer = () => {
-  //   setOpen(true);
-  // };
-  // const onClose = () => {
-  //   setOpen(false);
-  // };
+  const id = getUser().id;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);

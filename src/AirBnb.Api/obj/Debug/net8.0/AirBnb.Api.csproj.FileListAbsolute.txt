@@ -148,3 +148,4 @@ D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnaly
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AutoMapper.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AirBnb.Api.staticwebassets.runtime.json

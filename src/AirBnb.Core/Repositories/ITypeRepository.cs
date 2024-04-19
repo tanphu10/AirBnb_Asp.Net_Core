@@ -2,11 +2,6 @@
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.Models;
 using AirBnb.Core.SeedWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirBnb.Core.Repositories
 {
@@ -14,5 +9,12 @@ namespace AirBnb.Core.Repositories
     {
         Task<bool> IsSlugAlreadyExisted(string slug);
         Task<PagedResult<TypeInListDto>> GetAllPaging(string? keyword, int pageIndex, int pageSize);
+
+        Task<bool> IsRoomInTypes(Guid typeId, Guid roomId);
+        Task AddRoomTypes(Guid roomId, Guid typeId, int displaypOrder);
+        Task RemoveRoomFromTypes(Guid typeId, Guid roomId);
+        Task<List<RoomInListDto>> GetAllRoomTypes(Guid id);
+
+
     }
 }

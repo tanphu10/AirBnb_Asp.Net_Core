@@ -3,23 +3,13 @@ import { BsTranslate } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { FaAward } from "react-icons/fa";
 import { TbToolsKitchen2 } from "react-icons/tb";
-import { BiSolidDryer } from "react-icons/bi";
 import { GiWashingMachine } from "react-icons/gi";
 import { TbIroning1, TbAirConditioning } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
 import PickCanlender from "./PickCanlender";
-import { SendOutlined } from "@ant-design/icons";
-import { layDuLieuLocal } from "../../util/localStorage";
-import { Comment } from "../../_model/Comment";
-import { date } from "yup";
-import {
-  findRoomUser,
-  getAllCommentApi,
-  getCommentRoom,
-} from "../../redux/slices/commentUserSlice";
-import { getAllUser } from "../../redux/slices/adminUserSlices";
+import { getCommentRoom } from "../../redux/slices/commentUserSlice";
 import AddComment from "./Comment/AddComment";
 import { DOMAIN_BE_IMG } from "../../util/constants";
 const RoomDetails = () => {
@@ -27,44 +17,37 @@ const RoomDetails = () => {
   const params = useParams();
   const { room } = useSelector((state) => state.room);
   const { arrComment } = useSelector((state) => state.commentUser);
-  // console.log("comment", arrComment);
+  const [comment, setComment] = useState();
+  const [dataUpdated, setDataUpdated] = useState(false);
 
-  // if (arrComment.length > 0) {
-  let totalRate = arrComment?.reduce((total, item, index) => {
-    return (total += item.rate);
-  }, 0);
-  // console.log("totalRate", totalRate / 10);
-  let averageRate = (totalRate / arrComment.length).toFixed(1);
-  // console.log("averageRate", averageRate);
-  // }else{
-  //   return " chưa có đánh giá"
-  // }
-  useEffect(() => {
+
+    useEffect(() => {
     // console.log(room.length);
-    // if (!room.length > 0) {
-    dispatch(getDetailRoomAPI(params.id));
-    // }
-    if (!arrComment.length > 0) {
-      dispatch(getCommentRoom(params.id));
+    if (!room.length > 0) {
+      dispatch(getDetailRoomAPI(params.id));
     }
-  }, []);
+    // if (!arrComment.length > 0) {
+    dispatch(getCommentRoom(params.id));
+    // }
+  }, [comment,dataUpdated]);
   const {
-    name_room,
+    id,
+    name,
     guest,
-    badroom,
-    giuong,
-    bathroom,
-    descr,
+    description,
     price,
-    wash_machine,
-    iron_cloth,
-    television,
-    air_conditioner,
+    photo,
+    viewCount,
+    bedRoom,
+    bathRoom,
+    washMachine,
+    ironCloth,
+    televison,
+    airCondirioner,
     wifi,
     kitchen,
-    park,
     pool,
-    photo,
+    park,
   } = room;
   return (
     <div id="detailsRoom" className=" h-28 ">
@@ -75,16 +58,17 @@ const RoomDetails = () => {
               <BsTranslate />
             </button>
             <p className="name font-semibold  laptop:text-3xl tablet:text-2xl mobile:text-xl text-base ">
-              {name_room}
+              {name}
             </p>
           </h1>
           <div className="sub_title laptop:flex justify-between items-center laptop:text-[16px] mobile:text-[14px] text-[14px]">
             <div className="sub_title_left flex items-center gap-3">
               <span className="flex items-center">
                 <AiFillStar className="mr-2" />
-                {averageRate ? averageRate : "chưa có đánh giá"}
+                {/* {averageRate ? averageRate : "chưa có đánh giá"} */}
               </span>
-              <span className="underline">{arrComment?.length}đánh giá </span>
+              <span className="underline">{arrComment?.length} đánh giá </span>
+              <span className="underline">{viewCount} lượt xem</span>
               <span className="flex items-center">
                 <FaAward className="mr-2" />
                 Chủ nhà siêu cấp
@@ -113,9 +97,9 @@ const RoomDetails = () => {
                 </h1>
                 <p className="text-sm font-normal tracking-widest ">
                   <span>{guest} khách -</span>
-                  <span className="mx-1">{badroom} phòng ngủ -</span>
-                  <span className="mx-1">{bathroom} phòng tắm -</span>
-                  <span className="mx-1">{giuong} giường</span>
+                  <span className="mx-1">{bedRoom} phòng ngủ -</span>
+                  <span className="mx-1">{bathRoom} phòng tắm -</span>
+                  {/* <span className="mx-1">{giuong} giường</span> */}
                 </p>
               </div>
 
@@ -126,7 +110,7 @@ const RoomDetails = () => {
                   </div>
                   <div className="ml-4">
                     <h3 className="font-bold">Sungwon là Chủ nhà siêu cấp</h3>
-                    <p>{descr}</p>
+                    <p>{description}</p>
                   </div>
                 </div>
 
@@ -234,7 +218,7 @@ const RoomDetails = () => {
                     </div>
                     <div className="ml-4 text-base tracking-wider">TV : </div>
                     <div className="ml-2 text-base tracking-wider">
-                      {television ? "Yes" : "No"}{" "}
+                      {televison ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
@@ -245,7 +229,7 @@ const RoomDetails = () => {
                       Bàn Ủi :{" "}
                     </div>
                     <div className="ml-2 text-base tracking-wider">
-                      {iron_cloth ? "Yes" : "No"}{" "}
+                      {ironCloth ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
@@ -256,7 +240,7 @@ const RoomDetails = () => {
                       Máy Giặt :
                     </div>
                     <div className="ml-2 text-base tracking-wider">
-                      {wash_machine ? "Yes" : "No"}{" "}
+                      {washMachine ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
@@ -267,7 +251,7 @@ const RoomDetails = () => {
                       Máy Lạnh :
                     </div>
                     <div className="ml-2 text-base tracking-wider">
-                      {air_conditioner ? "Yes" : "No"}{" "}
+                      {airCondirioner ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
@@ -305,20 +289,13 @@ const RoomDetails = () => {
                 <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
                     <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
-                      <h3 className="text-lg">{name_room}</h3>
+                      <h3 className="text-lg">{name}</h3>
                     </div>
                     <p className="text-lg text-black my-3">{price}$/đêm</p>
-                    {/* <div className="body_card mt-5 border-b pb-5 ">
-                      <p className="font-semibold text-base text-center text-black">
-                        Nếu bạn thích phòng này xin hãy click vào ô ở dưới để có
-                        thể đặt phòng
-                      </p>
-                    </div> */}
                     <div id="Calender">
                       <PickCanlender
                         giaTien={price}
                         guest={guest}
-                        arrComment={arrComment}
                       />
                     </div>
                   </div>
@@ -333,7 +310,7 @@ const RoomDetails = () => {
                   <i className="fa-solid fa-star"></i>
                 </div>
                 <div className="ml-2">
-                  rate: {averageRate ? averageRate : "chưa có đánh giá"}
+                  {/* rate: {averageRate ? averageRate : "chưa có đánh giá"} */}
                 </div>
                 <div className="ml-2">
                   {arrComment.length} đánh giá của người dùng
@@ -405,7 +382,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <AddComment />
+          <AddComment setDataUpdated={setDataUpdated}  arrComment={arrComment} roomId={id} setComment={setComment} />
         </div>
       </div>
     </div>

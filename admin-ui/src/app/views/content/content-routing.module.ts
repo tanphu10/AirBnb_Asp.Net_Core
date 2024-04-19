@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoomComponent } from './rooms/room.component';
 import { AuthGuard } from './../../shared/auth.guard';
 import { SeriesComponent } from './series/series.component';
-import {RoomCategoryComponent} from './room-categories/room-category.component';
+import { TypeRoomComponent } from './type-rooms/type-room.component';
+import { RoomCategoryComponent } from './room-categories/room-category.component';
 const routes: Routes = [
   {
     path: '',
@@ -15,8 +16,7 @@ const routes: Routes = [
     component: RoomComponent,
     data: {
       title: 'Rooms',
-      requiredPolicy:'Permissions.Rooms.View'
-
+      requiredPolicy: 'Permissions.Rooms.View',
     },
     canActivate: [AuthGuard],
   },
@@ -25,8 +25,7 @@ const routes: Routes = [
     component: SeriesComponent,
     data: {
       title: 'series',
-      requiredPolicy:'Permissions.Series.View'
-
+      requiredPolicy: 'Permissions.Series.View',
     },
     canActivate: [AuthGuard],
   },
@@ -35,7 +34,16 @@ const routes: Routes = [
     component: RoomCategoryComponent,
     data: {
       title: 'room-categories',
-      requiredPolicy:'Permissions.RoomCategories.View'
+      requiredPolicy: 'Permissions.RoomCategories.View',
+    },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'type-room',
+    component: TypeRoomComponent,
+    data: {
+      title: 'type-room',
+      requiredPolicy: 'Permissions.Series.View',
     },
     canActivate: [AuthGuard],
   },

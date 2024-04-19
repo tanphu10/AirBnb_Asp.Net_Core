@@ -14,6 +14,6 @@ export class UploadService {
   uploadImage(type: string, files: File[]) {
     const formData: FormData = new FormData();
     formData.append('file', files[0], files[0].name);
-    return this._http.post(environment.API_URL + "/api/admin/media?type=" + type, formData);;
+    return this._http.post(environment.API_URL + "/api/media?type=" + type, formData);;
   }
 }

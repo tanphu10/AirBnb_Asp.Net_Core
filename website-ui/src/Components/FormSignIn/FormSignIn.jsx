@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { userService } from "../../services/userService";
+import { userService } from "./../../shared/services/userService";
 import { message } from "antd";
-import { luuXuongLocal } from "../../util/localStorage";
 import { useDispatch } from "react-redux";
 import { setDataName } from "../../redux/slices/userSlice";
+import {
+  saveRefreshToken,
+  saveToken,
+  saveUser,
+} from "../../shared/function/token-storage";
 const FormSignIn = (props) => {
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
@@ -17,17 +21,20 @@ const FormSignIn = (props) => {
       password: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       formik.resetForm();
       userService
         .signin(values)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data) {
-            luuXuongLocal("user", res.data);
+            // console.log(res)
+            saveToken(res.data.token);
+            saveRefreshToken(res.data.refreshToken);
+            saveUser(res.data);
             messageApi.success("Đăng nhập thành công");
             dispatch(setDataName(res.data.token));
-            navigate("/home");
+            navigate("/");
           }
         })
         .catch((err) => {
