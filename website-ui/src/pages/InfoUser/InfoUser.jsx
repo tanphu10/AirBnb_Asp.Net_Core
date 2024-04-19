@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Dropdown, Popconfirm, Space, message } from "antd";
+import { Button, Dropdown, Popconfirm, Space, message } from "antd";
 import {
   getAllRoomAPI,
   getRoomUserBookedApi,
@@ -12,15 +12,16 @@ import EditBookedRoom from "../../Components/FormUpdateInfoUser/EditBookRoom/Edi
 import { DOMAIN_BE_IMG } from "../../util/constants";
 import { editAvatarApi } from "../../redux/slices/userSlice";
 import { getUser } from "../../shared/function/token-storage";
-
+import { bookRoomService } from "../../shared/services/bookRoomService";
+import "./info.scss";
 const InfoUser = () => {
-  const maNguoiDung = getUser().id;
-  // console.log("mã người dùng",maNguoiDung)
+  const userId = getUser().id;
+  // console.log("mã người dùng",userId)
   const [data, setData] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllRoomAPI());
-    dispatch(getRoomUserBookedApi(maNguoiDung));
+    dispatch(getRoomUserBookedApi(userId));
   }, []);
 
   const handleHideChose = () => {
@@ -48,7 +49,8 @@ const InfoUser = () => {
         <FormUpdateUser />
       </div>
       <div className="max-w-[1240px] mx-3 grid md:grid-cols-2">
-        <DisplayRoomBooked maNguoiDung={maNguoiDung} />
+        <DisplayRoomBooked userId={userId} />
+
         <div
           className="desktop:w-[300px] desktop:ml-[300px] laptop:w-[250px] laptop:ml-[250px] tablet:w-[250px] tablet:ml-[100px] tablet:mb-[116px] mb-[116px] 
          mt-8 "
@@ -139,48 +141,34 @@ const InfoUser = () => {
 export default InfoUser;
 
 const DisplayRoomBooked = (props) => {
-  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
-  // console.log(controlRoom);
-  // console.log(arrRenderItem);
-  const getLinkImg = (room_id) => {
-    // console.log(room_id);
-    // console.log(arrRenderItem);
-    let value = arrRenderItem.find((item) => {
-      return room_id == item.id;
-    });
-    // console.log("value", value);
-    // check neu nhu co value thi boc phan tu img ra tra ve
-    if (value) {
-      return value.photo;
-    }
-  };
-  const getNameRoom = (maPhong) => {
-    // console.log(maPhong);
-    let value = arrRenderItem.find((items) => {
-      return maPhong == items.id;
-    });
-    // console.log(value);
-    if (value) {
-      return value.name_room;
-    }
-  };
+  const { controlRoom } = useSelector((state) => state.room);
   if (controlRoom != null) {
     return (
       <div className="desktop:w-[900px] desktop:mb-[100px] laptop:w-[720px] laptop:mb-[100px] tablet:w-[450px] tablet:mb-[100px]  mx-auto my-4  ">
         {Array.isArray(controlRoom)
           ? controlRoom.map(
               (
-                { id, user_id, room_id, date_on, date_out, number_guest },
+                {
+                  id,
+                  authorUserId,
+                  roomId,
+                  roomName,
+                  dateCheckIn,
+                  dateCheckout,
+                  guestNumber,
+                  imageRoom,
+                  payRoomAmount,
+                  status,
+                  isPaid,
+                },
                 index
               ) => {
-                // console.log(id);
                 return (
                   <div key={index}>
                     <div className="max-w-4xl my-4 bg-white border border-gray-200 laptop:rounded-lg tablet:rounded-t-lg shadow mobile:rounded-t-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="laptop:flex">
                         <div className="laptop:w-3/5 laptop:shrink-0  ">
                           <a href="#" style={{ width: "100%" }}>
-                            {/* <img width={"500px"} height={"350px"} src={hinhAnh} alt="" /> */}
                             <img
                               className="
                               laptop:rounded-s-lg 
@@ -188,7 +176,7 @@ const DisplayRoomBooked = (props) => {
                               mobile: rounded-md
                               laptop:w-full"
                               style={{ height: "100%" }}
-                              src={DOMAIN_BE_IMG + getLinkImg(room_id)}
+                              src={DOMAIN_BE_IMG + imageRoom}
                             />
                           </a>
                         </div>
@@ -198,14 +186,14 @@ const DisplayRoomBooked = (props) => {
                               <div>
                                 <a href="#">
                                   <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
-                                    Mã Phòng : {room_id}
+                                    Mã Phòng : {roomId}
                                   </h5>
                                 </a>
                               </div>
                               <div>
                                 <FormUpdateBookRoom
                                   id={id}
-                                  maNguoiDung={number_guest}
+                                  userId={authorUserId}
                                 />
                               </div>
                             </div>
@@ -214,30 +202,30 @@ const DisplayRoomBooked = (props) => {
                                 <span className="font-semibold text-black">
                                   Tên Phòng
                                 </span>
-                                : {getNameRoom(room_id)}
+                                {roomName}
                               </h5>
                             </div>
                             <div className="">
                               {/* <div className="w-1/2"> */}
                               <p className=" text-gray-700 dark:text-gray-400 font-normal text-sm">
                                 <span className="text-black  font-semibold">
-                                  Ngày đến :
+                                  Check In:
                                 </span>
                                 <span className="md:text-[16px] sm:text-[14px] text-[14px]">
                                   {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
                                   {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
-                                  {date_on}
+                                  {dateCheckIn}
                                 </span>
                               </p>
                               {/* </div> */}
                               {/* <div className="w-1/2"> */}
                               <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                 <span className="text-black font-semibold">
-                                  Ngày đi :
+                                  Check Out :
                                 </span>
                                 <span className="md:text-[18px] sm:text-[16px] text-[14px]">
                                   {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
-                                  {date_out}
+                                  {dateCheckout}
                                 </span>
                               </p>
                               {/* </div> */}
@@ -247,8 +235,43 @@ const DisplayRoomBooked = (props) => {
                                 <span className="font-semibold text-black">
                                   Số Lượng khách
                                 </span>
-                                : {number_guest}
+                                : {guestNumber}
                               </h5>
+                            </div>
+                            <div className="my-10">
+                              {isPaid == false ? (
+                                <NavLink
+                                  to={`/pay-room/${id}`}
+                                  id="button_TT"
+                                  className="py-2 px-4 border  duration-500 mr-3 "
+                                >
+                                  Thanh Toán
+                                </NavLink>
+                              ) : (
+                                // <NavLink
+                                //   id="button_NoTT"
+                                //   className="py-2 px-4 border duration-500 mr-3 bg-red-600 "
+                                // >
+                                //   Phòng Đã Thanh Toán
+                                // </NavLink>
+                                " "
+                              )}
+                            </div>
+
+                            <div>
+                              {status === 1 ? (
+                                <NavLink className="py-2 px-10 border rounded-md text-white		 bg-yellow-400 duration-500 mr-3">
+                                  Đợi Duyệt
+                                </NavLink>
+                              ) : status === 2 ? (
+                                <NavLink className="py-2 px-16 border  rounded-md text-white		 duration-500 mr-3 bg-red-600 ">
+                                  Từ Chối
+                                </NavLink>
+                              ) : (
+                                <NavLink className="py-2 px-16 border  rounded-md text-white		 duration-500 mr-3 bg-emerald-600 ">
+                                  Thành Công
+                                </NavLink>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -281,7 +304,7 @@ const DisplayRoomBooked = (props) => {
 };
 
 const FormUpdateBookRoom = (props) => {
-  const { id, maNguoiDung } = props;
+  const { id, userId } = props;
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const maUser = getUser();
@@ -300,14 +323,14 @@ const FormUpdateBookRoom = (props) => {
           description="Are you sure to delete this task?"
           onConfirm={() => {
             // console.log("xóa đây nè");
-            if (maUser.id == maNguoiDung || maUser.role == "ADMIN") {
+            if (maUser.id == userId || maUser.role == "ADMIN") {
               // console.log("xóa trong nữa");
-              roomServ
+              bookRoomService
                 .deleteRoom(id)
                 .then((res) => {
                   console.log(res);
                   messageApi.success("Hủy Phòng thành công");
-                  dispatch(getRoomUserBookedApi(maNguoiDung));
+                  dispatch(getRoomUserBookedApi(userId));
                 })
                 .catch((err) => {
                   // console.log(err);

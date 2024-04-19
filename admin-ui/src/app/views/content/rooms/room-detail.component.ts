@@ -21,6 +21,8 @@ import {
   RoomDto,
   AdminApiLocationApiClient,
   LocationDto,
+  AdminApiTypesApiClient,
+  TypeRoom,
 } from 'src/app/api/admin-api.service.generated';
 import { UploadService } from 'src/app/shared/services/upload.service';
 import { environment } from 'src/environments/environment';
@@ -42,7 +44,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
   public saveBtnName: string;
   public roomCategories: any[] = [];
   public arrLocations: any[] = [];
-  public contentTypes: any[] = [];
+  public arrTypes: any[] = [];
   public series: any[] = [];
   selectedEntity = {} as RoomDto;
   public thumbnailImage;
@@ -59,7 +61,8 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
     private roomApiClient: AdminApiRoomApiClient,
     private roomCategoryApiClient: AdminApiCategoryApiClient,
     private uploadService: UploadService,
-    private locationApiClient: AdminApiLocationApiClient
+    private locationApiClient: AdminApiLocationApiClient,
+    private typeApiClient:AdminApiTypesApiClient,
   ) {}
   ngOnDestroy(): void {
     if (this.ref) {
@@ -99,11 +102,13 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
     var categories = this.roomCategoryApiClient.getAllRoomCategory();
     var tags = this.roomApiClient.getAllTags();
     var locations = this.locationApiClient.getAllLocation();
+    var types= this.typeApiClient.getAllTypeRoom();
     this.toggleBlockUI(true);
     forkJoin({
       categories,
       tags,
       locations,
+      types
     })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
@@ -119,9 +124,16 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
           });
           var locations = repsonse.locations as LocationDto[];
           locations.forEach((element) => {
-            this.arrLocations.push({
+            this.arrTypes.push({
               value: element.id,
               label: element.name,
+            });
+          });
+          var types = repsonse.types as TypeRoom[];
+          types.forEach((element) => {
+            this.arrLocations.push({
+              value: element.id,
+              label: element.typeName,
             });
           });
           // console.log(this.config.data.id)
@@ -249,6 +261,10 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
       ),
       locateId: new FormControl(
         this.selectedEntity.locateId || null,
+        Validators.required
+      ),
+      typeId: new FormControl(
+        this.selectedEntity.typeId || null,
         Validators.required
       ),
       bedRoom: new FormControl(this.selectedEntity.bedRoom || null),

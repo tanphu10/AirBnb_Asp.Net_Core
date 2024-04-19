@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using static AirBnb.Core.Domain.Content.BookRooms;
 
 namespace AirBnb.Api.Controllers.Admin
@@ -34,7 +35,13 @@ namespace AirBnb.Api.Controllers.Admin
             //check ngày đó có người đặt phòng đó chưa nếu chưa thì mới cho đặt
             var checkDate = await _unitOfWork.BookRooms.GetDateBookRoomAsync(model.RoomId, model.DateCheckIn, model.DateCheckout);
 
+            TimeSpan timeDifference = model.DateCheckout - model.DateCheckIn;
+
+            int totalDays = timeDifference.Days;
+
             var room = await _unitOfWork.Rooms.GetByIdAsync(model.RoomId);
+            int totalPrice = totalDays * room.Price;
+
             if (model.GuestNumber > room.Guest)
             {
                 return BadRequest($"room này chỉ cho phép =< {room.Guest}");
@@ -53,7 +60,8 @@ namespace AirBnb.Api.Controllers.Admin
             data.RoomName = room.Name;
             data.Status = BookRoomStatus.WaitingForApproval;
             data.IsPaid = false;
-            data.PayRoomAmount = room.Price;
+            // fix lại chổ này là lấy số ngày nhân với lại số tiền
+            data.PayRoomAmount = totalPrice;
             _unitOfWork.BookRooms.Add(data);
             await _unitOfWork.CompleteAsync();
             return Ok();
@@ -113,6 +121,14 @@ namespace AirBnb.Api.Controllers.Admin
             var data = await _unitOfWork.BookRooms.GetAllRoomBooked();
             return Ok(data);
         }
+
+        [HttpGet("Room-Booked-user/{id}")]
+        public async Task<ActionResult<List<BookRoomsDto>>> GetBookRoomUserId(Guid id)
+        {
+            var data = await _unitOfWork.BookRooms.getBookedUser(id);
+            return Ok(data);
+        }
+
 
         [HttpPut("edit-bookroom-submit/{bookid}")]
         public async Task<IActionResult> SendUpdateBookRoomAsync(Guid bookid, [FromBody] CreateUpdateBookRoomRequest model)

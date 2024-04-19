@@ -53,6 +53,7 @@ import {
   AdminApiRoomApiClient,
   AdminApiSeriesApiClient,
   AdminApiTokenApiClient,
+  AdminApiTypesApiClient,
   AdminApiUserApiClient,
 } from './api/admin-api.service.generated';
 import { environment } from 'src/environments/environment';
@@ -143,6 +144,7 @@ const APP_CONTAINERS = [
     AdminApiLocationApiClient,
     AdminApiBookRoomApiClient,
     AdminApiCommentsApiClient,
+    AdminApiTypesApiClient,
     TokenStorageService,
     AuthGuard,
     UtilityService,

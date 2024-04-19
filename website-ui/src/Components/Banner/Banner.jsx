@@ -7,6 +7,7 @@ import {
   getApiTypeRoom,
   getApiTypeRoomId,
 } from "../../redux/slices/roomSLices";
+import { DOMAIN_BE_IMG } from "../../util/constants";
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -23,11 +24,10 @@ const Banner = () => {
     }
   });
 
-  
   return (
     <div id="banner">
       <Carousel breakPoints={breakPoints}>
-        {arrTypeRoom?.map(({ id, typeName, icons }, index) => {
+        {arrTypeRoom?.map(({ id, typeName, image }, index) => {
           // console.log(icons);
           return (
             <button
@@ -37,7 +37,14 @@ const Banner = () => {
                 dispatch(getApiTypeRoomId(id));
               }}
             >
-              <img className="icons" src={icons} alt="" />
+              <div>
+                <img
+                  className="icons"
+                  src={DOMAIN_BE_IMG + image}
+                  alt=""
+                />
+              </div>
+
               <span className="title">{typeName}</span>
             </button>
           );

@@ -5,6 +5,7 @@ using AirBnb.Core.SeedWorks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace AirBnb.Api.Controllers.Admin
 {
@@ -12,7 +13,7 @@ namespace AirBnb.Api.Controllers.Admin
     [ApiController]
     public class TypesController : ControllerBase
     {
-        
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public TypesController(IUnitOfWork unitOfWork, IMapper mapper)
@@ -74,6 +75,38 @@ namespace AirBnb.Api.Controllers.Admin
             }
             var result = await _unitOfWork.CompleteAsync();
             return result > 0 ? Ok() : BadRequest();
-        }   
+        }
+        [HttpPost("room-types")]
+        public async Task<IActionResult> AddRoomToTypes([FromBody] AddRoomToTypeRequest model)
+        {
+            var isExisted = await _unitOfWork.TypeRooms.IsRoomInTypes(model.TypeId, model.RoomId);
+            if (isExisted)
+            {
+                return BadRequest("đã tồn tại trong typerooms");
+            }
+            await _unitOfWork.TypeRooms.AddRoomTypes(model.RoomId, model.TypeId, model.DisplayOrder);
+            var result = await _unitOfWork.CompleteAsync();
+            return result > 0 ? Ok() : BadRequest();
+        }
+        [HttpDelete()]
+        [Route("room-from-types")]
+        //[Authorize(Permissions.Series.Edit)]
+        public async Task<IActionResult> DeleteRoomsFromTypes([FromBody] AddRoomToTypeRequest request)
+        {
+            var isExisted = await _unitOfWork.TypeRooms.IsRoomInTypes(request.TypeId, request.RoomId);
+            if (!isExisted)
+            {
+                return NotFound();
+            }
+            await _unitOfWork.TypeRooms.RemoveRoomFromTypes(request.TypeId, request.RoomId);
+            var result = await _unitOfWork.CompleteAsync();
+            return result > 0 ? Ok() : BadRequest();
+        }
+        [HttpGet("room-in-types/{typeid}")]
+        public async Task<ActionResult<List<RoomInListDto>>> GetRoomInTypes(Guid typeid)
+        {
+            var room = await _unitOfWork.TypeRooms.GetAllRoomTypes(typeid);
+            return Ok(room);
+        }
     }
 }

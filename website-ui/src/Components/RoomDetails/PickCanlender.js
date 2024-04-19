@@ -95,7 +95,7 @@ const PickCanlender = (props) => {
               infoBooking.note=  document.getElementById("noteBook").value
               console.log("infoBooking", infoBooking);
               dispatch(PostBookRoomApi(infoBooking));
-              navigate("/pay-room")
+              navigate(`/pay-room`)
             }
           }}
         >

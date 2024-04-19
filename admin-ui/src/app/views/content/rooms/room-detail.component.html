@@ -42,6 +42,11 @@
         <p-dropdown id="locateId" [options]="arrLocations" formControlName="locateId" name="locateId"
           placeholder="vị trí" [editable]="true"></p-dropdown>
       </div>
+      <div class="field col-12 md:col-6 mt-3">
+        <label for="typeId" class="block">Type-Room <span class="required"> **</span></label>
+        <p-dropdown id="typeId" [options]="arrTypes" formControlName="typeId" name="typeId"
+          placeholder="type rooms" [editable]="true"></p-dropdown>
+      </div>
       <div class="field col-12 md:col-6">
         <label for="bedRoom">bedRoom<span class="required">*</span></label>
         <input id="bedRoom" type="number" pInputText [pKeyFilter]="noSpecial" formControlName="bedRoom"

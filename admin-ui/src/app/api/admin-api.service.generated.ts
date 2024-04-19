@@ -1587,6 +1587,256 @@ export class AdminApiHomeApiClient {
 }
 
 @Injectable()
+export class AdminApiLikeApiClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(ADMIN_API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createCommentAsync2(body?: CreateUpdateLikeDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/like";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateCommentAsync2(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateCommentAsync2(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateCommentAsync2(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllLikes(): Observable<LikeRoom[]> {
+        let url_ = this.baseUrl + "/api/admin/like/all";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLikes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLikes(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<LikeRoom[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<LikeRoom[]>;
+        }));
+    }
+
+    protected processGetAllLikes(response: HttpResponseBase): Observable<LikeRoom[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(LikeRoom.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     * @return Success
+     */
+    getLikeRoom(roomid: string, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<LikeInListDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/admin/like/room/{roomid}?";
+        if (roomid === undefined || roomid === null)
+            throw new Error("The parameter 'roomid' must be defined.");
+        url_ = url_.replace("{roomid}", encodeURIComponent("" + roomid));
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLikeRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLikeRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<LikeInListDtoPagedResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<LikeInListDtoPagedResult>;
+        }));
+    }
+
+    protected processGetLikeRoom(response: HttpResponseBase): Observable<LikeInListDtoPagedResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = LikeInListDtoPagedResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     * @return Success
+     */
+    getLikeUser(userid: string, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<LikeInListDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/admin/like/user/{userid}?";
+        if (userid === undefined || userid === null)
+            throw new Error("The parameter 'userid' must be defined.");
+        url_ = url_.replace("{userid}", encodeURIComponent("" + userid));
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLikeUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLikeUser(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<LikeInListDtoPagedResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<LikeInListDtoPagedResult>;
+        }));
+    }
+
+    protected processGetLikeUser(response: HttpResponseBase): Observable<LikeInListDtoPagedResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = LikeInListDtoPagedResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class AdminApiLocationApiClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -2095,11 +2345,14 @@ export class AdminApiPayRoomApiClient {
     /**
      * @return Success
      */
-    payRoom(userid: string): Observable<void> {
-        let url_ = this.baseUrl + "/api/admin/pay-room/{userid}";
-        if (userid === undefined || userid === null)
-            throw new Error("The parameter 'userid' must be defined.");
-        url_ = url_.replace("{userid}", encodeURIComponent("" + userid));
+    payRoom(ownerid: string, bookid: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/admin/pay-room/{ownerid}/{bookid}";
+        if (ownerid === undefined || ownerid === null)
+            throw new Error("The parameter 'ownerid' must be defined.");
+        url_ = url_.replace("{ownerid}", encodeURIComponent("" + ownerid));
+        if (bookid === undefined || bookid === null)
+            throw new Error("The parameter 'bookid' must be defined.");
+        url_ = url_.replace("{bookid}", encodeURIComponent("" + bookid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3057,6 +3310,67 @@ export class AdminApiRoomApiClient {
                 result200 = [] as any;
                 for (let item of resultData200)
                     result200!.push(SeriesInListDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getTypesBelong(id: string): Observable<TypeInListDto[]> {
+        let url_ = this.baseUrl + "/api/admin/room/types-belong/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTypesBelong(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTypesBelong(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TypeInListDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TypeInListDto[]>;
+        }));
+    }
+
+    protected processGetTypesBelong(response: HttpResponseBase): Observable<TypeInListDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TypeInListDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -4209,6 +4523,520 @@ export class AdminApiTokenApiClient {
 }
 
 @Injectable()
+export class AdminApiTypesApiClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(ADMIN_API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createTypeRoom(body?: CreateUpdateTypeRoomRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/type-room";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateTypeRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateTypeRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateTypeRoom(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    updateTypeRoom(id?: string | undefined, body?: CreateUpdateTypeRoomRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/type-room?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateTypeRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateTypeRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateTypeRoom(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deleteTypeRoom(body?: string[] | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/type-room";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteTypeRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteTypeRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteTypeRoom(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllTypeRoom(): Observable<TypeRoom[]> {
+        let url_ = this.baseUrl + "/api/type-room/all-type";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTypeRoom(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTypeRoom(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TypeRoom[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TypeRoom[]>;
+        }));
+    }
+
+    protected processGetAllTypeRoom(response: HttpResponseBase): Observable<TypeRoom[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TypeRoom.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getTypeRoomById(id: string): Observable<TypeRoom> {
+        let url_ = this.baseUrl + "/api/type-room/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTypeRoomById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTypeRoomById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TypeRoom>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TypeRoom>;
+        }));
+    }
+
+    protected processGetTypeRoomById(response: HttpResponseBase): Observable<TypeRoom> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TypeRoom.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param keyword (optional) 
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     * @return Success
+     */
+    getTypeRoomPaging(keyword?: string | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<TypeInListDtoPagedResult> {
+        let url_ = this.baseUrl + "/api/type-room/paging?";
+        if (keyword !== undefined && keyword !== null)
+            url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "pageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "pageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTypeRoomPaging(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTypeRoomPaging(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TypeInListDtoPagedResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TypeInListDtoPagedResult>;
+        }));
+    }
+
+    protected processGetTypeRoomPaging(response: HttpResponseBase): Observable<TypeInListDtoPagedResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TypeInListDtoPagedResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    addRoomToTypes(body?: AddRoomToTypeRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/type-room/room-types";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddRoomToTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddRoomToTypes(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processAddRoomToTypes(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deleteRoomsFromTypes(body?: AddRoomToTypeRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/type-room/room-from-types";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteRoomsFromTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteRoomsFromTypes(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteRoomsFromTypes(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getRoomInTypes(typeid: string): Observable<RoomInListDto[]> {
+        let url_ = this.baseUrl + "/api/type-room/room-in-types/{typeid}";
+        if (typeid === undefined || typeid === null)
+            throw new Error("The parameter 'typeid' must be defined.");
+        url_ = url_.replace("{typeid}", encodeURIComponent("" + typeid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRoomInTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRoomInTypes(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RoomInListDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RoomInListDto[]>;
+        }));
+    }
+
+    protected processGetRoomInTypes(response: HttpResponseBase): Observable<RoomInListDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RoomInListDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class AdminApiUserApiClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -4806,6 +5634,50 @@ export class AddRoomSeriesRequest implements IAddRoomSeriesRequest {
 export interface IAddRoomSeriesRequest {
     roomId?: string;
     seriesId?: string;
+    displayOrder?: number;
+}
+
+export class AddRoomToTypeRequest implements IAddRoomToTypeRequest {
+    roomId?: string;
+    typeId?: string;
+    displayOrder?: number;
+
+    constructor(data?: IAddRoomToTypeRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.roomId = _data["roomId"];
+            this.typeId = _data["typeId"];
+            this.displayOrder = _data["displayOrder"];
+        }
+    }
+
+    static fromJS(data: any): AddRoomToTypeRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddRoomToTypeRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["roomId"] = this.roomId;
+        data["typeId"] = this.typeId;
+        data["displayOrder"] = this.displayOrder;
+        return data;
+    }
+}
+
+export interface IAddRoomToTypeRequest {
+    roomId?: string;
+    typeId?: string;
     displayOrder?: number;
 }
 
@@ -5576,6 +6448,42 @@ export interface ICreateUpdateCommentRequest {
     dateCreated?: Date;
 }
 
+export class CreateUpdateLikeDto implements ICreateUpdateLikeDto {
+    roomId?: string;
+
+    constructor(data?: ICreateUpdateLikeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.roomId = _data["roomId"];
+        }
+    }
+
+    static fromJS(data: any): CreateUpdateLikeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateUpdateLikeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["roomId"] = this.roomId;
+        return data;
+    }
+}
+
+export interface ICreateUpdateLikeDto {
+    roomId?: string;
+}
+
 export class CreateUpdateLocationRequest implements ICreateUpdateLocationRequest {
     name?: string | undefined;
     district?: string | undefined;
@@ -5688,6 +6596,7 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
     seoDescription?: string | undefined;
     categoryId?: string;
     locateId?: string;
+    typeId?: string | undefined;
     tags?: string[] | undefined;
     bedRoom?: number;
     bathRoom?: number;
@@ -5720,6 +6629,7 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
             this.seoDescription = _data["seoDescription"];
             this.categoryId = _data["categoryId"];
             this.locateId = _data["locateId"];
+            this.typeId = _data["typeId"];
             if (Array.isArray(_data["tags"])) {
                 this.tags = [] as any;
                 for (let item of _data["tags"])
@@ -5756,6 +6666,7 @@ export class CreateUpdateRoomRequest implements ICreateUpdateRoomRequest {
         data["seoDescription"] = this.seoDescription;
         data["categoryId"] = this.categoryId;
         data["locateId"] = this.locateId;
+        data["typeId"] = this.typeId;
         if (Array.isArray(this.tags)) {
             data["tags"] = [];
             for (let item of this.tags)
@@ -5785,6 +6696,7 @@ export interface ICreateUpdateRoomRequest {
     seoDescription?: string | undefined;
     categoryId?: string;
     locateId?: string;
+    typeId?: string | undefined;
     tags?: string[] | undefined;
     bedRoom?: number;
     bathRoom?: number;
@@ -5864,6 +6776,54 @@ export interface ICreateUpdateSeriesRequest {
     content?: string | undefined;
 }
 
+export class CreateUpdateTypeRoomRequest implements ICreateUpdateTypeRoomRequest {
+    typeName?: string | undefined;
+    image?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+
+    constructor(data?: ICreateUpdateTypeRoomRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.typeName = _data["typeName"];
+            this.image = _data["image"];
+            this.slug = _data["slug"];
+            this.isActive = _data["isActive"];
+        }
+    }
+
+    static fromJS(data: any): CreateUpdateTypeRoomRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateUpdateTypeRoomRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["typeName"] = this.typeName;
+        data["image"] = this.image;
+        data["slug"] = this.slug;
+        data["isActive"] = this.isActive;
+        return data;
+    }
+}
+
+export interface ICreateUpdateTypeRoomRequest {
+    typeName?: string | undefined;
+    image?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+}
+
 export class CreateUserRequest implements ICreateUserRequest {
     firstName?: string | undefined;
     lastName?: string | undefined;
@@ -5930,6 +6890,174 @@ export interface ICreateUserRequest {
     dob?: Date | undefined;
     avatar?: string | undefined;
     isActive?: boolean;
+}
+
+export class LikeInListDto implements ILikeInListDto {
+    userId?: string;
+    roomId?: string;
+    dateCreated?: Date;
+    like?: boolean;
+
+    constructor(data?: ILikeInListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userId = _data["userId"];
+            this.roomId = _data["roomId"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.like = _data["like"];
+        }
+    }
+
+    static fromJS(data: any): LikeInListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LikeInListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["roomId"] = this.roomId;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["like"] = this.like;
+        return data;
+    }
+}
+
+export interface ILikeInListDto {
+    userId?: string;
+    roomId?: string;
+    dateCreated?: Date;
+    like?: boolean;
+}
+
+export class LikeInListDtoPagedResult implements ILikeInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    readonly firstRowOnPage?: number;
+    readonly lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: LikeInListDto[] | undefined;
+
+    constructor(data?: ILikeInListDtoPagedResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentPage = _data["currentPage"];
+            this.pageCount = _data["pageCount"];
+            this.pageSize = _data["pageSize"];
+            this.rowCount = _data["rowCount"];
+            (<any>this).firstRowOnPage = _data["firstRowOnPage"];
+            (<any>this).lastRowOnPage = _data["lastRowOnPage"];
+            this.additionalData = _data["additionalData"];
+            if (Array.isArray(_data["results"])) {
+                this.results = [] as any;
+                for (let item of _data["results"])
+                    this.results!.push(LikeInListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): LikeInListDtoPagedResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new LikeInListDtoPagedResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentPage"] = this.currentPage;
+        data["pageCount"] = this.pageCount;
+        data["pageSize"] = this.pageSize;
+        data["rowCount"] = this.rowCount;
+        data["firstRowOnPage"] = this.firstRowOnPage;
+        data["lastRowOnPage"] = this.lastRowOnPage;
+        data["additionalData"] = this.additionalData;
+        if (Array.isArray(this.results)) {
+            data["results"] = [];
+            for (let item of this.results)
+                data["results"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface ILikeInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    firstRowOnPage?: number;
+    lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: LikeInListDto[] | undefined;
+}
+
+export class LikeRoom implements ILikeRoom {
+    userId?: string;
+    roomId?: string;
+    dateCreated?: Date;
+    like?: boolean;
+
+    constructor(data?: ILikeRoom) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userId = _data["userId"];
+            this.roomId = _data["roomId"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
+            this.like = _data["like"];
+        }
+    }
+
+    static fromJS(data: any): LikeRoom {
+        data = typeof data === 'object' ? data : {};
+        let result = new LikeRoom();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["roomId"] = this.roomId;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
+        data["like"] = this.like;
+        return data;
+    }
+}
+
+export interface ILikeRoom {
+    userId?: string;
+    roomId?: string;
+    dateCreated?: Date;
+    like?: boolean;
 }
 
 export class Location implements ILocation {
@@ -6641,6 +7769,7 @@ export class RoomDto implements IRoomDto {
     status?: RoomStatus;
     categoryId?: string;
     locateId?: string;
+    typeId?: string | undefined;
     tags?: string | undefined;
     bedRoom?: number;
     bathRoom?: number;
@@ -6681,6 +7810,7 @@ export class RoomDto implements IRoomDto {
             this.status = _data["status"];
             this.categoryId = _data["categoryId"];
             this.locateId = _data["locateId"];
+            this.typeId = _data["typeId"];
             this.tags = _data["tags"];
             this.bedRoom = _data["bedRoom"];
             this.bathRoom = _data["bathRoom"];
@@ -6721,6 +7851,7 @@ export class RoomDto implements IRoomDto {
         data["status"] = this.status;
         data["categoryId"] = this.categoryId;
         data["locateId"] = this.locateId;
+        data["typeId"] = this.typeId;
         data["tags"] = this.tags;
         data["bedRoom"] = this.bedRoom;
         data["bathRoom"] = this.bathRoom;
@@ -6754,6 +7885,7 @@ export interface IRoomDto {
     status?: RoomStatus;
     categoryId?: string;
     locateId?: string;
+    typeId?: string | undefined;
     tags?: string | undefined;
     bedRoom?: number;
     bathRoom?: number;
@@ -6783,6 +7915,7 @@ export class RoomInListDto implements IRoomInListDto {
     authorUserName?: string | undefined;
     authorName?: string | undefined;
     categoryId?: string;
+    typeId?: string | undefined;
     status?: RoomStatus;
 
     constructor(data?: IRoomInListDto) {
@@ -6810,6 +7943,7 @@ export class RoomInListDto implements IRoomInListDto {
             this.authorUserName = _data["authorUserName"];
             this.authorName = _data["authorName"];
             this.categoryId = _data["categoryId"];
+            this.typeId = _data["typeId"];
             this.status = _data["status"];
         }
     }
@@ -6837,6 +7971,7 @@ export class RoomInListDto implements IRoomInListDto {
         data["authorUserName"] = this.authorUserName;
         data["authorName"] = this.authorName;
         data["categoryId"] = this.categoryId;
+        data["typeId"] = this.typeId;
         data["status"] = this.status;
         return data;
     }
@@ -6857,6 +7992,7 @@ export interface IRoomInListDto {
     authorUserName?: string | undefined;
     authorName?: string | undefined;
     categoryId?: string;
+    typeId?: string | undefined;
     status?: RoomStatus;
 }
 
@@ -7365,6 +8501,182 @@ export interface ITransactionDtoPagedResult {
 
 export enum TransactionType {
     _0 = 0,
+}
+
+export class TypeInListDto implements ITypeInListDto {
+    id?: string;
+    typeName?: string | undefined;
+    image?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+
+    constructor(data?: ITypeInListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.typeName = _data["typeName"];
+            this.image = _data["image"];
+            this.slug = _data["slug"];
+            this.isActive = _data["isActive"];
+        }
+    }
+
+    static fromJS(data: any): TypeInListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TypeInListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["typeName"] = this.typeName;
+        data["image"] = this.image;
+        data["slug"] = this.slug;
+        data["isActive"] = this.isActive;
+        return data;
+    }
+}
+
+export interface ITypeInListDto {
+    id?: string;
+    typeName?: string | undefined;
+    image?: string | undefined;
+    slug?: string | undefined;
+    isActive?: boolean;
+}
+
+export class TypeInListDtoPagedResult implements ITypeInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    readonly firstRowOnPage?: number;
+    readonly lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: TypeInListDto[] | undefined;
+
+    constructor(data?: ITypeInListDtoPagedResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentPage = _data["currentPage"];
+            this.pageCount = _data["pageCount"];
+            this.pageSize = _data["pageSize"];
+            this.rowCount = _data["rowCount"];
+            (<any>this).firstRowOnPage = _data["firstRowOnPage"];
+            (<any>this).lastRowOnPage = _data["lastRowOnPage"];
+            this.additionalData = _data["additionalData"];
+            if (Array.isArray(_data["results"])) {
+                this.results = [] as any;
+                for (let item of _data["results"])
+                    this.results!.push(TypeInListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TypeInListDtoPagedResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new TypeInListDtoPagedResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentPage"] = this.currentPage;
+        data["pageCount"] = this.pageCount;
+        data["pageSize"] = this.pageSize;
+        data["rowCount"] = this.rowCount;
+        data["firstRowOnPage"] = this.firstRowOnPage;
+        data["lastRowOnPage"] = this.lastRowOnPage;
+        data["additionalData"] = this.additionalData;
+        if (Array.isArray(this.results)) {
+            data["results"] = [];
+            for (let item of this.results)
+                data["results"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface ITypeInListDtoPagedResult {
+    currentPage?: number;
+    pageCount?: number;
+    pageSize?: number;
+    rowCount?: number;
+    firstRowOnPage?: number;
+    lastRowOnPage?: number;
+    additionalData?: string | undefined;
+    results?: TypeInListDto[] | undefined;
+}
+
+export class TypeRoom implements ITypeRoom {
+    id?: string;
+    typeName!: string;
+    image?: string | undefined;
+    slug!: string;
+    isActive?: boolean;
+
+    constructor(data?: ITypeRoom) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.typeName = _data["typeName"];
+            this.image = _data["image"];
+            this.slug = _data["slug"];
+            this.isActive = _data["isActive"];
+        }
+    }
+
+    static fromJS(data: any): TypeRoom {
+        data = typeof data === 'object' ? data : {};
+        let result = new TypeRoom();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["typeName"] = this.typeName;
+        data["image"] = this.image;
+        data["slug"] = this.slug;
+        data["isActive"] = this.isActive;
+        return data;
+    }
+}
+
+export interface ITypeRoom {
+    id?: string;
+    typeName: string;
+    image?: string | undefined;
+    slug: string;
+    isActive?: boolean;
 }
 
 export class UpdateUserRequest implements IUpdateUserRequest {

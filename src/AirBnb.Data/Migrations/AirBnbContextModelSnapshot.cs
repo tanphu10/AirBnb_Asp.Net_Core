@@ -81,6 +81,9 @@ namespace AirBnb.Data.Migrations
                     b.Property<int>("GuestNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageRoom")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
@@ -399,6 +402,22 @@ namespace AirBnb.Data.Migrations
                     b.ToTable("RoomInSeries");
                 });
 
+            modelBuilder.Entity("AirBnb.Core.Domain.Content.RoomInTypes", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId", "TypeId");
+
+                    b.ToTable("RoomInTypes");
+                });
+
             modelBuilder.Entity("AirBnb.Core.Domain.Content.RoomTag", b =>
                 {
                     b.Property<Guid>("RoomId")
@@ -532,6 +551,9 @@ namespace AirBnb.Data.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Slug")
                         .IsRequired()

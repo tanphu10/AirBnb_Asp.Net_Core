@@ -62,6 +62,13 @@ export const navItems: INavData[] = [
           "policyName":"Permissions.Series.View"
         }
       },
+      {
+        name: 'Types Phòng ',
+        url: '/content/type-room',
+        attributes:{
+          "policyName":"Permissions.Series.View"
+        }
+      },
     ],
   },
   {

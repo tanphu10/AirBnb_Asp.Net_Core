@@ -16,7 +16,7 @@ import {
 import { RoomSeriesComponent } from './room-series.component';
 import { RoomReturnReasonComponent } from './room-return-reason.component';
 import { RoomActivityLogsComponent } from './room-activity-logs.component';
-
+import {RoomTypesComponent} from './room-type.component';
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -182,6 +182,27 @@ export class RoomComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Thêm vào loạt bài',
+      width: '70%',
+    });
+    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
+    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
+    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
+    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
+    ref.onClose.subscribe((data: RoomDto) => {
+      if (data) {
+        this.alertService.showSuccess(MessageConstants.UPDATED_OK_MSG);
+        this.selectedItems = [];
+        this.loadData(data.id);
+      }
+    });
+  }
+  addToTypes(id: string) {
+    // console.log("first",id)
+    const ref = this.dialogService.open(RoomTypesComponent, {
+      data: {
+        id: id,
+      },
+      header: 'Thêm vào Type-Rooms',
       width: '70%',
     });
     const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);

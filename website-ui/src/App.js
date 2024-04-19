@@ -23,7 +23,9 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/infouser" element={<InfoUser />} />
-          <Route path="/pay-room" element={<PayRoom/>} />
+          <Route path="/pay-room">
+            <Route path=":id" element={<PayRoom />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path="/loading" element={<Loading />} />

@@ -1,0 +1,26 @@
+#button_TT {
+  border-radius: 10px;
+  border: 1px solid #f12711;
+  background: linear-gradient(to left, #f12711, #f5af19);
+  background-clip: text;
+  color: transparent;
+  &:hover {
+    color: white;
+    background: #f12711;
+    background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+    background: linear-gradient(to left, #f12711, #f5af19);
+    // border: none;
+    border-color: white;
+  }
+}
+
+#button_NoTT {
+  border-radius: 10px;
+  border: 1px solid #f12711;
+  color: white;
+    background: #11d7f1;
+    background: -webkit-linear-gradient(to left, #f12711, #19f587);
+    background: linear-gradient(to left, #f12711, #19f5cd);
+    // border: none;
+    border-color: white;
+}

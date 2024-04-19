@@ -28,7 +28,7 @@ namespace AirBnb.Data
         public DbSet<TypeRoom> TypeRooms { set; get; }
         public DbSet<LikeRoom> LikeRooms { set; get; }
 
-
+        public DbSet<RoomInTypes> RoomInTypes { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -148,6 +148,13 @@ namespace AirBnb.Api.Controllers.Admin
             var result = await _unitOfWork.Rooms.GetAllSeries(id);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("types-belong/{id}")]
+        public async Task<ActionResult<List<TypeInListDto>>> GetTypesBelong(Guid id)
+        {
+            var result = await _unitOfWork.Rooms.GetAllTypes(id);
+            return Ok(result);
+        }
         //userManger submit to admin
         [HttpPost("approval-submit/{roomid}")]
         public async Task<IActionResult> SendToApproveRoomPost(Guid roomid)

@@ -8,9 +8,7 @@ export const userService = {
   signup: (data) => {
     return https.post("/api/admin/users", data);
   },
-  roomUserBooked: (maNguoiDung) => {
-    return https.get(`/api/bookroom/get-by-id/${maNguoiDung}`);
-  },
+  
   user: () => {
     return https.get("/api/users");
   },
@@ -18,7 +16,7 @@ export const userService = {
     return https.get(`/api/users/${id}`);
   },
   editAvatar: (data) => {
-    console.log(data);
+    // console.log(data);
     return https.post("/api/users/upload-avatar", data);
   },
   adminUserIdPut: (id, data) => {

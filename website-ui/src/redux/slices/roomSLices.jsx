@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { roomServ } from "./../../shared/services/roomServices";
 import { userService } from "./../../shared/services/userService";
+import { bookRoomService } from "../../shared/services/bookRoomService";
 
 export const getApiTypeRoom = createAsyncThunk(
   "room/getTypeRoomApi",
@@ -16,7 +17,7 @@ export const getApiTypeRoomId = createAsyncThunk(
   "room/getTypeRoomApiId",
   async (id) => {
     const res = await roomServ.getTypeRoomId(id);
-    // console.log(res);
+    // console.log("type room",res);
     return res.data;
   }
 );
@@ -39,8 +40,8 @@ export const getDetailRoomAPI = createAsyncThunk(
 export const getRoomUserBookedApi = createAsyncThunk(
   "room/getRoomUserBookedApi",
   async (maNguoiDung) => {
-    const res = await userService.roomUserBooked(maNguoiDung);
-    // console.log(res);
+    const res = await bookRoomService.roomUserBooked(maNguoiDung);
+    // console.log("info user room booked",res.data);
     return res.data;
   }
 );
@@ -128,22 +129,8 @@ export const roomSlice = createSlice({
       state.room = action.payload;
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
-      state.arrRenderItem = [];
-      // console.log(state.arrRenderItem);
       state.controlRoom = action.payload;
-      // console.log(action.payload);
-      // console.log("controlRoom", state.controlRoom);
-      state.controlRoom?.map((control) => {
-        // console.log(control);
-        state.arrayRoom?.map((room) => {
-          // console.log(room);
-          if (control.room_id === room.id) {
-            state.arrRenderItem.push(room);
-          }
-        });
-      });
-      // console.log("controlRoom", state.controlRoom);
-      // console.log(state.arrRenderItem);
+      console.log("state control",state.controlRoom )
     });
     builder.addCase(putBookedRoomApi.fulfilled, (state, action) => {
       // console.log("action.payload: ", action.payload);

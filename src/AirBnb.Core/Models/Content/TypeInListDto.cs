@@ -14,6 +14,7 @@ namespace AirBnb.Core.Models.Content
         public string TypeName { get; set; }
         public string Image { get; set; }
         public string Slug { get; set; }
+        public bool IsActive { set; get; }
         public class AutoMapperProfiles : Profile
         {
             

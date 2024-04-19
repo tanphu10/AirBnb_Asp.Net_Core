@@ -14,7 +14,7 @@ namespace AirBnb.Core.Models.Content
         public string Note { get; set; }
         public string AuthorUserName { get; set; }
         public string AuthorName { get; set; }
-
+        public string? ImageRoom { get; set; }
         public class AutoMapperProfiles : Profile
         {
             public AutoMapperProfiles()

@@ -21,6 +21,8 @@ namespace AirBnb.Core.Domain.Content
         [Required]
         [Column(TypeName = "varchar(250)")]
         public string Slug { get; set; }
+        public bool IsActive { set; get; }
+
 
     }
 }
