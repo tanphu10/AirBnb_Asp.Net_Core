@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  AdminApiUserApiClient,
+  UserDto,
+  UserDtoPagedResult,
+} from 'src/app/api/admin-api.service.generated';
+import { environment } from 'src/environments/environment';
 
 interface IUser {
   name: string;
@@ -19,11 +25,24 @@ interface IUser {
 
 @Component({
   templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss']
+  styleUrls: ['dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData) {
-  }
+  private ngUnsubscribe = new Subject<void>();
+  //Paging variables
+  public pageIndex: number = 1;
+  public pageSize: number = 10;
+  public totalCount: number;
+  public thumbnailImage;
+
+  //Business variables
+  public items: UserDto[];
+  public selectedItems: UserDto[] = [];
+  public keyword: string = '';
+  constructor(
+    private chartsData: DashboardChartsData,
+    private userService: AdminApiUserApiClient
+  ) {}
 
   public users: IUser[] = [
     {
@@ -37,7 +56,7 @@ export class DashboardComponent implements OnInit {
       activity: '10 sec ago',
       avatar: './assets/img/avatars/1.jpg',
       status: 'success',
-      color: 'success'
+      color: 'success',
     },
     {
       name: 'Avram Tarasios',
@@ -50,7 +69,7 @@ export class DashboardComponent implements OnInit {
       activity: '5 minutes ago',
       avatar: './assets/img/avatars/2.jpg',
       status: 'danger',
-      color: 'info'
+      color: 'info',
     },
     {
       name: 'Quintin Ed',
@@ -63,7 +82,7 @@ export class DashboardComponent implements OnInit {
       activity: '1 hour ago',
       avatar: './assets/img/avatars/3.jpg',
       status: 'warning',
-      color: 'warning'
+      color: 'warning',
     },
     {
       name: 'Enéas Kwadwo',
@@ -76,7 +95,7 @@ export class DashboardComponent implements OnInit {
       activity: 'Last month',
       avatar: './assets/img/avatars/4.jpg',
       status: 'secondary',
-      color: 'danger'
+      color: 'danger',
     },
     {
       name: 'Agapetus Tadeáš',
@@ -89,7 +108,7 @@ export class DashboardComponent implements OnInit {
       activity: 'Last week',
       avatar: './assets/img/avatars/5.jpg',
       status: 'success',
-      color: 'primary'
+      color: 'primary',
     },
     {
       name: 'Friderik Dávid',
@@ -102,23 +121,55 @@ export class DashboardComponent implements OnInit {
       activity: 'Yesterday',
       avatar: './assets/img/avatars/6.jpg',
       status: 'info',
-      color: 'dark'
-    }
+      color: 'dark',
+    },
   ];
   public mainChart: IChartProps = {};
   public chart: Array<IChartProps> = [];
   public trafficRadioGroup = new UntypedFormGroup({
-    trafficRadio: new UntypedFormControl('Month')
+    trafficRadio: new UntypedFormControl('Month'),
   });
 
   ngOnInit(): void {
     this.initCharts();
+    this.loadData();
+    // console.log(environment.API_URL);
   }
 
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
   }
+  loadData(selectionId = null) {
+    this.toggleBlockUI(true);
+    this.userService
+      .getAllUserPaging(this.keyword, this.pageIndex, this.pageSize)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (response: UserDtoPagedResult) => {
+          // console.log('res', response);
+          this.items = response.results;
+          this.totalCount = response.rowCount;
+          if (selectionId != null && this.items.length > 0) {
+            this.selectedItems = this.items.filter((x) => x.id == selectionId);
+          }
 
+          this.toggleBlockUI(false);
+        },
+        error: () => {
+          this.toggleBlockUI(false);
+        },
+      });
+  }
+
+  private toggleBlockUI(enabled: boolean) {
+    if (enabled == true) {
+      // this.blockedPanel = true;
+    } else {
+      setTimeout(() => {
+        // this.blockedPanel = false;
+      }, 1000);
+    }
+  }
   setTrafficPeriod(value: string): void {
     this.trafficRadioGroup.setValue({ trafficRadio: value });
     this.chartsData.initMainChart(value);

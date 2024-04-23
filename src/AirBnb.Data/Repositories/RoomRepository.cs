@@ -83,7 +83,6 @@ namespace AirBnb.Data.Repositories
                 canApprove = await _context.RoleClaims.AnyAsync(x => roles.Contains(x.RoleId.ToString())
                            && x.ClaimValue == Permissions.Rooms.Approve);
             }
-
             var query = _context.Rooms.AsQueryable();
             if (!string.IsNullOrWhiteSpace(keyword))
             {

@@ -6,7 +6,7 @@ export const roomServ = {
   getDetailRoom: (id) => {
     return https.get(`/api/admin/room/${id}`);
   },
- 
+
   getTypeRoom: () => {
     return https.get(`/api/type-room/all-type`);
   },
@@ -14,6 +14,19 @@ export const roomServ = {
     return https.get(`/api/type-room/room-in-types/${id}`);
   },
   searchRoom: (data) => {
-    return https.get(`/api/admin/room/paging/${data}`);
+    // console.log(data);
+    if (data.keyword) {
+      return https.get(
+        `/api/admin/room/paging?keyword=${data.keyword}&pageIndex=${
+          data.pageIndex ? data.pageIndex : 1
+        }&pageSize=${data.pageSize ? data.pageSize : 10}`
+      );
+    } else {
+      return https.get(
+        `/api/admin/room/paging?pageIndex=${
+          data.pageIndex ? data.pageIndex : 1
+        }&pageSize=${data.pageSize ? data.pageSize : 10}`
+      );
+    }
   },
 };

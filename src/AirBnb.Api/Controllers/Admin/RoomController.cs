@@ -126,7 +126,7 @@ namespace AirBnb.Api.Controllers.Admin
         [Route("paging")]
         [Authorize(Rooms.View)]
         public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPaging(string? keyword, Guid? categoryId,
-         int pageIndex, int pageSize = 10)
+         int pageIndex=1, int pageSize = 10)
         {
             var userId = User.GetUserId();
             var result = await _unitOfWork.Rooms.GetAllPaging(keyword, userId, categoryId, pageIndex, pageSize);

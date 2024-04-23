@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { roomServ } from "./../../shared/services/roomServices";
 import { userService } from "./../../shared/services/userService";
 import { bookRoomService } from "../../shared/services/bookRoomService";
@@ -58,9 +57,9 @@ export const putBookedRoomApi = createAsyncThunk(
 export const searchRoomApi = createAsyncThunk(
   "room/searchRoomApi",
   async (data) => {
-    // console.log(data);
+    // console.log("data serch api",data);
     const res = await roomServ.searchRoom(data);
-    // console.log(res);
+    // console.log(res.data);
     return res.data;
   }
 );
@@ -81,7 +80,7 @@ export const roomSlice = createSlice({
       state.editRoom = [];
       // console.log(action.payload);
       state.controlRoom.find((item) => {
-        if (item.id == action.payload) {
+        if (item.id === action.payload) {
           state.editRoom.push(item);
         }
       });
@@ -92,7 +91,7 @@ export const roomSlice = createSlice({
       // console.log(action.payload);
       state.arrayRoom.find((item) => {
         // console.log(item);
-        if (item.id == action.payload) {
+        if (item.id === action.payload) {
           state.pickCashRenderEdit.push(item);
         }
       });
@@ -122,7 +121,8 @@ export const roomSlice = createSlice({
     // });
     builder.addCase(searchRoomApi.fulfilled, (state, action) => {
       state.arrayRoom = [];
-      state.arrayRoom = action.payload;
+      // console.log("actions",action.payload.results);
+      state.arrayRoom = action.payload.results;
     });
 
     builder.addCase(getDetailRoomAPI.fulfilled, (state, action) => {
@@ -130,7 +130,7 @@ export const roomSlice = createSlice({
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
-      console.log("state control",state.controlRoom )
+      // console.log("state control",state.controlRoom )
     });
     builder.addCase(putBookedRoomApi.fulfilled, (state, action) => {
       // console.log("action.payload: ", action.payload);

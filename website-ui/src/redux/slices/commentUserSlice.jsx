@@ -66,7 +66,7 @@ const initialState = {
   arrGetAvtUser: [],
 };
 export const commentUserSlice = createSlice({
-  name: "room",
+  name: "comment",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -1,20 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Header.scss";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AfterRegister from "./AfterRegister";
 import "./Header.scss";
-import { Drawer } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AlignCenterOutlined, AlignRightOutlined } from "@ant-design/icons";
 import { getAllRoomAPI, searchRoomApi } from "../../redux/slices/roomSLices";
+import { Paging } from "../../_model/Paging";
+import { getSeriesApi } from "../../redux/slices/seriesSlice";
+import MenuDropdownSeries from "./MenuDropdownSeries";
+import MenuDropdownCategory from "./MenuDropdownCategory";
+import { GetCategoryApi } from "../../redux/slices/categorySlice";
 const Header = () => {
-  // const [open, setOpen] = useState(false);
+  const { arraySeries } = useSelector((state) => state.series);
+  const { arrayCate } = useSelector((state) => state.category);
+
+  console.log("arr arrayCate", arrayCate);
   const [active, setactive] = useState(false);
   const handleActive = () => {
     setactive(!active);
   };
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   // ----------------------------------------------------
   const [expanded, setExpanded] = useState(false);
   const buttonRef = useRef();
@@ -26,7 +32,12 @@ const Header = () => {
   const collapseButton = () => {
     setExpanded(false);
   };
-
+  useEffect(() => {
+    if (arraySeries.length <= 0) {
+      dispatch(getSeriesApi());
+    }
+    dispatch(GetCategoryApi());
+  }, []);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (buttonRef.current && !buttonRef.current.contains(event.target)) {
@@ -55,9 +66,10 @@ const Header = () => {
   // Hàm xử lý khi nhấn Enter hoặc click vào button
   const handleAction = () => {
     // Thực hiện các xử lý bạn muốn với giá trị từ ô input (inputValue)
-    // console.log("Input value:", inputValue);
-    dispatch(searchRoomApi(inputValue));
-    navigate("/");
+    console.log("Input value:", inputValue);
+    const data = new Paging();
+    data.keyword = inputValue;
+    dispatch(searchRoomApi(data));
   };
   // Hàm xử lý khi nhấn Enter
   const handleKeyPress = (event) => {
@@ -88,7 +100,7 @@ const Header = () => {
                 </span>
               </NavLink>
               <div
-                className="flex laptop:justify-between tablet:justify-end items-center max-w-[1240px] mx-auto px-3 rounded-2xl "
+                className="flex max-w-[1240px] mx-auto px-3 rounded-2xl "
                 id="navbar-user"
               >
                 <div
@@ -112,14 +124,6 @@ const Header = () => {
                         className="btn_header_navbar block py-2 pl-3 pr-4 text-black rounded md:p-0 hover:text-white duration-200"
                       >
                         tìm kiếm tên phòng
-                      </a>
-                    </li>
-                    <li className="flex items-center ml-5">
-                      <a
-                        href="#"
-                        className="block py-2 pl-3 pr-4 text-black rounded  md:p-0 hover:text-white duration-200"
-                      >
-                        Tìm kiếm địa điểm
                       </a>
                     </li>
                   </ul>
@@ -148,7 +152,10 @@ const Header = () => {
                     </div>
                   )}
                 </div>
-                <div onClick={handleActive} className="block tablet:hidden">
+                <div
+                  onClick={handleActive}
+                  className="block  tablet:hidden mobile:hidden "
+                >
                   {!active ? <AlignCenterOutlined /> : <AlignRightOutlined />}
                 </div>
                 <div
@@ -165,9 +172,20 @@ const Header = () => {
                     <li className="p-4 border-b text-white border-gray-600">
                       Thêm khách hàng
                     </li>
-                    <li className="p-4 text-white ">Tuần bất kỳ</li>
                   </ul>
                 </div>
+              </div>
+              <div
+                className=" flex max-w-[1240px] mx-auto px-3 "
+                id="navbar-series"
+              >
+                <MenuDropdownCategory arrayCate={arrayCate} />
+              </div>
+              <div
+                className=" flex max-w-[1240px] mx-auto px-3"
+                id="navbar-series"
+              >
+                <MenuDropdownSeries arraySeries={arraySeries} />
               </div>
               <div className="flex items-center">
                 <AfterRegister />
