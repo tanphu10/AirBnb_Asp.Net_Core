@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ra1Mydt1x1cdzkWnfA5xIbegh0w5decLsRVtTzLHDkk=",
+  "Hash": "6xVOHei43zobNr0mviXe9feCxkEu64qzsoSF0CoDMSw=",
   "Source": "AirBnb.Api",
   "BasePath": "_content/AirBnb.Api",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\Microsoft.AspNetCore.Http.FormFile\\042024\\IMG_20191125_204029-01.jpeg",
+      "SourceId": "AirBnb.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\",
+      "BasePath": "_content/AirBnb.Api",
+      "RelativePath": "media/images/Microsoft.AspNetCore.Http.FormFile/042024/IMG_20191125_204029-01.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\media\\images\\Microsoft.AspNetCore.Http.FormFile\\042024\\IMG_20191125_204029-01.jpeg"
+    },
     {
       "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\564826.jpg",
       "SourceId": "AirBnb.Api",
@@ -131,6 +150,25 @@
       "OriginalItemSpec": "wwwroot\\media\\images\\rooms\\042024\\hanoi-23333.jpg"
     },
     {
+      "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\hinhnen_1.jpg",
+      "SourceId": "AirBnb.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\",
+      "BasePath": "_content/AirBnb.Api",
+      "RelativePath": "media/images/rooms/042024/hinhnen_1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\media\\images\\rooms\\042024\\hinhnen_1.jpg"
+    },
+    {
       "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\Hue_banner_2600x1111.jpg",
       "SourceId": "AirBnb.Api",
       "SourceType": "Discovered",
@@ -167,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\media\\images\\rooms\\042024\\IMG_20191125_204029-01.jpeg"
+    },
+    {
+      "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pexels-pok-rie-2049422.jpg",
+      "SourceId": "AirBnb.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\",
+      "BasePath": "_content/AirBnb.Api",
+      "RelativePath": "media/images/rooms/042024/pexels-pok-rie-2049422.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\media\\images\\rooms\\042024\\pexels-pok-rie-2049422.jpg"
     },
     {
       "Identity": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pexels-thanhhoa-tran-1488259.jpg",

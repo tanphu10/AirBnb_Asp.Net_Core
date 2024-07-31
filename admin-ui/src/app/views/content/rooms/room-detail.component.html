@@ -103,11 +103,14 @@
           <input type="checkbox" id="park" name="park" formControlName="park">
         </div>
       </div>
+      <div>
+        cho mình hỏi là theo như bài luận có mấy 
+      </div>
 
       <div class="field col-12 md:col-6">
         <label for="thumbnailFileContent">Hình ảnh <span class="required">*</span></label>
         <input type="hidden" formControlName="photo" />
-        <input (change)="onFileChange($event)" type="file" class="w-full" />
+        <input (change)="onFileChange($event)" type="file" class="w-full" multiple  />
       </div>
       <div *ngIf="thumbnailImage" class="field col-12 md:col-6">
         <p-image [src]="thumbnailImage" [preview]="true" [alt]="selectedEntity.name" width="250">
@@ -135,4 +138,65 @@
         strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
     </p-blockUI>
   </p-panel>
+  <div>
+    '
+    Khoa Tử vi có trên 118 vì sao gồm chính tinh và phụ tinh. Những sao này được phân bổ trên 12
+    cung theo quy tắc đã định dựa vào ngày, tháng, năm và giờ sinh của mỗi người. Chính tinh có
+    những đặc tính và ảnh hưởng mạnh mẽ, rõ rệt hơn là phụ tinh, tuy nhiên chính tinh thịnh hay suy cũng còn chịu sự ảnh hưởng bởi các phụ tinh đồng cung chi phối cũng như vị trí mà chính tinh đó đóng, chiếu. Một cung vị không có chính tinh chiếu vào được gọi là cung vô chính diệu.
+    
+    Ngoài việc phân bố và biểu thị lên tính chất tốt xấu, cát hung, được mất.. của 12 cung vị, toàn bộ các chính phụ tinh này cùng với những sao Lưu, sao Động cũng sẽ phản ánh lên từng giai đoạn thời vận của một đời người, một đại vận kéo dài 9 năm, mỗi năm là một vận năm nhỏ chịu sự chi phối bởi gốc đại vận, tương tự như 12 tháng trong 1 năm cũng sẽ chịu sự chi phối bởi gốc vận năm.
+    
+    Lá số tử vi là phương pháp xem số mệnh mang tính khoa học và thực tế, phác hoạ lên Thiên định, phần Địa tức môi trường và bối cảnh sống cũng như phần Nhân tức sự cố gắng từ chính trong mỗi chúng ta sẽ góp phần làm giảm thiểu được phần Thiên định nếu không tốt.
+    
+    CUNG MỆNH
+    
+    Mệnh là gốc của một lá số, cung này biểu thị lên bản mệnh, tâm tư tính cách, những thứ được ấn định từ khi sinh ra. Mệnh có sự tác động mạnh mẽ tới mọi phương diện còn lại, đồng thời luôn tam hợp cùng Tài, Quan cấu hình thành lên Cách cục của mỗi lá số tử vi.
+    
+    Liêm Trinh – Thất Sát chính tinh
+    
+    Liêm Trinh ngũ hành thuộc Hỏa, hóa khí tù tinh. Liêm Trinh nhập mệnh thể hiện bản thân bạn là người tài năng, đa tài cũng như là đào hoa. Bản thân bạn dù trong môi trường công việc, giao tiếp rất hay có duyên gần gũi, cộng sự và làm việc với nhiều người khác giới, nến chính vì vậy dễ tạo được niềm tin và sự yêu mến, giúp đỡ từ những người xung quanh. Từ trong nội tâm suy nghĩ cũng như môi trường, công việc bạn dễ rơi vào sự bế tắc, tù túng cũng như theo khuôn khổ, môi trường bức bối khó tìm được sự tụ do nên chính vì vậy phần nào khả năng điểm mạnh bản thân bị hạn chế, khó lòng phát triển vượt bật được, dễ bị người khác áp đặt suy nghĩ cũng như lời nói lên ngay chính bản thân mình. Trong môi trường công việc bạn là người cứng rắn, sống theo nguyên tắc, quy định, khuôn khổ, ghét sự ỷ lại, bản thân là người xem trọng và đặt công danh sự nghiệp lên đầu, có tinh thần trách nhiệm và tận tâm tận lực hết lòng vì công việc mình đang làm và theo đuổi, bản thân là người ưa thích đứng đầu, lãnh đạo, có ý chí quyết tâm và kiên trì theo đuổi đến cùng vì mục tiêu, thành tựu dành cho bản thân mình. Nên chính vì sự kỉ luật và nguyên tắc đó bản thân về sau dễ đạt được sự mục tiêu kế hoạch cũng như có được sự thành công trong công việc.
+    
+    Thất Sát ngũ hành thuộc Kim, hóa khí là tướng. Thẩ Sát cư mệnh thể hiện bản thân là người bày mưu, hoạch định kế hoạch giỏi, nhiều mưu mẹo và kiến giải hay hơn người. Bạn là người của sự cương cường, cương trực và thích sự công bằng, trắng đen phải trái rõ ràng, nghiêm túc trong mọi vấn đề cũng như tính tình thẳng thắn, quyết đoán. Nhưng nhược điểm bản thân đứng trước những việc cần đưa ra quyết định thường có sự nóng vội, mọi cảm xúc không hài lòng bản thân đều dễ bộc lộ và biểu hiện thẳng ra bên ngoài, không nể sợ ai. Bạn là người ưa thích sự nắm quyền, quyền lực, suy nghĩ có phần độc đoán, mang thiên hướng cá nhân là chính, thích ra lệnh sai khiến chỉ bảo cho người khác nhưng không thích người khác áp đặt suy nghĩ và ra lệnh cho bản thân mình. Bạn là người có sự nghị lực, dũng mãnh và đầy sự dũng khí đối mặt với thử thách, có ý chí là tinh thần quyết tâm cao, kiên trì với công việc, ứng biến và xoay chuyển giải quyết mọi vấn đề ễ theo thiên hướng chủ động của bản thân. Chính vì suy nghĩ có sự độc đoán, thích ra lệnh và nắm quyền và bản thân chỉ nói lý mà không nói tình nên chính vì vậy vô tình làm cho người khác có phần ái ngại khi giao tiếp, nên chính vì vậy bản thân đôi lúc dễ rơi vào trạng thái cô đơn, cô độc. Nếu Liêm Trinh chỉ về sự độc đoán, theo thiên hướng cá nhân thì Thất Sát chỉ về sự nóng vội cũng như không nghe theo ý người khác vì vậy bản thân khi làm công việc hoặc giải quyết vấn đề gì rất dễ xảy ra thất bại, làm việc gì cũng bại trước thành sau.
+    
+    Với những cát tinh tốt đẹp cư cung Mệnh biểu thị bản thân là người tư duy cũng như trí tuệ có sự nhanh nhạy và nhạy bén, thích ứng phù hợp tốt với môi trường và hoàn cảnh sống. Bạn là mẫu người nói ít nhưng làm nhiều, đặt ra nhiều mục tiêu cũng như tham vọng lớn trong công việc. Xoay quanh phương diện cuộc sống, khó khăn luôn có người tương trợ, hậu thuẫn và giúp đỡ. Tư duy và suy nghĩ, quan điểm bản thân khi có tuổi thường quay về giúp đỡ những người khó khăn, tầm trang tuổi lứa với bản thân.
+    
+    Nhược điểm cung Mệnh, tính cách và tính tình bản thân là người tương đối cứng rắn, đôi khi có sự bảo thủ, bản thân thường ít bộc bạch và tâm sự, chia sẻ những vấn đề đang gặp phải với những người xung quanh. Tâm tư cũng như trí tuệ bản thân thường dễ có sự bất mãn, chán nản cũng như chứa đựng nhiều sự chán chường và lo âu, sợ sệt. Tinh thần bản thân luôn trong trạng thái bất an cũng như đôi lúc suy nghĩ tiêu cực.
+    
+    Mệnh đắc vòng Âm – Long – Trực, đây là vòng của những người bản tính thiện lương, hiền lành, nhẹ nhàng, tín tâm tín lễ, có khuynh hướng kiên trì bền bỉ, sẵn sàng nhún nhường trước mắt vì lợi ích lâu dài. Mẫu người đắc được vòng này dường như mọi chuyển biến trong cuộc sống thường diễn ra một cách bình ổn, chậm rãi, từ từ mà đạt được thành công.
+    
+    Mệnh cư tại vòng Mộ, chậm tiếp thu, ít sự nhiệt huyết, ít chia sẻ và cảm thích, thích tiết kiệm, đôi khi là bảo thủ, đi theo lối mòn.
+    
+    Triệt lộ áng ngữ cung mệnh gây nên những cản trở và khó khăn xoay quanh phương diện cuộc sống, tư duy và suy nghĩ bản thân là người đa sầu đa đoan, thường ít giải bày và tâm sự chia sẻ với những người xung quanh. Cuộc sống nhiều sự thăng trầm về tiền tài và công danh.
+    
+    CUNG TÀI BẠCH
+    
+    Tử Vi – Tham Lang chính tinh
+    
+    Tử Vi ngũ hành thuộc Thổ, hóa khí là tôn quý. Tử Vi nhập cung tài thể hiện sự tôn quý, tôn quyền, khí chất quý phái, liêm chính ngay thẳng trong môi trường công việc, bản thân là người ăn to nói lớn, có cảm giác hơn người, ham muốn và có tài lãnh đạo vì vậy công danh có phần tiến triển, có quyền sau dễ có được tiền tài. Tử Vi cư cung tài thể hiện bản thân dựa vào công việc, danh tiếng địa vị bản thân mà cầu tài lộc, nhưng với thời vận kém, bản thân dựa vào danh tiếng để cầu tài có phần trắc trở, khó khăn, hao tổn nhiều sức lực, nhiều sự cạnh tranh sóng gió mới có được tiền tài. 
+    
+    Tham Lang ngũ hành thuộc Thủy, hóa khí là đào hoa. Trong môi trường kiếm tiền, bản thân là người có tài năng cũng như cách cư xử ăn nói khéo léo, điệu đà, vì vậy phần nào qua những tính cách đó bản thân dễ gặp được những cơ hội cũng như sự thuận lợi về tài lộc tiền bạc do người khác mang lại. Trong vấn đề mưu sự tài chính, kiếm tiền, bản thân chất chứa nhiều danh vọng cũng như tham vọng mong ước lớn, bản chất của Tham lang là họa phúc chi thần, bản thân cần có sự điều chỉnh cũng như hiểu rõ được tham vọng, dục vọng bản thân, dục tốt bản thân dễ gặp được phúc, dục ắt bản thân dễ gặp những rắc rối cũng như tranh cãi liên quan đến vấn đề tiền bạc, họa từ tiền bạc mà nảy sinh ra.
+    
+    Với thời vận tốt, trong vấn đề mưu sự tài chính bản thân dễ gặp được quý nhân giúp đỡ, bản thân là người biết dùng tiền và chi tiêu tài chính một cách thông minh, có kế hoạch, trong vấn đề tài chính dễ được gần gũi với những người có địa vị cao cũng như có được danh tiếng, vì vậy bản thân rất dễ được hưởng những phúc, quý từ tập này. Bản thân là người đôi lúc có sự học hỏi về nền tảng kiến thức, học thức nhằm áp dụng vào việc sản sinh ra tiền, ưa dùng tiền để làm từ thiện, giúp đỡ những người yếu thế, khó khăn. 
+    
+    Dù sống trong môi trường và hoàn cảnh nào, tư duy và suy nghĩ bản thân có nhiều phương và cách thức cải tạo, gia tăng tài chính, tiền bạc, được người khác gợi ý, mang đến nhiều cơ hội tạo dựng tiền bạc. 
+    
+    Mặc dù phương diện tài chính, tiền bạc bản thân có nhiều nguồn thu nhưng dường như bản thân sử dụng đồng tiền thường theo cảm xúc, cảm giác. Phương diện tài chính, tiền bạc bản thân thường thiếu sự ổn định, biên động và dao động lên xuống thất thường. Ngoài ra bản thân thường tốn kém tiền bạc cho các vấn đề liên quan đến tửu sắc, vui chơi av giải trí mang thiên hướng về mặt tinh thần. Phương diện tiền bạc gặp nhiều sự rối ren cũng như áp lực lớn.
+    
+    THÂN CƯ CUNG QUAN LỘC
+    
+    Mẫu người Thân cư Quan, ngay từ khi còn rất trẻ đã thường có những ý tưởng khá rõ ràng về ngành học, nghề nghiệp sau anfy. Người Thân cư quan luôn thận trọng trong việc chọn lĩnh vực mà bản thân hoạt động, không thích chọn công việc mang tính chất tạm bợ, không thích đổi nghề, thường có khuynh hướng hướng tới sự ổn định trong công việc. Mẫu người Thân cư Quan Lộc cũng là những người rất có tinh thần và trách nhiệm trong công việc, ham học hỏi, hăng say với công việc, chuẩn chỉnh về thời gian giờ giấc, hứa hẹn. Mẫu người này đã quyết chọn hướng đi nào thì người xung quanh cũng khó có thể can thiệp hay khuyên nhủ, khi bị bắt ép làm công việc không như ý thường thiếu sự tập trung và rất lười/
+    
+    Vũ Khúc – Phá Quân chính tinh
+    
+    Vũ Khúc hóa khí là tài tinh, chủ về tài bạch. Nhập cung quan thể hiện công việc liên quan đến tiền bạc. Mát tay trong việc buôn bán giao thương, thích hợp và có duyên với những môi trường , lĩnh vực mang thiên hướng trật tự, ổn định, văn phòng, hành chánh…phong thái làm việc khôn ranh, kín đáo.
+    
+    Phá Quân hóa khí là hao tinh, nhập cung quan thể hiện trong môi trường công việc bản thân là người tính tình nóng nảy, xử trí công việc có phần bộp chộp. Trong công việc là người chính trực, cứng rắn, trong hoàn cảnh kho khăn, khốn khó dễ bộc lộ được tài năng khí phách, khai sáng cục diện mới của bản thân, chính vì vậy trong công việc dễ có được uy, uy của sự uy tín và uy của sự uy quyền, vì vậy công danh có phần thuận lợi hơn. Trong môi trường công việc, bản thân là người dễ thay đổi, thay đổi từ chính trong nội tại bản thân đến thay đổi từ ngoại cảnh yếu tố bên ngoài môi trường tác động, mà hơn hết phá quân hóa khí là hao tinh cộng thêm sự thay đổi bản thân và môi trường gây nên những trở ngại cũng như khó khăn trong công việc, thiếu sự may mắn, làm việc gì cũng có sự vất vả là khổ cực hơn người.
+    
+    Xoay quah phương diện công việc, bản thân thích hợp làm những công việc mang tính chất đòi hỏi chuyên môn và tài nghề cao, các ngành nghề liên quan đến tài chính, tiền tệ. Về công danh và danh chức bản thân thường khó có sự lên cao và phát triển mạnh mẽ, mang tính chất bình ổn và phát triển chậm rãi, công danh thường phát mã muộn.
+    
+    Trong quá trình vận hành công việc, thời vận kém bản thân không tránh khỏi những mất mát cũng như hao tổn tiền bạc cá nhân trong quá trình vận hành công việc. Trong công việc bản thân thường tự mình vận hành cũng như giải quyết công việc, khó nhờ cậy được ai. Đôi khi trong công việc hay gặp nhiều sự bất công, công sức thành quả bản thân bỏ ra lớn nhưng kết quả nhận lại chưa thực sự xứng đáng.
+    
+    
+    '
+  </div>
 </form>

@@ -88,6 +88,8 @@ builder.Services.Configure<MediaSettings>(configuration.GetSection("MediaSetting
 builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IPayRoomService, PayRoomService>();
 
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
@@ -142,7 +144,6 @@ builder.Services.AddAuthentication(o =>
 {
     cfg.RequireHttpsMetadata = false;
     cfg.SaveToken = true;
-
     cfg.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = configuration["JwtTokenSettings:Issuer"],

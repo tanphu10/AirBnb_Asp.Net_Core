@@ -5,6 +5,7 @@ using AirBnb.Core.Helper;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
+using AirBnb.Core.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -21,47 +22,50 @@ namespace AirBnb.Api.Controllers.Admin
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-
-        public BookRoomController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager)
+        private readonly IBookService _bookService;
+        public BookRoomController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager,IBookService bookService)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _mapper = mapper;
+            _bookService = bookService;
         }
         [HttpPost]
         public async Task<IActionResult> CreateBookRoomAsync([FromBody] CreateUpdateBookRoomRequest model)
         {
             //check số người cần phải nhỏ hơn hoặc bằng số người của phòng
             //check ngày đó có người đặt phòng đó chưa nếu chưa thì mới cho đặt
-            var checkDate = await _unitOfWork.BookRooms.GetDateBookRoomAsync(model.RoomId, model.DateCheckIn, model.DateCheckout);
+            //var checkDate = await _unitOfWork.BookRooms.GetDateBookRoomAsync(model.RoomId, model.DateCheckIn, model.DateCheckout);
 
-            TimeSpan timeDifference = model.DateCheckout - model.DateCheckIn;
+            //TimeSpan timeDifference = model.DateCheckout - model.DateCheckIn;
 
-            int totalDays = timeDifference.Days;
+            //int totalDays = timeDifference.Days;
 
-            var room = await _unitOfWork.Rooms.GetByIdAsync(model.RoomId);
-            int totalPrice = totalDays * room.Price;
+            //var room = await _unitOfWork.Rooms.GetByIdAsync(model.RoomId);
+            //int totalPrice = totalDays * room.Price;
 
-            if (model.GuestNumber > room.Guest)
-            {
-                return BadRequest($"room này chỉ cho phép =< {room.Guest}");
-            }
-            if (checkDate)
-            {
-                return BadRequest("Room đã được đặt");
-            }
-            var data = _mapper.Map<CreateUpdateBookRoomRequest, BookRooms>(model);
+            //if (model.GuestNumber > room.Guest)
+            //{
+            //    return BadRequest($"room này chỉ cho phép =< {room.Guest}");
+            //}
+            //if (checkDate)
+            //{
+            //    return BadRequest("Room đã được đặt");
+            //}
+            //var data = _mapper.Map<CreateUpdateBookRoomRequest, BookRooms>(model);
             var userId = User.GetUserId();
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            data.Id = Guid.NewGuid();
-            data.AuthorUserId = user.Id;
-            data.AuthorName = user.LastName;
-            data.AuthorUserName = user.UserName;
-            data.RoomName = room.Name;
-            data.Status = BookRoomStatus.WaitingForApproval;
-            data.IsPaid = false;
-            // fix lại chổ này là lấy số ngày nhân với lại số tiền
-            data.PayRoomAmount = totalPrice;
+            //var user = await _userManager.FindByIdAsync(userId.ToString());
+            //data.Id = Guid.NewGuid();
+            //data.AuthorUserId = user.Id;
+            //data.AuthorName = user.LastName;
+            //data.AuthorUserName = user.UserName;
+            //data.RoomName = room.Name;
+            //data.Status = BookRoomStatus.WaitingForApproval;
+            //data.IsPaid = false;
+            //// fix lại chổ này là lấy số ngày nhân với lại số tiền
+            //data.PayRoomAmount = totalPrice;
+            var data = await _bookService.MapRequestToBookRoomAsync(model, userId);
+
             _unitOfWork.BookRooms.Add(data);
             await _unitOfWork.CompleteAsync();
             return Ok();

@@ -6,7 +6,6 @@ using AirBnb.Core.Models.System;
 using AirBnb.Core.SeedWorks.Constansts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -119,6 +118,7 @@ namespace AirBnb.Api.Controllers.Admin
             {
                 allPermissions.GetPermissions(type);
             }
+
             var role = await _roleManager.FindByIdAsync(roleId);
             if (role == null)
                 return NotFound();

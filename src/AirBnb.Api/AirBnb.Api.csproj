@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\IService\" />
+    <Folder Include="Services\Service\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -28,10 +28,9 @@ namespace AirBnb.Data.SeedWorks
             Comments = new CommentRepository(context, mapper);
             Tags = new TagRepositiory(context, mapper);
             Transactions = new TransactionRepository(context, mapper);
-            TypeRooms= new TypeRepository(context, mapper, userManager);
+            TypeRooms = new TypeRepository(context, mapper, userManager);
             LikeRooms = new LikeRepository(context, mapper, userManager);
-
-                    }
+        }
         public ICommentRepository Comments { get; private set; }
         public IRoomRepository Rooms { get; private set; }
         public IRoomCategoryRepository RoomCategories { get; private set; }

@@ -73,7 +73,6 @@ D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\staticwebassets\msbuild.bui
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AirBnb.Api.props
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\staticwebassets.pack.json
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\scopedcss\bundle\AirBnb.Api.styles.css
-D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\AirBnb.Api.csproj.CopyComplete
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\AirBnb.Api.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\refint\AirBnb.Api.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\AirBnb.Api.pdb
@@ -149,3 +148,4 @@ D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AutoMapper.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AirBnb.Api.staticwebassets.runtime.json
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\AirBnb.Api.csproj.Up2Date
