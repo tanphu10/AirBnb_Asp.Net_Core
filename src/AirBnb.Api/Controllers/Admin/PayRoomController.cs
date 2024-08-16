@@ -2,9 +2,9 @@
 using AirBnb.Core.Models.PayRoom;
 using AirBnb.Core.Models;
 using AirBnb.Core.SeedWorks;
-using AirBnb.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AirBnb.Core.Shared.Services;
 
 namespace AirBnb.Api.Controllers.Admin
 {

@@ -1,10 +1,9 @@
 ﻿using AirBnb.Core.ConfigOptions;
+using AirBnb.Core.Models.Content;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 
 namespace AirBnb.Api.Controllers.Admin
 {

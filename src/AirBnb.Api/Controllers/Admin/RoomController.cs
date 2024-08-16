@@ -6,11 +6,11 @@ using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
 using AirBnb.Core.SeedWorks.Constansts;
+using AirBnb.Core.Shared.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using static AirBnb.Core.SeedWorks.Constansts.Permissions;
 
 namespace AirBnb.Api.Controllers.Admin
@@ -22,11 +22,13 @@ namespace AirBnb.Api.Controllers.Admin
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-        public RoomController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
+        private readonly IRoomService _roomService;
+        public RoomController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager,IRoomService roomService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
+            _roomService = roomService;
         }
 
         [HttpPost]
@@ -36,21 +38,12 @@ namespace AirBnb.Api.Controllers.Admin
             {
                 return BadRequest("đã tồn tại slug");
             }
-            var room = _mapper.Map<CreateUpdateRoomRequest, Room>(request);
-            var roomId = Guid.NewGuid();
-            var category = await _unitOfWork.RoomCategories.GetByIdAsync(request.CategoryId);
-            room.Id = roomId;
-            room.CategoryName = category.Name;
-            room.CategorySlug = category.Slug;
+            
             var userId = User.GetUserId();
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            room.AuthorUserName = user.UserName;
-            room.AuthorUserId = userId;
-            room.AuthorName = user.UserName;
-            room.DateCreated = DateTime.Now;
+            var room = await _roomService.MapRequestToRoomAsync(request, userId);
             _unitOfWork.Rooms.Add(room);
             // process tag
-            if(request.Tags != null && request.Tags.Length > 0)
+            if (request.Tags != null && request.Tags.Length > 0)
             {
                 foreach (var tagName in request.Tags)
                 {
@@ -67,7 +60,7 @@ namespace AirBnb.Api.Controllers.Admin
                     {
                         tagId = tag.Id;
                     }
-                    await _unitOfWork.Rooms.AddTagToPost(roomId, tagId);
+                    await _unitOfWork.Rooms.AddTagToPost(room.Id, tagId);
                 }
             }
             var result = await _unitOfWork.CompleteAsync();
@@ -92,7 +85,7 @@ namespace AirBnb.Api.Controllers.Admin
         {
             foreach (var id in ids)
             {
-                var data = await _unitOfWork.Rooms.GetByIdAsync(id);
+                var data = await _unitOfWork.Rooms.GetByIdAsync(id); ;
                 if (data == null)
                 {
                     return NotFound();
@@ -126,7 +119,7 @@ namespace AirBnb.Api.Controllers.Admin
         [Route("paging")]
         [Authorize(Rooms.View)]
         public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPaging(string? keyword, Guid? categoryId,
-         int pageIndex, int pageSize = 10)
+         int pageIndex = 1, int pageSize = 10)
         {
             var userId = User.GetUserId();
             var result = await _unitOfWork.Rooms.GetAllPaging(keyword, userId, categoryId, pageIndex, pageSize);
@@ -135,7 +128,7 @@ namespace AirBnb.Api.Controllers.Admin
         [HttpGet]
         [Route("paging-aprroval")]
         [Authorize(Rooms.View)]
-        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPagingApprove(string? keyword, Guid? categoryId = null, int pageIndex=1, int pageSize = 10)
+        public async Task<ActionResult<PagedResult<RoomInListDto>>> GetRoomsPagingApprove(string? keyword, Guid? categoryId = null, int pageIndex = 1, int pageSize = 10)
         {
             var userId = User.GetUserId();
             var result = await _unitOfWork.Rooms.GetRoomsPagingApproveAsync(keyword, userId, categoryId, pageIndex, pageSize);
@@ -197,7 +190,6 @@ namespace AirBnb.Api.Controllers.Admin
         {
             var data = await _unitOfWork.Rooms.GetLatestPublishRoom(top);
             return Ok(data);
-
         }
         [HttpGet("tags")]
         [Authorize(Rooms.View)]

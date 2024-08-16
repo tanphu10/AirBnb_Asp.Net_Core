@@ -1,15 +1,18 @@
 ﻿using AirBnb.Api;
 using AirBnb.Api.Authorization;
+using AirBnb.Api.Extensions;
 using AirBnb.Api.Services;
 using AirBnb.Core.ConfigOptions;
 using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
-using AirBnb.Core.Services;
+using AirBnb.Core.Shared.Contracts;
+using AirBnb.Core.Shared.Services;
 using AirBnb.Data;
 using AirBnb.Data.Repositories;
 using AirBnb.Data.SeedWorks;
-using AirBnb.Data.Services;
+using AirBnb.Data.Shared.Contracts;
+using AirBnb.Data.Shared.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -80,17 +83,19 @@ foreach (var service in services)
         builder.Services.Add(new ServiceDescriptor(directInterface, service, ServiceLifetime.Scoped));
     }
 }
-
+builder.Services.AddConfigurationSettings(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(RoomInListDto));
 builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
 builder.Services.Configure<MediaSettings>(configuration.GetSection("MediaSettings"));
-
 builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IPayRoomService, PayRoomService>();
-
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+builder.Services.AddScoped<ISmtpEmailService, SmtpEmailService>();
+
 
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
@@ -142,7 +147,6 @@ builder.Services.AddAuthentication(o =>
 {
     cfg.RequireHttpsMetadata = false;
     cfg.SaveToken = true;
-
     cfg.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = configuration["JwtTokenSettings:Issuer"],

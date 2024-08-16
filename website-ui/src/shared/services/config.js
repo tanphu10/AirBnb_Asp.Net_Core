@@ -6,6 +6,7 @@ const tokenAdmin = getToken();
 
 const configHeaderAxios = () => {
   return {
+    Accept: "application/json",
     token: tokenAdmin,
     Authorization: "Bearer " + tokenAdmin,
   };

@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\Microsoft.AspNetCore.Http.FormFile\\042024\\IMG_20191125_204029-01.jpeg",
+      "PackagePath": "staticwebassets\\media\\images\\Microsoft.AspNetCore.Http.FormFile\\042024\\IMG_20191125_204029-01.jpeg"
+    },
+    {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\564826.jpg",
       "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\564826.jpg"
     },
@@ -11,6 +15,10 @@
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\Hue_banner_2600x1111.jpg",
       "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\Hue_banner_2600x1111.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\IMG_20191125_204029-01.jpeg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\IMG_20191125_204029-01.jpeg"
     },
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\bali-1542569_1280.jpg",
@@ -29,6 +37,14 @@
       "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\hanoi-23333.jpg"
     },
     {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\hinhnen_1.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\hinhnen_1.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pexels-pok-rie-2049422.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\pexels-pok-rie-2049422.jpg"
+    },
+    {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\pexels-thanhhoa-tran-1488259.jpg",
       "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\pexels-thanhhoa-tran-1488259.jpg"
     },
@@ -43,6 +59,10 @@
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\saigon.jpg",
       "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\saigon.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\tanphu2_.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\rooms\\042024\\tanphu2_.jpg"
     },
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\rooms\\042024\\vinhHaLongQuangNinh.jpg",
@@ -87,6 +107,14 @@
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\avt_beautiful.jpg",
       "PackagePath": "staticwebassets\\media\\images\\users\\042024\\avt_beautiful.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\hinhnen_1.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\users\\042024\\hinhnen_1.jpg"
+    },
+    {
+      "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\hinhnen_5.jpg",
+      "PackagePath": "staticwebassets\\media\\images\\users\\042024\\hinhnen_5.jpg"
     },
     {
       "Id": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\wwwroot\\media\\images\\users\\042024\\silk-3705336_1280.jpg",

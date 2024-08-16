@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsTranslate } from "react-icons/bs";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import { FaAward } from "react-icons/fa";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { GiWashingMachine } from "react-icons/gi";
@@ -12,24 +12,32 @@ import PickCanlender from "./PickCanlender";
 import { getCommentRoom } from "../../redux/slices/commentUserSlice";
 import AddComment from "./Comment/AddComment";
 import { DOMAIN_BE_IMG } from "../../util/constants";
+import { GetLikeRoom, PostLikeRoom } from "../../redux/slices/actionSlice";
+import { PostLike } from "../../_model/PostLike";
+import { getUser } from "../../shared/function/token-storage";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const { room } = useSelector((state) => state.room);
   const { arrComment } = useSelector((state) => state.commentUser);
+  const { LikeRoom } = useSelector((state) => state.rate);
+  // console.log("detail", LikeRoom);
+  const Like = LikeRoom.results?.find((t) => t.userId === getUser().id);
+  console.log("check Like", Like);
   const [comment, setComment] = useState();
   const [dataUpdated, setDataUpdated] = useState(false);
-
-
-    useEffect(() => {
-    // console.log(room.length);
+  const [love, setLove] = useState(false);
+  console.log("love", love);
+  useEffect(() => {
     if (!room.length > 0) {
       dispatch(getDetailRoomAPI(params.id));
     }
-    // if (!arrComment.length > 0) {
     dispatch(getCommentRoom(params.id));
-    // }
-  }, [comment,dataUpdated]);
+  }, [comment, dataUpdated]);
+
+  useEffect(() => {
+    dispatch(GetLikeRoom(params.id));
+  }, [love]);
   const {
     id,
     name,
@@ -65,7 +73,6 @@ const RoomDetails = () => {
             <div className="sub_title_left flex items-center gap-3">
               <span className="flex items-center">
                 <AiFillStar className="mr-2" />
-                {/* {averageRate ? averageRate : "chưa có đánh giá"} */}
               </span>
               <span className="underline">{arrComment?.length} đánh giá </span>
               <span className="underline">{viewCount} lượt xem</span>
@@ -75,15 +82,19 @@ const RoomDetails = () => {
               </span>
               <span className="ort font-bold underline">Việt Nam</span>
             </div>
-            <div className="sub_title_right">
-              <button className="mr-3">
-                <i className="fa-solid fa-arrow-up-from-bracket mr-2"></i>
-                <span>Chia sẻ</span>
-              </button>
-              <button>
-                <i className="fa-regular fa-heart mr-2"></i>
-                <span>Lưu</span>
-              </button>
+            <div className="flex items-center">
+              <AiFillHeart
+                onClick={() => {
+                  var like = new PostLike();
+                  like.roomId = params.id;
+                  dispatch(PostLikeRoom(like));
+                  // setLove(Like ? true : false);
+                  setLove(true);
+                }}
+                style={{ color: Like ? "red" : "black" }}
+                className="text-4xl cursor-pointer"
+              />
+              <span className="ml-3">{LikeRoom.rowCount} lượt thích </span>
             </div>
           </div>
           <div className="image_room mt-5">
@@ -293,10 +304,7 @@ const RoomDetails = () => {
                     </div>
                     <p className="text-lg text-black my-3">{price}$/đêm</p>
                     <div id="Calender">
-                      <PickCanlender
-                        giaTien={price}
-                        guest={guest}
-                      />
+                      <PickCanlender giaTien={price} guest={guest} />
                     </div>
                   </div>
                 </div>
@@ -382,7 +390,12 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <AddComment setDataUpdated={setDataUpdated}  arrComment={arrComment} roomId={id} setComment={setComment} />
+          <AddComment
+            setDataUpdated={setDataUpdated}
+            arrComment={arrComment}
+            roomId={id}
+            setComment={setComment}
+          />
         </div>
       </div>
     </div>

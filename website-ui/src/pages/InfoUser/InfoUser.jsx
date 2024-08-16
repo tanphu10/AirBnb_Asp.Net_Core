@@ -168,27 +168,23 @@ const DisplayRoomBooked = (props) => {
                     <div className="max-w-4xl my-4 bg-white border border-gray-200 laptop:rounded-lg tablet:rounded-t-lg shadow mobile:rounded-t-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="laptop:flex">
                         <div className="laptop:w-3/5 laptop:shrink-0  ">
-                          <a href="#" style={{ width: "100%" }}>
-                            <img
-                              className="
+                          <img
+                            className="
                               laptop:rounded-s-lg 
                               tablet:rounded-lg
                               mobile: rounded-md
                               laptop:w-full"
-                              style={{ height: "100%" }}
-                              src={DOMAIN_BE_IMG + imageRoom}
-                            />
-                          </a>
+                            style={{ height: "100%" }}
+                            src={DOMAIN_BE_IMG + imageRoom}
+                          />
                         </div>
                         <div className="laptop:w-2/5">
                           <div className="p-5">
                             <div className="flex justify-between">
                               <div>
-                                <a href="#">
-                                  <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
-                                    Mã Phòng : {roomId}
-                                  </h5>
-                                </a>
+                                <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
+                                  Mã Phòng : {roomId}
+                                </h5>
                               </div>
                               <div>
                                 <FormUpdateBookRoom

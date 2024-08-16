@@ -103,11 +103,14 @@
           <input type="checkbox" id="park" name="park" formControlName="park">
         </div>
       </div>
+      <div>
+        cho mình hỏi là theo như bài luận có mấy 
+      </div>
 
       <div class="field col-12 md:col-6">
         <label for="thumbnailFileContent">Hình ảnh <span class="required">*</span></label>
         <input type="hidden" formControlName="photo" />
-        <input (change)="onFileChange($event)" type="file" class="w-full" />
+        <input (change)="onFileChange($event)" type="file" class="w-full" multiple  />
       </div>
       <div *ngIf="thumbnailImage" class="field col-12 md:col-6">
         <p-image [src]="thumbnailImage" [preview]="true" [alt]="selectedEntity.name" width="250">
