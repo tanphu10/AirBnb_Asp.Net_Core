@@ -2,8 +2,11 @@
 using AirBnb.Api.Services;
 using AirBnb.Core.Domain.Identity;
 using AirBnb.Core.Models.Auth;
+using AirBnb.Core.Models.Content;
 using AirBnb.Core.Models.System;
 using AirBnb.Core.SeedWorks.Constansts;
+using AirBnb.Core.Shared.Contracts;
+using AirBnb.Core.Shared.Services.Email;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,13 +24,17 @@ namespace AirBnb.Api.Controllers.Admin
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly ISmtpEmailService _emailService;
 
-        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, RoleManager<AppRole> roleManager)
+
+        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, RoleManager<AppRole> roleManager, ISmtpEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _roleManager = roleManager;
+            _emailService = emailService;
+
         }
         [HttpPost]
         public async Task<ActionResult<AuthenticatedResult>> Login([FromBody] LoginRequest request)
@@ -105,6 +112,20 @@ namespace AirBnb.Api.Controllers.Admin
                 }
             }
             return permissions.Distinct().ToList();
+        }
+
+        [HttpPost("Send-email")]
+        public async Task<IActionResult> TestEmail(ContentEmail mail)
+        {
+            var message = new MailRequest
+            {
+                Body = "<h3> Dear : PTP </h3>" +
+                mail.Body,
+                Subject = mail.Subject,
+                ToAddresses = mail.ToAddresses
+            };
+            await _emailService.SendEmailAsync(message);
+            return Ok();
         }
     }
 }

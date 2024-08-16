@@ -22,7 +22,7 @@ namespace AirBnb.Data
                 await context.SaveChangesAsync();
             }
 
-            if (context.Users == null)
+            if (!context.Users.Any())
             {
                 var userId = Guid.NewGuid();
                 var user = new AppUser()

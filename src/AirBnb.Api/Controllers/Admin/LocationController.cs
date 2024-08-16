@@ -19,7 +19,6 @@ namespace AirBnb.Api.Controllers.Admin
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
         [HttpPost]
         public async Task<IActionResult> CreateLocationAsync([FromBody] CreateUpdateLocationRequest model)
         {
@@ -47,7 +46,7 @@ namespace AirBnb.Api.Controllers.Admin
             return Ok(data);
         }
         [HttpGet("Paging")]
-        public async Task<ActionResult<PagedResult<LocationDto>>> GetLocationPagingAsync(string? keyword, int pageIndex=1, int pageSize=10)
+        public async Task<ActionResult<PagedResult<LocationDto>>> GetLocationPagingAsync(string? keyword, int pageIndex = 1, int pageSize = 10)
         {
             var data = await _unitOfWork.Locations.GetAllPaging(keyword, pageIndex, pageSize);
             return Ok(data);

@@ -4,6 +4,7 @@ using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.Models.System;
 using AirBnb.Core.SeedWorks.Constansts;
+using AirBnb.Core.Shared.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ namespace AirBnb.Api.Controllers.Admin
     {
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IMapper _mapper;
+
         public RolesController(RoleManager<AppRole> roleManager, IMapper mapper)
         {
             _roleManager = roleManager;
@@ -158,5 +160,9 @@ namespace AirBnb.Api.Controllers.Admin
             }
             return Ok();
         }
+
+
+       
+
     }
 }

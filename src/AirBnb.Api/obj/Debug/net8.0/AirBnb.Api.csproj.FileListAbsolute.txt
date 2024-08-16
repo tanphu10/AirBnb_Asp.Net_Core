@@ -149,3 +149,7 @@ D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AutoMapper.Extensions.Micro
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\AirBnb.Api.staticwebassets.runtime.json
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\obj\Debug\net8.0\AirBnb.Api.csproj.Up2Date
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\MailKit.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\MimeKit.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\System.Formats.Asn1.dll

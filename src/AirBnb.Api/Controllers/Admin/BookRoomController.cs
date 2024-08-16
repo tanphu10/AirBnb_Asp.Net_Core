@@ -5,7 +5,7 @@ using AirBnb.Core.Helper;
 using AirBnb.Core.Models;
 using AirBnb.Core.Models.Content;
 using AirBnb.Core.SeedWorks;
-using AirBnb.Core.Services;
+using AirBnb.Core.Shared.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
