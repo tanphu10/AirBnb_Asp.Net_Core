@@ -38,7 +38,24 @@ namespace AirBnb.Data.Shared.Contracts
         }
         public void SendEmail(MailRequest request)
         {
-            throw new NotImplementedException();
+            var emailMessage = GetMimeMessage(request);
+            try
+            {
+                _smtpClient.Connect(_settings.SMTPServer, _settings.Port,
+                   _settings.UseSsl);
+                _smtpClient.Authenticate(_settings.Username, _settings.Password);
+                _smtpClient.Send(emailMessage);
+                _smtpClient.Disconnect(true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _smtpClient.Disconnect(true);
+                _smtpClient.Dispose();
+            }
         }
         private MimeMessage GetMimeMessage(MailRequest request)
         {

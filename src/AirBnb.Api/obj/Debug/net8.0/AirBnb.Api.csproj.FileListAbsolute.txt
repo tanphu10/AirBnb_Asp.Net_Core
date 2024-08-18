@@ -153,3 +153,17 @@ D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\BouncyCastle.Cryptography.d
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\MailKit.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\MimeKit.dll
 D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\System.Formats.Asn1.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Hangfire.AspNetCore.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Hangfire.Core.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Hangfire.NetCore.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Hangfire.SqlServer.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.AspNetCore.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+D:\07_CMS ASP\AirBnb\src\AirBnb.Api\bin\Debug\net8.0\Serilog.Sinks.File.dll

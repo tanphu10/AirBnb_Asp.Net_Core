@@ -1,4 +1,5 @@
-﻿using AirBnb.Data.Shared.Contracts;
+﻿using AirBnb.Core.Shared.Contracts;
+using AirBnb.Data.Shared.Contracts;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AirBnb.Api.Extensions
@@ -13,7 +14,9 @@ namespace AirBnb.Api.Extensions
             services.AddSingleton(emailSettings);
             return services;
         }
-
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+          => services.AddTransient<IScheduleJobService, ScheduleJobService>().AddTransient<ISmtpEmailService, SmtpEmailService>()
+          .AddTransient<IBackgroundJobService, BackgroundJobService>();
     }
 
 }

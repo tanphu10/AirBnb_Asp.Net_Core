@@ -6,6 +6,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using static AirBnb.Core.Domain.Content.BookRooms;
 using AirBnb.Core.Shared.Services;
+using AirBnb.Core.Shared.Contracts;
+using AirBnb.Core.Repositories;
 
 namespace AirBnb.Data.Shared.Services
 {
@@ -13,19 +15,25 @@ namespace AirBnb.Data.Shared.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBookRoomRepository _bookRoom;
         private readonly UserManager<AppUser> _userManager;
-        public BookService(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager)
+        private IScheduleJobService _jobservice;
+        public BookService(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager, IScheduleJobService jobservice, IBookRoomRepository bookRoom)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _jobservice = jobservice;
+            _bookRoom = bookRoom;
         }
+
+        public IScheduleJobService _schedulejob => _jobservice;
 
         public async Task<BookRooms> MapRequestToBookRoomAsync(CreateUpdateBookRoomRequest model, Guid userId)
         {
             //check số người cần phải nhỏ hơn hoặc bằng số người của phòng
             //check ngày đó có người đặt phòng đó chưa nếu chưa thì mới cho đặt
-            var checkDate = await _unitOfWork.BookRooms.GetDateBookRoomAsync(model.RoomId, model.DateCheckIn, model.DateCheckout);
+            var checkDate = await _bookRoom.GetDateBookRoomAsync(model.RoomId, model.DateCheckIn, model.DateCheckout);
 
             TimeSpan timeDifference = model.DateCheckout - model.DateCheckIn;
 

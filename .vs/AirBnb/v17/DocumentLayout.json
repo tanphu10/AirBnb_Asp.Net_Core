@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\07_CMS ASP\\AirBnb\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|solutionrelative:src\\airbnb.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|solutionrelative:src\\airbnb.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81A433C5-18FE-4486-9028-4DFC9CBDAFD5}|src\\AirBnb.Core\\AirBnb.Core.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.core\\shared\\contracts\\ischedulejobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81A433C5-18FE-4486-9028-4DFC9CBDAFD5}|src\\AirBnb.Core\\AirBnb.Core.csproj|solutionrelative:src\\airbnb.core\\shared\\contracts\\ischedulejobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.data\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|solutionrelative:src\\airbnb.data\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.data\\shared\\contracts\\smtpemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|solutionrelative:src\\airbnb.data\\shared\\contracts\\smtpemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.data\\shared\\contracts\\backgroundjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|solutionrelative:src\\airbnb.data\\shared\\contracts\\backgroundjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.data\\shared\\contracts\\schedulejobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C28744E-DCB8-47CD-B6B0-73377852EBA2}|src\\AirBnb.Data\\AirBnb.Data.csproj|solutionrelative:src\\airbnb.data\\shared\\contracts\\schedulejobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81A433C5-18FE-4486-9028-4DFC9CBDAFD5}|src\\AirBnb.Core\\AirBnb.Core.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.core\\shared\\services\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81A433C5-18FE-4486-9028-4DFC9CBDAFD5}|src\\AirBnb.Core\\AirBnb.Core.csproj|solutionrelative:src\\airbnb.core\\shared\\services\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|d:\\07_cms asp\\airbnb\\src\\airbnb.api\\controllers\\admin\\schedulejobcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{823048A6-5A8A-486D-A50C-179955124FBC}|src\\AirBnb.Api\\AirBnb.Api.csproj|solutionrelative:src\\airbnb.api\\controllers\\admin\\schedulejobcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 245,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +71,124 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\AirBnb.Api\\appsettings.json",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\appsettings.json",
+              "RelativeToolTip": "src\\AirBnb.Api\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-18T07:13:47.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "src\\AirBnb.Api\\appsettings.Development.json",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\appsettings.Development.json",
+              "RelativeToolTip": "src\\AirBnb.Api\\appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-18T07:10:50.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\AirBnb.Data\\appsettings.json",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\appsettings.json",
+              "RelativeToolTip": "src\\AirBnb.Data\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-18T07:21:49.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SmtpEmailService.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\SmtpEmailService.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Data\\Shared\\Contracts\\SmtpEmailService.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\SmtpEmailService.cs",
+              "RelativeToolTip": "src\\AirBnb.Data\\Shared\\Contracts\\SmtpEmailService.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAQwD0AAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T09:45:05.682Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ScheduleJobService.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\ScheduleJobService.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Data\\Shared\\Contracts\\ScheduleJobService.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\ScheduleJobService.cs",
+              "RelativeToolTip": "src\\AirBnb.Data\\Shared\\Contracts\\ScheduleJobService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T06:48:47.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BackgroundJobService.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\BackgroundJobService.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Data\\Shared\\Contracts\\BackgroundJobService.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Data\\Shared\\Contracts\\BackgroundJobService.cs",
+              "RelativeToolTip": "src\\AirBnb.Data\\Shared\\Contracts\\BackgroundJobService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T09:34:14.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ScheduleJobController.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\Controllers\\Admin\\ScheduleJobController.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Api\\Controllers\\Admin\\ScheduleJobController.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Api\\Controllers\\Admin\\ScheduleJobController.cs",
+              "RelativeToolTip": "src\\AirBnb.Api\\Controllers\\Admin\\ScheduleJobController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T09:32:39.289Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 245,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IScheduleJobService.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Core\\Shared\\Contracts\\IScheduleJobService.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Core\\Shared\\Contracts\\IScheduleJobService.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Core\\Shared\\Contracts\\IScheduleJobService.cs",
+              "RelativeToolTip": "src\\AirBnb.Core\\Shared\\Contracts\\IScheduleJobService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T06:43:22.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IBookService.cs",
+              "DocumentMoniker": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Core\\Shared\\Services\\IBookService.cs",
+              "RelativeDocumentMoniker": "src\\AirBnb.Core\\Shared\\Services\\IBookService.cs",
+              "ToolTip": "D:\\07_CMS ASP\\AirBnb\\src\\AirBnb.Core\\Shared\\Services\\IBookService.cs",
+              "RelativeToolTip": "src\\AirBnb.Core\\Shared\\Services\\IBookService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T06:23:36.222Z"
             }
           ]
         }
